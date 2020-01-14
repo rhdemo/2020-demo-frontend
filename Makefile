@@ -12,11 +12,11 @@ endif
 
 .PHONY: dev-phone-server
 dev-phone-server:
-	./install/dev-phone-server.sh
+	./phone-server/install/dev.sh
 
 .PHONY: dev-phone-ui
 dev-phone-ui:
-	./install/dev-phone-ui.sh
+	./phone-ui/install/dev.sh
 
 ##################################
 
@@ -24,11 +24,11 @@ dev-phone-ui:
 
 .PHONY: build-phone-server
 build-phone-server:
-	./install/build-phone-server.sh
+	./phone-server/install/build.sh
 
 .PHONY: build-phone-ui
 build-phone-ui:
-	./install/build-phone-ui.sh
+	./phone-ui/install/build.sh
 
 .PHONY: build-phone
 build-phone: build-phone-server build-phone-ui
@@ -42,11 +42,11 @@ build: build-phone
 
 .PHONY: push-phone-server
 push-phone-server:
-	./install/push-phone-server.sh
+	./phone-server/install/push.sh
 
 .PHONY: push-phone-ui
 push-phone-ui:
-	./install/push-phone-ui.sh
+	./phone-ui/install/push.sh
 
 .PHONY: push-phone
 push-phone: push-phone-server push-phone-ui
@@ -61,7 +61,7 @@ push: push-phone
 
 .PHONY: login
 login:
-	./install/login.sh
+	./common/install/login.sh
 
 ##################################
 
@@ -70,15 +70,15 @@ login:
 
 .PHONY: deploy-common
 deploy-common: login
-	./install/deploy-common.sh
+	./common/install/deploy.sh
 
 .PHONY: deploy-phone-server
 deploy-phone-server:
-	./install/deploy-phone-server.sh
+	./phone-server/install/deploy.sh
 
 .PHONY: deploy-phone-ui
 deploy-phone-ui:
-	./install/deploy-phone-ui.sh
+	./phone-ui/install/deploy.sh
 
 .PHONY: deploy-phone
 deploy-phone: deploy-phone-server deploy-phone-ui
@@ -93,11 +93,11 @@ deploy: deploy-common deploy-phone
 
 .PHONY: rollout-phone-server
 rollout-phone-server:
-	./install/rollout-phone-server.sh
+	./phone-server/install/rollout.sh
 
 .PHONY: rollout-phone-ui
 rollout-phone-ui:
-	./install/rollout-phone-ui.sh
+	./phone-ui/install/rollout.sh
 
 .PHONY: rollout-phone
 rollout-phone: rollout-phone-server rollout-phone-ui
@@ -112,15 +112,15 @@ rollout: rollout-phone
 
 .PHONY: undeploy-common
 undeploy-common: login
-	./install/undeploy-common.sh
+	./common/install/undeploy.sh
 
 .PHONY: undeploy-phone-server
 undeploy-phone-server:
-	./install/undeploy-phone-server.sh
+	./phone-server/install/undeploy.sh
 
 .PHONY: undeploy-phone-ui
 undeploy-phone-ui:
-	./install/undeploy-phone-ui.sh
+	./phone-ui/install/undeploy.sh
 
 .PHONY: undeploy-phone
 undeploy-phone: undeploy-phone-server undeploy-phone-ui undeploy-common

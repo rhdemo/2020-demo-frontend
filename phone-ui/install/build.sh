@@ -9,7 +9,7 @@ SOURCE_REPOSITORY_REF=${SOURCE_REPOSITORY_REF:-master}
 
 echo "Building ${PHONE_UI_IMAGE_REPOSITORY}/phone-ui from ${SOURCE_REPOSITORY_URL} on ${SOURCE_REPOSITORY_REF}"
 
-cd ${DIR}/../phone-ui
+cd ${DIR}/..
 rm -rf build
 yarn install
 yarn build
