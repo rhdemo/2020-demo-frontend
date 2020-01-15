@@ -1,5 +1,5 @@
-
-#!/bin/bash
+#!/usr/bin/env bash
+printf "\n\n######## common login ########\n"
 
 OC=${OC:-"/usr/bin"}
 PROJECT=${PROJECT:-rhdemo}

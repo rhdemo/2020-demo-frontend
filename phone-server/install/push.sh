@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "######## $(basename "$(test -L "$0" && readlink "$0" || echo "$0")") ########"
+printf "\n\n######## phone-server push ########\n"
 
 IMAGE_REPOSITORY=${PHONE_SERVER_IMAGE_REPOSITORY:-quay.io/redhatdemo/2020-phone-server:latest}
 

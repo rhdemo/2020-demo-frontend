@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Template
 
 labels:
-  application: phone-server
+  application: dashboard-server
 
 metadata:
-  name: phone-server
+  name: dashboard-server
 
 parameters:
   - name: APPLICATION_NAME
-    value: phone-server
+    value: dashboard-server
     required: true
   - name: SECRET_NAME
     value: 2020-demo-common
@@ -24,7 +24,7 @@ parameters:
     value: "0.0.0.0"
     required: true
   - name: IMAGE_REPOSITORY
-    value: quay.io/redhatdemo/2020-phone-server:latest
+    value: quay.io/redhatdemo/2020-dashboard-server:latest
     required: true
   - name: CONTAINER_REQUEST_CPU
     value: 500m

@@ -9,7 +9,7 @@ metadata:
 
 parameters:
   - name: SECRET_NAME
-    value: demo-common
+    value: 2020-demo-common
     required: true
   - name: S3_ACCESS_KEY_ID
     value: ""

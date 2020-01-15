@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-printf "\n\n######## phone-ui dev ########\n"
+printf "\n\n######## dashboard-server dev ########\n"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -8,8 +8,8 @@ source ${ENV_FILE}
 for ENV_VAR in $(sed 's/=.*//' ${ENV_FILE}); do export "${ENV_VAR}"; done
 
 cd ${DIR}/..
-cd phone-ui
+cd dashboard-server
 pwd
 
-yarn install
-yarn start
+npm install
+PORT=8081 npm run dev

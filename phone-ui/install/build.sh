@@ -1,5 +1,5 @@
-#!/bin/bash
-echo "######## $(basename "$(test -L "$0" && readlink "$0" || echo "$0")") ########"
+#!/usr/bin/env bash
+printf "\n\n######## phone-ui build ########\n"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
