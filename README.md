@@ -7,13 +7,19 @@ For all settings, configure the variables in a .env folder, similar to the [.env
 
 `make dev-phone-ui`
 
+`make dev-dashboard-server`
+
+`make dev-dashboard-ui`
+
 ### BUILD - build images locally using s2i
 
 `make build-phone-server`
 
 `make build-phone-ui`
 
-`make build-phone` ui + server
+`make build-dashboard-server`
+
+`make build-dashboard-ui`
 
 `make build` all frontend
 
@@ -24,7 +30,9 @@ For all settings, configure the variables in a .env folder, similar to the [.env
 
 `make push-phone-ui`
 
-`make push-phone` ui + server
+`make push-dashboard-server`
+
+`make push-dashboard-ui`
 
 `make push` all frontend
 
@@ -42,7 +50,9 @@ requires LOGIN prerequisites
 
 `make deploy-phone-ui`
 
-`make deploy-phone` ui + server
+`make deploy-dashboard-server`
+
+`make deploy-dashboard-ui`
 
 `make deploy` all frontend
 
@@ -53,7 +63,9 @@ requires LOGIN prerequisites
 
 `make rollout-phone-ui`
 
-`make rollout-phone` ui + server
+`make rollout-dashboard-server`
+
+`make rollout-dashboard-ui`
 
 `make rollout` all frontend
 
@@ -68,7 +80,9 @@ requires LOGIN prerequisites
 
 `make undeploy-phone-ui`
 
-`make undeploy-phone` ui + server
+`make undeploy-dashboard-server`
+
+`make undeploy-dashboard-ui`
 
 `make undeploy` all frontend
 

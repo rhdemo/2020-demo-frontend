@@ -1,5 +1,5 @@
-#!/bin/bash
-echo "######## $(basename "$(test -L "$0" && readlink "$0" || echo "$0")") ########"
+#!/usr/bin/env bash
+printf "\n\n######## phone-server build ########\n"
 
 IMAGE_REPOSITORY=${PHONE_SERVER_IMAGE_REPOSITORY:-quay.io/redhatdemo/2020-phone-server:latest}
 SOURCE_REPOSITORY_URL=${SOURCE_REPOSITORY_URL:-git@github.com:rhdemo/2020-demo-frontend.git}
