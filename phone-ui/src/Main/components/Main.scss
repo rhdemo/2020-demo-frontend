@@ -1,0 +1,100 @@
+.main {
+  display: flex;
+  flex-direction: column;
+
+  .player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4d5258;
+    padding-top: 1rem;
+
+    .avatar {
+      font-size: 6rem;
+      margin-right: 1rem;
+    }
+
+    .text-info {
+      h2, h3 {
+        margin: 0.2rem;
+      }
+    }
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: .5rem;
+
+    .heading {
+      font-size: 2rem;
+      font-weight: 400;
+      margin: 1rem;
+    }
+
+    .image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: lightgray;
+      width: 12rem;
+      height: 12rem;
+      text-align: center;
+      vertical-align: center;
+      font-size: 1.2rem;
+    }
+  }
+
+  .number-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .5rem;
+
+    .number-drop-area {
+      border: 1px dashed black;
+      width: 3.2rem;
+      height: 3.2rem;
+      margin: .5rem;
+    }
+  }
+
+  .number-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .5rem;
+
+    .number-choice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: lightgray;
+      width: 3rem;
+      height: 3rem;
+      margin: .25rem;
+      font-size: 2rem;
+    }
+  }
+
+  .help {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+
+    button {
+      font-size: 2rem;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      border: 1px solid transparent;
+      background-color: lightgray;
+      padding: .2rem 1.5rem;
+      line-height: 1.5;
+      border-radius: 1rem;
+    }
+  }
+}
