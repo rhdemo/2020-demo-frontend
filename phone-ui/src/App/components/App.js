@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { getStatus } from "../actions";
-import Routes from "../../Routes";
+import { getStatus } from '../actions';
+import Routes from '../../Routes';
 
-import "./App.scss";
+import './App.scss';
 
 function App({status, getStatus}) {
   useEffect(() => {
@@ -13,7 +13,7 @@ function App({status, getStatus}) {
   }, []);    // eslint-disable-line
 
   return (
-    <div className="app">
+    <div className='app'>
       <Routes/>
     </div>
   );

@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
-import configureStore from './utilities/configureStore'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import configureFontLibrary from './utilities/configureFontLibrary'
 
 import 'typeface-roboto';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import store from './utilities/store'
+import socketChannel from './Socket/channel'
 
-const store = configureStore();
 configureFontLibrary();
 
 ReactDOM.render(

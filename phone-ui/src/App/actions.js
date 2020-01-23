@@ -1,15 +1,15 @@
-export const GET_STATUS = "Status.GET_STATUS";
+export const GET_STATUS = 'App.GET_STATUS';
 export const getStatus = () => ({
   type: GET_STATUS
 });
 
-export const GET_STATUS_PENDING = "Status.GET_STATUS_PENDING";
+export const GET_STATUS_PENDING = 'App.GET_STATUS_PENDING';
 export const getStatusPending = () => ({
   type: GET_STATUS_PENDING
 });
 
 
-export const GET_STATUS_FULFILLED = "Status.GET_STATUS_FULFILLED";
+export const GET_STATUS_FULFILLED = 'App.GET_STATUS_FULFILLED';
 export const getStatusFulfilled = (response) => ({
   type: GET_STATUS_FULFILLED,
   payload: {
@@ -17,7 +17,7 @@ export const getStatusFulfilled = (response) => ({
   }
 });
 
-export const GET_STATUS_REJECTED = "Status.GET_STATUS_REJECTED";
+export const GET_STATUS_REJECTED = 'App.GET_STATUS_REJECTED';
 export const getStatusRejected = (error) => ({
   type: GET_STATUS_REJECTED,
   payload: {

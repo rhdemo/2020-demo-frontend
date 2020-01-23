@@ -2,16 +2,18 @@
 
 const path = require('path');
 const AutoLoad = require('fastify-autoload');
-const env = require("env-var");
+const log = require('./utils/log')('phone-server');
+const broadcast = require('./utils/broadcast');
+const globalHandler = require('./socket-handlers/global');
+
 
 const opts = {};
-const {PORT, IP, LOG_LEVEL} = require("./utils/constants");
+const {PORT, IP, LOG_LEVEL} = require('./utils/constants');
+const wsOpts = {
+  maxPayload: 100 * 1024 * 1024 // 100mb
+};
 
-const fastify = require('fastify')({
-  logger: {
-    level:  LOG_LEVEL
-  }
-});
+const fastify = require('fastify')();
 
 //---------------------
 // Fastify Plugins
@@ -36,11 +38,23 @@ fastify.register(AutoLoad, {
   options: Object.assign({}, opts)
 });
 
+// Global Websocket
+fastify.register(require('fastify-websocket'), {
+  handle: globalHandler,
+  options: wsOpts
+}).after(err => {
+  setInterval(function () {
+    broadcast(fastify.websocketServer, 'heartbeat');
+  }, 5000);
+});
+
 
 fastify.listen(PORT, IP, function (err, address) {
   if (err) {
-    fastify.log.error(err);
-    process.exit(1)
+    log.error(err);
+    process.exit(1);
   }
-  fastify.log.info(`server listening on ${address}`)
+  log.info(`server listening on ${address}`);
 });
+
+module.exports = fastify;

@@ -1,6 +1,5 @@
 const pino = require('pino');
 const env = require('env-var');
-const assert = require('assert');
 
 const level = env.get('LOG_LEVEL', 'info').asEnum([
   'trace',
@@ -15,8 +14,6 @@ const level = env.get('LOG_LEVEL', 'info').asEnum([
  * @param {String} name
  */
 module.exports = function getLogger (name) {
-  assert(name, 'logger instances must be named');
-
   return pino({
     level,
     name

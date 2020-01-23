@@ -1,4 +1,4 @@
-import { CREATE_NOTIFICATION, DELETE_NOTIFICATION } from "./actions";
+import { CREATE_NOTIFICATION, DELETE_NOTIFICATION } from './actions';
 
 const initialState = {
   notifications: [],

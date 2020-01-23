@@ -1,2 +1,5 @@
-export { createNotification } from "./actions";
-export { createAxiosErrorNotification } from "./actions";
+export {
+  createNotification,
+  createAxiosErrorNotification,
+  createSocketErrorNotification
+} from './actions';
