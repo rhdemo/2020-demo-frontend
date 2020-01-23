@@ -27,13 +27,13 @@ parameters:
     value: quay.io/redhatdemo/2020-phone-server:latest
     required: true
   - name: CONTAINER_REQUEST_CPU
-    value: 500m
+    value: 200m
   - name: CONTAINER_REQUEST_MEMORY
-    value: 200Mi
+    value: 400Mi
   - name: CONTAINER_LIMIT_CPU
-    value: 500m
+    value: 200m
   - name: CONTAINER_LIMIT_MEMORY
-    value: 500Mi
+    value: 400Mi
   - name: KEY
   - name: CERTIFICATE
   - name: CA_CERTIFICATE

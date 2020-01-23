@@ -1,14 +1,14 @@
-import axios from "axios"
+import axios from 'axios'
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { createAxiosErrorNotification } from "../Notifications";
+import { createAxiosErrorNotification } from '../../Notifications';
 import {
   GET_STATUS,
   getStatusFulfilled,
   getStatusPending,
   getStatusRejected
-} from "./actions";
+} from '../actions';
 
-export const statusUrl = "/api/status";
+export const statusUrl = '/api/status';
 
 function* executeGetStatus(action) {
   yield put(getStatusPending());
@@ -24,8 +24,4 @@ function* executeGetStatus(action) {
 export function* watchGetStatus() {
   yield takeLatest(GET_STATUS, executeGetStatus);
 }
-
-export default [
-  watchGetStatus()
-];
 

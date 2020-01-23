@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import "./Loading.scss";
+import './Loading.scss';
 
 function Loading() {
 
   return (
-    <div className="loading">
+    <div className='loading'>
       <div>
 
       </div>
