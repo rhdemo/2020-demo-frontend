@@ -54,10 +54,15 @@
     margin: .5rem;
 
     .number-drop-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border: 1px dashed black;
       width: 3.2rem;
       height: 3.2rem;
       margin: .5rem;
+      font-size: 2rem;
+
     }
   }
 
