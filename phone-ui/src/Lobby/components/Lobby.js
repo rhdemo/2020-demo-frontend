@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import './Loading.scss';
+import './Lobby.scss';
 
-function Loading() {
+function Lobby() {
 
   return (
-    <div className='loading'>
+    <div className='lobby'>
       <h1>Lobby</h1>
     </div>
   );
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(mapStateToProps, mapDispatchToProps)(Lobby);

@@ -5,6 +5,8 @@ const AutoLoad = require('fastify-autoload');
 const log = require('./utils/log')('phone-server');
 const broadcast = require('./utils/broadcast');
 const globalHandler = require('./socket-handlers/global');
+const initData = require('./datagrid/init-data');
+const initPlayers = require('./datagrid/init-players');
 
 
 const opts = {};
@@ -14,6 +16,13 @@ const wsOpts = {
 };
 
 const fastify = require('fastify')();
+
+global.game = {
+  id: null,
+  state: "loading"
+};
+global.players = {};
+global.socketServer = null;
 
 //---------------------
 // Fastify Plugins
@@ -43,8 +52,9 @@ fastify.register(require('fastify-websocket'), {
   handle: globalHandler,
   options: wsOpts
 }).after(err => {
+  global.socketServer = fastify.websocketServer;
   setInterval(function () {
-    broadcast(fastify.websocketServer, 'heartbeat');
+    broadcast('heartbeat');
   }, 5000);
 });
 
@@ -57,4 +67,6 @@ fastify.listen(PORT, IP, function (err, address) {
   log.info(`server listening on ${address}`);
 });
 
-module.exports = fastify;
+
+initData()
+  .then(() => initPlayers())

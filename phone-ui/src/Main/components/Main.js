@@ -7,8 +7,7 @@ import dndTouchBackend from 'react-dnd-touch-backend'
 
 import NumberChoice from './NumberChoice'
 import NumberDrop from './NumberDrop'
-import {sendPing} from '../actions';
-
+import { sendPing } from '../actions';
 
 import './Main.scss';
 
@@ -25,7 +24,7 @@ for (let i = 0; i < 4; i++) {
   mockAnswers.push(number);
 }
 
-function Main({sendPing}) {
+function Main({player, sendPing}) {
   const dndBackend = 'ontouchstart' in window ? dndTouchBackend : dndHtmlBackend;
 
   return (
@@ -36,8 +35,8 @@ function Main({sendPing}) {
             <FontAwesomeIcon icon={['far', 'user-circle']}/>
           </div>
           <div className='text-info'>
-            <h2>Fuzzy Nuggets</h2>
-            <h2>450 points</h2>
+            <h2>{player.username}</h2>
+            <h2>{player.score} points</h2>
           </div>
         </div>
         <div className='item'>

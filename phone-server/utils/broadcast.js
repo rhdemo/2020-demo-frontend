@@ -1,11 +1,11 @@
 const WebSocket = require('ws');
 const log = require('../utils/log')('broadcast');
 
-function broadcast(ws, type, data, action) {
+function broadcast(type, data, action) {
   const msg = JSON.stringify({type, data, action});
 
-  if (ws && ws.clients) {
-    ws.clients.forEach(client => {
+  if (global.socketServer && global.socketServer.clients) {
+    global.socketServer.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
         try {
           client.send(msg);

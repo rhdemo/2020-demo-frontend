@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import './Loading.scss';
+import './Bonus.scss';
 
-function Loading() {
+function Bonus() {
 
   return (
-    <div className='loading'>
-      <h1>Lobby</h1>
-    </div>
+      <div className='bonus'>
+        <h1>Bonus</h1>
+      </div>
   );
 }
 
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(mapStateToProps, mapDispatchToProps)(Bonus);
