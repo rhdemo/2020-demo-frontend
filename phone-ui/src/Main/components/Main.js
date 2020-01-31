@@ -1,59 +1,70 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {sendPing} from '../actions'
+import { DndProvider } from 'react-dnd'
+import dndHtmlBackend from 'react-dnd-html5-backend'
+import dndTouchBackend from 'react-dnd-touch-backend'
+
+import NumberChoice from './NumberChoice'
+import NumberDrop from './NumberDrop'
+import { sendPing } from '../actions';
 
 import './Main.scss';
 
-function Main({sendPing}) {
+let mockChoices = [];
+for (let i = 0; i < 6; i++) {
+  const number = Math.floor(Math.random() * Math.floor(10));
+  mockChoices.push(number);
+}
+
+
+let mockAnswers = [];
+for (let i = 0; i < 4; i++) {
+  const number = Math.floor(Math.random() * Math.floor(10));
+  mockAnswers.push(number);
+}
+
+function Main({player, sendPing}) {
+  const dndBackend = 'ontouchstart' in window ? dndTouchBackend : dndHtmlBackend;
 
   return (
-    <div className='main'>
-      <div className='player'>
-        <div className='avatar'>
-          <FontAwesomeIcon icon={['far', 'user-circle']}/>
-        </div>
-        <div className='text-info'>
-          <h2>Fuzzy Nuggets</h2>
-          <h2>450 points</h2>
-        </div>
-      </div>
-      <div className='item'>
-        <div className='heading'>
-          Guess the price
-        </div>
-        <div className='image'>
-          <div>
-            <p>Image</p>
+    <DndProvider backend={dndBackend} opts={{enableMouseEvents: true}}>
+      <div className='main'>
+        <div className='player'>
+          <div className='avatar'>
+            <FontAwesomeIcon icon={['far', 'user-circle']}/>
+          </div>
+          <div className='text-info'>
+            <h2>{player.username}</h2>
+            <h2>{player.score} points</h2>
           </div>
         </div>
-      </div>
-      <div className='drop-numbers'>
+        <div className='item'>
+          <div className='heading'>
+            Guess the price
+          </div>
+          <div className='image'>
+            <div>
+              <p>Image</p>
+            </div>
+          </div>
+        </div>
+        <div className='number-input'>
+          {mockAnswers.map((n, index) => <NumberDrop key={index} number={n}/>)}
+        </div>
 
-      </div>
-      <div className='number-input'>
-        <div className='number-drop-area'/>
-        <div className='number-drop-area'/>
-        <div className='number-drop-area'/>
-        <div className='number-drop-area'/>
-      </div>
+        <div className='number-select'>
+          {mockChoices.map((n, index) => <NumberChoice key={index} number={n}/>)}
+        </div>
 
-      <div className='number-select'>
-        <div className='number-choice'>6</div>
-        <div className='number-choice'>7</div>
-        <div className='number-choice'>5</div>
-        <div className='number-choice'>3</div>
-        <div className='number-choice'>1</div>
-        <div className='number-choice'>6</div>
+        <div className='help'>
+          <button
+            onClick={sendPing}>
+            Help!
+          </button>
+        </div>
       </div>
-
-      <div className='help'>
-        <button
-        onClick={sendPing}>
-          Help!
-        </button>
-      </div>
-    </div>
+    </DndProvider>
   );
 }
 

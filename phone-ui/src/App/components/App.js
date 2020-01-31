@@ -1,21 +1,26 @@
-import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
-
-import { getStatus } from '../actions';
-import Routes from '../../Routes';
 
 import './App.scss';
 
-function App({status, getStatus}) {
-  useEffect(() => {
-    getStatus();
-  }, []);    // eslint-disable-line
+const Lobby = lazy(() => import('../../Lobby'));
+const Main = lazy(() => import('../../Main'));
+const Bonus = lazy(() => import('../../Bonus'));
+
+
+function App({game}) {
+
+  let gameScreen = <Lobby/>;
+  if (game && game.state === 'playing') {
+    gameScreen =  <Main/>;
+  } else if (game && game.state === 'bonus') {
+    gameScreen = <Bonus/>;
+  }
 
   return (
-    <div className='app'>
-      <Routes/>
-    </div>
+    <Suspense fallback={<div className='loading'><h1>Loading...</h1></div>}>
+      {gameScreen}
+    </Suspense>
   );
 }
 
@@ -24,11 +29,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    getStatus: () => {
-      dispatch(getStatus());
-    }
-  };
+  return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+export default connect(mapStateToProps, mapDispatchToProps)(App);

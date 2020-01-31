@@ -4,6 +4,7 @@ module.exports.INCOMING_MESSAGE_TYPES = {
 };
 
 module.exports.OUTGOING_MESSAGE_TYPES = {
+  PLAYER_CONFIGURATION: 'player_configuration',
   ERROR: 'error',
   HEARTBEAT: 'heartbeat',
   GAME: 'game',
