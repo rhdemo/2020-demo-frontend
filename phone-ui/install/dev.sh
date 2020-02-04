@@ -8,7 +8,6 @@ source ${ENV_FILE}
 for ENV_VAR in $(sed 's/=.*//' ${ENV_FILE}); do export "${ENV_VAR}"; done
 
 cd ${DIR}/..
-cd phone-ui
 pwd
 
 yarn install

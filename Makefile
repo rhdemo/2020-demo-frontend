@@ -10,6 +10,14 @@ endif
 
 # DEV - run apps locally for development
 
+.PHONY: dev-admin-server
+dev-admin-server:
+	./admin-server/install/dev.sh
+
+.PHONY: dev-admin-ui
+dev-admin-ui:
+	./admin-ui/install/dev.sh
+
 .PHONY: dev-phone-server
 dev-phone-server:
 	./phone-server/install/dev.sh
@@ -26,10 +34,21 @@ dev-dashboard-server:
 dev-dashboard-ui:
 	./dashboard-ui/install/dev.sh
 
+.PHONY: dev
+dev:
+	./dev.sh
 
 ##################################
 
 # BUILD - build images locally using s2i
+
+.PHONY: build-admin-server
+build-admin-server:
+	./admin-server/install/build.sh
+
+.PHONY: build-admin-ui
+build-admin-ui:
+	./admin-ui/install/build.sh
 
 .PHONY: build-phone-server
 build-phone-server:
@@ -48,12 +67,20 @@ build-dashboard-ui:
 	./dashboard-ui/install/build.sh
 
 .PHONY: build
-build: build-phone-server build-phone-ui build-dashboard-server build-dashboard-ui
+build: build-admin-server build-admin-ui build-phone-server build-phone-ui build-dashboard-server build-dashboard-ui
 
 ##################################
 
 # PUSH - push images to repository
 
+.PHONY: push-admin-server
+push-admin-server:
+	./admin-server/install/push.sh
+
+.PHONY: push-admin-ui
+push-admin-ui:
+	./admin-ui/install/push.sh
+	
 .PHONY: push-phone-server
 push-phone-server:
 	./phone-server/install/push.sh
@@ -71,7 +98,7 @@ push-dashboard-ui:
 	./dashboard-ui/install/push.sh
 
 .PHONY: push
-push: push-phone-server push-phone-ui push-dashboard-server push-dashboard-ui
+push: push-admin-server push-admin-ui push-phone-server push-phone-ui push-dashboard-server push-dashboard-ui
 
 ##################################
 
@@ -91,6 +118,14 @@ login:
 deploy-common: login
 	./common/install/deploy.sh
 
+.PHONY: deploy-admin-server
+deploy-admin-server: login
+	./admin-server/install/deploy.sh
+
+.PHONY: deploy-admin-ui
+deploy-admin-ui: login
+	./admin-ui/install/deploy.sh
+
 .PHONY: deploy-phone-server
 deploy-phone-server: login
 	./phone-server/install/deploy.sh
@@ -108,12 +143,20 @@ deploy-dashboard-ui: login
 	./dashboard-ui/install/deploy.sh
 	
 .PHONY: deploy
-deploy: login deploy-common deploy-phone-server deploy-phone-ui deploy-dashboard-server deploy-dashboard-ui
+deploy: login deploy-common deploy-admin-server deploy-admin-ui deploy-phone-server deploy-phone-ui deploy-dashboard-server deploy-dashboard-ui
 
 ##################################
 
 # ROLLOUT - refresh existing deployment
 # requires LOGIN prerequisites
+
+.PHONY: rollout-admin-server
+rollout-admin-server: login
+	./admin-server/install/rollout.sh
+
+.PHONY: rollout-admin-ui
+rollout-admin-ui: login
+	./admin-ui/install/rollout.sh
 
 .PHONY: rollout-phone-server
 rollout-phone-server: login
@@ -132,7 +175,7 @@ rollout-dashboard-ui: login
 	./dashboard-ui/install/rollout.sh
 
 .PHONY: rollout
-rollout: login rollout-phone-server rollout-phone-ui rollout-dashboard-server rollout-dashboard-ui
+rollout: login rollout-admin-server rollout-admin-ui rollout-phone-server rollout-phone-ui rollout-dashboard-server rollout-dashboard-ui
 
 ##################################
 
@@ -142,6 +185,14 @@ rollout: login rollout-phone-server rollout-phone-ui rollout-dashboard-server ro
 .PHONY: undeploy-common
 undeploy-common: login
 	./common/install/undeploy.sh
+
+.PHONY: undeploy-admin-server
+undeploy-admin-server: login
+	./admin-server/install/undeploy.sh
+
+.PHONY: undeploy-admin-ui
+undeploy-admin-ui: login
+	./admin-ui/install/undeploy.sh
 
 .PHONY: undeploy-phone-server
 undeploy-phone-server: login
@@ -160,7 +211,7 @@ undeploy-dashboard-ui: login
 	./dashboard-ui/install/undeploy.sh
 
 .PHONY: undeploy
-undeploy: login undeploy-dashboard-ui undeploy-dashboard-server undeploy-phone-ui undeploy-phone-server undeploy-common
+undeploy: login undeploy-dashboard-ui undeploy-dashboard-server undeploy-phone-ui undeploy-phone-server undeploy-admin-ui undeploy-admin-server undeploy-common
 
 
 ##################################
