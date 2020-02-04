@@ -7,7 +7,7 @@ function Loading() {
 
   return (
     <div className='loading'>
-      <h1>Lobby</h1>
+      <h1>Loading</h1>
     </div>
   );
 }

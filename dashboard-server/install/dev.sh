@@ -10,7 +10,6 @@ for ENV_VAR in $(sed 's/=.*//' ${ENV_FILE}); do export "${ENV_VAR}"; done
 DASHBOARD_SERVER_PORT=${DASHBOARD_SERVER_PORT:-8083}
 
 cd ${DIR}/..
-cd dashboard-server
 pwd
 
 npm install

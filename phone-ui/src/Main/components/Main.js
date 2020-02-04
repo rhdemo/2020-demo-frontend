@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { DndProvider } from 'react-dnd'
 import dndHtmlBackend from 'react-dnd-html5-backend'
 import dndTouchBackend from 'react-dnd-touch-backend'
@@ -32,7 +33,7 @@ function Main({player, sendPing}) {
       <div className='main'>
         <div className='player'>
           <div className='avatar'>
-            <FontAwesomeIcon icon={['far', 'user-circle']}/>
+            <FontAwesomeIcon icon={faUserCircle}/>
           </div>
           <div className='text-info'>
             <h2>{player.username}</h2>

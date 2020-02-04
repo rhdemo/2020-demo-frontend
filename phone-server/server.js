@@ -53,6 +53,8 @@ fastify.register(require('fastify-websocket'), {
   options: wsOpts
 }).after(err => {
   global.socketServer = fastify.websocketServer;
+  initData()
+    .then(() => initPlayers());
   setInterval(function () {
     broadcast('heartbeat');
   }, 5000);
@@ -68,5 +70,3 @@ fastify.listen(PORT, IP, function (err, address) {
 });
 
 
-initData()
-  .then(() => initPlayers())
