@@ -1,0 +1,4 @@
+create cache --file=/config/distributed-off-heap.xml players
+create cache --file=/config/distributed-off-heap.xml game
+
+
