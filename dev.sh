@@ -10,6 +10,8 @@ else
   mkdir ${DIR}/tmp
 fi
 
+./common/infinispan/dev.sh
+
 ./admin-server/install/dev.sh 2>&1 > ${DIR}/tmp/admin-server.log &
 pid[0]=$!
 
@@ -23,5 +25,5 @@ pid[2]=$!
 pid[3]=$!
 
 
-trap "kill ${pid[0]} ${pid[1]} ${pid[2]} ${pid[3]}; exit 1" INT
+trap "kill ${pid[0]} ${pid[1]} ${pid[2]} ${pid[3]}; docker stop 2020-demo-infinispan; exit 1" INT
 wait
