@@ -17,15 +17,16 @@ _global_script_class_icons={
 
 config/name="2020-rh-summit-dashboard"
 config/description="Red Hat Summit 2020 Keynote Demo Dashboard"
+run/main_scene="res://Map.tscn"
 
 [display]
 
-window/size/width=1200
-window/size/height=1024
+window/size/width=1600
+window/size/height=1200
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [rendering]
 
-environment/default_clear_color=Color( 1, 1, 1, 1 )
+environment/default_clear_color=Color( 0.164706, 0.164706, 0.164706, 1 )
