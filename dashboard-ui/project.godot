@@ -21,8 +21,7 @@ run/main_scene="res://Map.tscn"
 
 [display]
 
-window/size/width=1600
-window/size/height=1200
+window/size/height=800
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"

@@ -4,12 +4,12 @@
 
 [node name="Avatar" type="Sprite" parent="."]
 
-[node name="Head" type="AnimatedSprite" parent="Avatar"]
+[node name="Head" type="Sprite" parent="Avatar"]
 
-[node name="Eyes" type="AnimatedSprite" parent="Avatar"]
+[node name="Eyes" type="Sprite" parent="Avatar"]
 
-[node name="Mouth" type="AnimatedSprite" parent="Avatar"]
+[node name="Mouth" type="Sprite" parent="Avatar"]
 
-[node name="Arms" type="AnimatedSprite" parent="Avatar"]
+[node name="Arms" type="Sprite" parent="Avatar"]
 
 [node name="Body" type="Sprite" parent="Avatar"]
