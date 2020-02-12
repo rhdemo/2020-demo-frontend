@@ -38,33 +38,73 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: lightgray;
+      background-color: transparent;
       width: 12rem;
       height: 12rem;
       text-align: center;
       vertical-align: center;
       font-size: 1.2rem;
+
+      img {
+        width: 100%;
+      }
     }
   }
 
-  .number-input {
+  .number-input,
+  .number-select {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: .5rem;
-
-    .number-drop-area {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px dashed black;
-      width: 3.2rem;
-      height: 3.2rem;
-      margin: .5rem;
-      font-size: 2rem;
-
-    }
   }
+
+  .dollar-sign,
+  .decimal,
+  .number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin: .5rem;
+    font-size: 2rem;
+    font-weight: 900;
+  }
+
+  .dollar-sign,
+  .decimal {
+    width: 0.2rem;
+    height: 3.2rem;
+  }
+
+  .number {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    width: 3.2rem;
+    color: gray;
+  }
+
+  .number.empty {
+    border: 1px dashed black;
+    background-color: white;
+  }
+
+  .number-choice.number.filled {
+    background-color: #7AE6FF;
+    color: white;
+  }
+
+  .number-drop-area.number.correct {
+    background-color: #63E07B;
+    color: white;
+  }
+
+  .number-drop-area.number.incorrect {
+    background-color: #FF3F3C;
+    color: white;
+  }
+
 
   .number-select {
     display: flex;
@@ -76,11 +116,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: lightgray;
       width: 3rem;
       height: 3rem;
       margin: .25rem;
       font-size: 2rem;
+      font-weight: 900;
+      color: white;
+      border-radius: 0.75rem;
+
+      &.filled {
+        background-color: #7AE6FF;
+      }
+
+      &.empty {
+        background-color: white;
+      }
     }
   }
 

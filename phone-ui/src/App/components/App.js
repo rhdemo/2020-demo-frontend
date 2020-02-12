@@ -1,48 +1,33 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
-import './App.scss';
+import Lobby from '../../Lobby';
+import Paused from '../../Paused';
+import Main from '../../Main';
+import Bonus from '../../Bonus';
+import GameOver from '../../GameOver';
+import Loading from '../../Loading';
 import GAME_STATES from '../../utilities/GameStates';
 
-const Lobby = lazy(() => import('../../Lobby'));
-const Paused = lazy(() => import('../../Paused'));
-const Main = lazy(() => import('../../Main'));
-const Bonus = lazy(() => import('../../Bonus'));
-const GameOver = lazy(() => import('../../GameOver'));
-const Loading = lazy(() => import('../../Loading'));
-
+import './App.scss';
 
 function App({game}) {
 
-  let gameScreen = <Lobby/>;
-
   if (!game) {
-    gameScreen = <Loading/>
+    return <Loading/>
   } else {
     switch (game.state) {
       case GAME_STATES.PAUSED:
-        gameScreen = <Paused/>;
-        break;
+        return <Paused/>;
       case GAME_STATES.ACTIVE:
-        gameScreen = <Main/>;
-        break;
+        return <Main/>;
       case GAME_STATES.BONUS:
-        gameScreen = <Bonus/>;
-        break;
+        return <Bonus/>;
       case GAME_STATES.STOPPED:
-        gameScreen = <GameOver/>;
-        break;
+        return <GameOver/>;
       default:
-        gameScreen = <Lobby/>;
-        break;
-    }
+        return <Lobby/>;
+        }
   }
-
-  return (
-    <Suspense fallback={<div className='loading'><h1>Loading...</h1></div>}>
-      {gameScreen}
-    </Suspense>
-  );
 }
 
 function mapStateToProps(state) {

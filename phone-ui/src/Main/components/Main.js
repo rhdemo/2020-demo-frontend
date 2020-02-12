@@ -12,20 +12,7 @@ import { sendPing } from '../actions';
 
 import './Main.scss';
 
-let mockChoices = [];
-for (let i = 0; i < 6; i++) {
-  const number = Math.floor(Math.random() * Math.floor(10));
-  mockChoices.push(number);
-}
-
-
-let mockAnswers = [];
-for (let i = 0; i < 4; i++) {
-  const number = Math.floor(Math.random() * Math.floor(10));
-  mockAnswers.push(number);
-}
-
-function Main({player, sendPing}) {
+function Main({player, currentRound, sendPing}) {
   const dndBackend = 'ontouchstart' in window ? dndTouchBackend : dndHtmlBackend;
 
   return (
@@ -41,21 +28,17 @@ function Main({player, sendPing}) {
           </div>
         </div>
         <div className='item'>
-          <div className='heading'>
-            Guess the price
-          </div>
           <div className='image'>
-            <div>
-              <p>Image</p>
-            </div>
+            <img src={`/api/${currentRound.image}`}/>
           </div>
         </div>
         <div className='number-input'>
-          {mockAnswers.map((n, index) => <NumberDrop key={index} number={n}/>)}
+          <div className='number-drop-area dollar-sign'>$</div>
+          {currentRound.answers.map((a, index) => <NumberDrop key={index} index={index} answer={a}/>)}
         </div>
 
         <div className='number-select'>
-          {mockChoices.map((n, index) => <NumberChoice key={index} number={n}/>)}
+          {currentRound.choices.map((c, index) => <NumberChoice key={index} index={index} number={c}/>)}
         </div>
 
         <div className='help'>
@@ -70,7 +53,7 @@ function Main({player, sendPing}) {
 }
 
 function mapStateToProps(state) {
-  return state.appReducer;
+  return state.mainReducer;
 }
 
 function mapDispatchToProps(dispatch) {

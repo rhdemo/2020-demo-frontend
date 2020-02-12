@@ -10,7 +10,7 @@ endif
 
 # DEV - run apps locally for development
 
-.PHONY: dev-infinspan
+.PHONY: dev-infinispan
 dev-infinispan:
 	./common/infinispan/dev.sh
 

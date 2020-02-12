@@ -1,16 +1,19 @@
 const Game = require("../models/game");
-const {DATAGRID_KEYS} = require("../datagrid/constants");
+const Player = require("../models/player");
 
 async function resetGameHandler(ws, messageObj) {
-  console.log('resetGameHandler');
+  const gameDeleteAllPromise = Game.deleteAll();
+  const playerDeleteAllPromise = Player.deleteAll();
   try {
-    await global.playerClient.clear();
+    await gameDeleteAllPromise;
+    await playerDeleteAllPromise;
   } catch (error) {
-    log.error(`error occurred resetting players. Error:`, error.message);
+    log.error(`error occurred resetting players and game. Error:`, error.message);
   }
 
   try {
-    await global.dataClient.put(DATAGRID_KEYS.GAME, JSON.stringify(new Game()));
+    let game = new Game();
+    await game.save();
   } catch (error) {
     log.error(`error occurred creating new game. Error:`, error.message);
   }

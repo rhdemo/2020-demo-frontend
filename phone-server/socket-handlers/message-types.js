@@ -1,12 +1,14 @@
 module.exports.INCOMING_MESSAGE_TYPES = {
   INIT: 'init',
-  PING: 'ping'
+  PING: 'ping',
+  GUESS: 'guess',
 };
 
 module.exports.OUTGOING_MESSAGE_TYPES = {
-  PLAYER_CONFIGURATION: 'player_configuration',
   ERROR: 'error',
   HEARTBEAT: 'heartbeat',
+  PING_RESPONSE: 'pong',
+  PLAYER_CONFIGURATION: 'player-configuration',
   GAME: 'game',
-  PING_RESPONSE: 'pong'
+  GUESS_RESULT: 'guess-result'
 };
