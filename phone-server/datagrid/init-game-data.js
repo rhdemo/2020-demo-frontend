@@ -2,7 +2,7 @@ const infinispan = require("infinispan");
 const env = require("env-var");
 
 const log = require("../utils/log")("datagrid");
-const {DATAGRID_KEYS} = require("./constants");
+const {GAME_DATA_KEYS} = require("./constants");
 const readGame = require("./read-game");
 const gameHandler = require("./game");
 
@@ -26,22 +26,22 @@ async function initClient() {
 async function handleDataChange(client, changeType, key) {
   log.debug(`Data change: ${changeType} ${key}`);
   switch (key) {
-    case DATAGRID_KEYS.GAME:
+    case GAME_DATA_KEYS.CURRENT_GAME:
       gameHandler(client, changeType, key);
       break;
   }
 }
 
-async function initData() {
+async function initGameData() {
   try {
-    global.dataClient = await initClient();
+    global.gameData = await initClient();
     await readGame();
   } catch (error) {
     log.error(`Error connecting to Infinispan game data: ${error.message}`);
     log.error(error);
   }
-  return global.dataClient;
+  return global.gameData;
 }
 
 
-module.exports = initData;
+module.exports = initGameData;

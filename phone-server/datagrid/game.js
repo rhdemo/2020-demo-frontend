@@ -1,6 +1,7 @@
 const WebSocket = require("ws");
 const log = require("../utils/log")("datagrid/game");
 const send = require("../utils/send");
+const Player = require("../models/player");
 const Configuration = require("../models/configuration");
 const readGame = require("./read-game");
 const connectPlayer = require("../socket-handlers/init");
@@ -40,29 +41,21 @@ async function sendGameConfigs() {
 async function sendPlayerConfig(playerId) {
   let player = global.players[playerId];
   const ws = player.ws;
-  player = await getPlayer(playerId);
-  let configuration = new Configuration(player);
-  send(ws, JSON.stringify(configuration));
-}
-
-async function getPlayer(id) {
-  let player = null;
-
   try {
-    let playerStr = await global.playerClient.get(id);
+    let player = await Player.find(playerId);
 
-    if (playerStr) {
-      player = JSON.parse(playerStr);
-    } else {
-      log.error(`Player ${id} data not found`);
-      return null;
+    if (!player) {
+      log.error(`Player ${playerId} data not found`);
+      return;
     }
+
+    let configuration = new Configuration(player);
+    send(ws, JSON.stringify(configuration));
   } catch (error) {
     log.error("error occurred getting player data:", error.message);
   }
-
-  return player;
 }
+
 
 module.exports = gameHandler;
 

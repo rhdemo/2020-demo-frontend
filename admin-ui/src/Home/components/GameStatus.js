@@ -1,5 +1,4 @@
 import React  from "react";
-import lodashGet from "lodash/get";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faCog, faPause, faFlagCheckered, faUndo, faStar } from "@fortawesome/free-solid-svg-icons";
 import GAME_STATES from '../../utilities/GameStates'

@@ -1,10 +1,28 @@
-const uuidv4 = require("uuid/v4");
-const GAME_STATES = require("./game-states");
+const Model = require('./model');
+const { GAME_STATES, GAME_DATA_KEYS } = require('./constants');
 
-class Game {
+class Game extends Model {
+  static get dataClient() {
+    return global.gameData;
+  }
+
   constructor() {
-    this.id = uuidv4();
+    super();
     this.state = GAME_STATES.LOBBY;
+    this.date = new Date();
+    this.configuration = {};
+  }
+
+  get dataClient() {
+    return global.gameData;
+  }
+
+  get key() {
+    return GAME_DATA_KEYS.CURRENT_GAME;
+  }
+
+  get attributes() {
+    return ['id', 'state', 'date', 'configuration'];
   }
 }
 

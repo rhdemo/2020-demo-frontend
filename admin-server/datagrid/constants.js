@@ -1,6 +1,6 @@
 
-const DATAGRID_KEYS = {
-  GAME: "game"
+const GAME_DATA_KEYS = {
+  CURRENT_GAME: "current-game"
 };
 
-module.exports.DATAGRID_KEYS = DATAGRID_KEYS;
+module.exports.GAME_DATA_KEYS = GAME_DATA_KEYS;

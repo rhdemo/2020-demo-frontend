@@ -5,8 +5,8 @@ const AutoLoad = require('fastify-autoload');
 const log = require('./utils/log')('phone-server');
 const broadcast = require('./utils/broadcast');
 const globalHandler = require('./socket-handlers/global');
-const initData = require('./datagrid/init-data');
-const initPlayers = require('./datagrid/init-players');
+const initGameData = require('./datagrid/init-game-data');
+const initPlayerData = require('./datagrid/init-player-data');
 
 
 const opts = {};
@@ -40,6 +40,12 @@ fastify.register(AutoLoad, {
 //---------------------
 // Hooks and Middlewares
 
+// Static
+fastify.register(require('fastify-static'), {
+  root: path.join(__dirname, 'static'),
+  prefix: '/static/',
+});
+
 //---------------------
 // Services
 fastify.register(AutoLoad, {
@@ -53,8 +59,8 @@ fastify.register(require('fastify-websocket'), {
   options: wsOpts
 }).after(err => {
   global.socketServer = fastify.websocketServer;
-  initData()
-    .then(() => initPlayers());
+  initGameData()
+    .then(() => initPlayerData());
   setInterval(function () {
     broadcast('heartbeat');
   }, 5000);

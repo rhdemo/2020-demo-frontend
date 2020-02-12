@@ -11,7 +11,6 @@ function global(conn, messageStr) {
     return;
   }
 
-  console.log()
   switch (messageObj.type) {
     case INCOMING_MESSAGE_TYPES.INIT:
       initHandler(conn, messageObj);

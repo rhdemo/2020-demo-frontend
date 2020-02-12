@@ -25,5 +25,5 @@ pid[2]=$!
 pid[3]=$!
 
 
-trap "kill ${pid[0]} ${pid[1]} ${pid[2]} ${pid[3]}; docker stop 2020-demo-infinispan; exit 1" INT
+trap "kill ${pid[0]} ${pid[1]} ${pid[2]} ${pid[3]}; docker stop 2020-demo-infinispan; exit 0" INT
 wait

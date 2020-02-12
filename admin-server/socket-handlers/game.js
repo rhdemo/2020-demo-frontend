@@ -1,27 +1,27 @@
-const {DATAGRID_KEYS} = require("../datagrid/constants");
+const log = require('../utils/log')('game-socket-handler');
+const Game = require("../models/game");
+const {GAME_DATA_KEYS} = require("../models/constants");
 
 async function gameHandler(ws, messageObj) {
-  let gameStr;
-  let originalGame;
+  let game;
   try {
-    gameStr = await global.dataClient.get(DATAGRID_KEYS.GAME);
+    game = await Game.find(GAME_DATA_KEYS.CURRENT_GAME);
   } catch (error) {
     log.error("Failed to read game. Error:", error.message);
     return;
   }
 
-  if (gameStr) {
-    originalGame = JSON.parse(gameStr);
+  if (!game) {
+    game = new Game();
   }
-  let modifiedGame = {...originalGame, ...messageObj.game};
 
+  game.updateAttributes(messageObj.game);
 
   try {
-    let result = await global.dataClient.put(DATAGRID_KEYS.GAME, JSON.stringify(modifiedGame));
+    let result = await game.save();
     return result;
   } catch (error) {
     log.error("Failed to update game. Error:", error.message);
-    return;
   }
 }
 

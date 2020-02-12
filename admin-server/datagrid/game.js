@@ -6,7 +6,7 @@ const broadcast = require("../utils/broadcast");
 async function gameHandler(client, changeType, key) {
     log.info("broadcasting game change");
     await readGame();
-    broadcast(OUTGOING_MESSAGE_TYPES.GAME, global.game, changeType);
+    broadcast(OUTGOING_MESSAGE_TYPES.GAME, global.game.toDict(), changeType);
 }
 
 
