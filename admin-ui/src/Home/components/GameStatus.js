@@ -1,10 +1,12 @@
 import React  from "react";
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faCog, faPause, faFlagCheckered, faUndo, faStar } from "@fortawesome/free-solid-svg-icons";
 import GAME_STATES from '../../utilities/GameStates'
+import { resetGame, sendPing, updateGameState } from '../actions';
 
 
-function GameStatus({game}) {
+function GameStatus({game, resetGame}) {
   function renderGameState() {
     switch (game.state) {
       case GAME_STATES.LOBBY:
@@ -32,7 +34,7 @@ function GameStatus({game}) {
             className="button"
             type="button"
             onClick={() => {
-              console.log('reset-game');
+              resetGame();
             }}>
             <FontAwesomeIcon icon={faUndo}/> Reset
           </button>
@@ -48,4 +50,18 @@ function GameStatus({game}) {
   );
 }
 
-export default GameStatus;
+
+function mapStateToProps(state) {
+  return state.appReducer;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    resetGame: () => {
+      dispatch(resetGame());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameStatus);
+
