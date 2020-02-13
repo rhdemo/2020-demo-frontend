@@ -3,7 +3,7 @@ printf "\n\n######## dashboard-server deploy ########\n"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-PROJECT=${PROJECT:-rhdemo}
+PROJECT=${PROJECT:-frontend}
 IMAGE_REPOSITORY=${DASHBOARD_SERVER_IMAGE_REPOSITORY:-quay.io/redhatdemo/2020-dashboard-server:latest}
 REPLICAS=${DASHBOARD_SERVER_REPLICAS:-1}
 

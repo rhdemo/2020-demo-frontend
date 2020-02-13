@@ -40,12 +40,6 @@ fastify.register(AutoLoad, {
 //---------------------
 // Hooks and Middlewares
 
-// Static
-fastify.register(require('fastify-static'), {
-  root: path.join(__dirname, 'static'),
-  prefix: '/static/',
-});
-
 //---------------------
 // Services
 fastify.register(AutoLoad, {

@@ -3,7 +3,7 @@ printf "\n\n######## phone-ui deploy ########\n"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-PROJECT=${PROJECT:-rhdemo}
+PROJECT=${PROJECT:-frontend}
 ROUTE_NAME=${ROUTE_NAME:-game}
 IMAGE_REPOSITORY=${PHONE_UI_IMAGE_REPOSITORY:-quay.io/redhatdemo/2020-phone-ui:latest}
 REPLICAS=${PHONE_UI_REPLICAS:-1}

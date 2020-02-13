@@ -8,6 +8,7 @@ async function readGame() {
     global.game = await Game.find(GAME_DATA_KEYS.CURRENT_GAME);
     if (!global.game) {
       log.error("Game configuration missing");
+      global.game = {};
     }
     return global.game;
   } catch (error) {
