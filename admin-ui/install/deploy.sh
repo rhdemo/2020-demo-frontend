@@ -3,8 +3,8 @@ printf "\n\n######## admin-ui deploy ########\n"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-PROJECT=${PROJECT:-rhdemo}
-ROUTE_NAME=${ROUTE_NAME:-game}
+PROJECT=${PROJECT:-frontend}
+ROUTE_NAME=${ROUTE_NAME:-admin}
 IMAGE_REPOSITORY=${ADMIN_UI_IMAGE_REPOSITORY:-quay.io/redhatdemo/2020-admin-ui:latest}
 REPLICAS=${ADMIN_UI_REPLICAS:-1}
 

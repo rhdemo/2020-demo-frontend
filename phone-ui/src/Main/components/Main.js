@@ -29,7 +29,7 @@ function Main({player, currentRound, sendPing}) {
         </div>
         <div className='item'>
           <div className='image'>
-            <img src={`/api/${currentRound.image}`}/>
+            <img src={currentRound.image}/>
           </div>
         </div>
         <div className='number-input'>

@@ -3,7 +3,7 @@ printf "\n\n######## phone-ui undeploy ########\n"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-PROJECT=${PROJECT:-rhdemo}
+PROJECT=${PROJECT:-frontend}
 IMAGE_REPOSITORY=${PHONE_UI_IMAGE_REPOSITORY:-quay.io/redhatdemo/2020-phone-ui:latest}
 
 oc project ${PROJECT}

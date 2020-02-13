@@ -2,7 +2,7 @@
 printf "\n\n######## common login ########\n"
 
 OC=${OC:-"/usr/bin"}
-PROJECT=${PROJECT:-rhdemo}
+PROJECT=${PROJECT:-frontend}
 
 if [ -n "${OC_SKIP_TLS_VERIFY}" ]; then
   OC_SKIP_TLS_VERIFY_STR=--insecure-skip-tls-verify=true

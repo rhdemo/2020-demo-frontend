@@ -16,9 +16,9 @@ function pollDatagrid(interval) {
 async function checkDataClient() {
   log.debug("checkDataClient");
   try {
-    let str = await global.gameData.get(GAME_DATA_KEYS.CURRENT_GAME);
-    if (str) {
-      global.game = JSON.parse(str);
+    let game = await Game.find(GAME_DATA_KEYS.CURRENT_GAME)
+    if (game) {
+      global.game = game;
     } else {
       log.error("Game configuration missing");
     }

@@ -9,7 +9,7 @@ parameters:
     value: admin-ui
     required: true
   - name: ROUTE_NAME
-    value: game
+    value: admin
     required: true
   - name: REPLICAS
     value: "1"

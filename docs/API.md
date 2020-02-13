@@ -15,6 +15,16 @@ Server responds with `player-configuration`
 }
 ```
 
+### User help `help`
+
+Phone UI -> Phone Server help request
+Server responds with `player-configuration`
+```json
+{
+  "type": "help"
+}
+```
+
 ### Create Guess `guess`
 
 Phone UI -> Phone Server initialization
@@ -59,7 +69,7 @@ Phone UI -> Phone Server initialization
 ## Phone Server -> Phone UI
 
 ### Heartbeat  `heartbeat`
-Phone Server -> Phone UI sends player state. 
+Phone Server -> Phone UI sends player state.
 Server has received `init` or `guess`
 Server pushes on a timer
 ```json
@@ -73,7 +83,7 @@ Server pushes on a timer
 ```
 
 ### Player state  `player`
-Phone Server -> Phone UI sends player state. 
+Phone Server -> Phone UI sends player state.
 Server has received `init` or `guess`
 ```json
 {
@@ -172,7 +182,7 @@ Server responds with `leaderboard`
 ```
 
 ### Leaderboard  `leaderboard`
-Leaderboard Server -> Leaderboard UI sends leaderboard state. 
+Leaderboard Server -> Leaderboard UI sends leaderboard state.
 Server has received `init`
 Server pushes on a timer
 ```json
@@ -205,7 +215,7 @@ Server responds with `clusters`
 ```
 
 ### Clusters  `Clusters`
-Dashboard Server -> Dashboard UI sends player state. 
+Dashboard Server -> Dashboard UI sends player state.
 Server has received `init`
 Server pushes on a timer
 ```json
@@ -213,10 +223,49 @@ Server pushes on a timer
   "type": "clusters",
   "clusters": [
     {
+      "id": "wc1",
       "name": "West Coast 1",
       "status": "up",
-      "incomingTraffic":  100,
-      "outgoingTraffic": 100
+      "traffic": [
+        { 
+          "to": "ec2",
+          "throughput": 1234
+        },
+        { 
+          "to": "sing3",
+          "throughput": 4567
+        }
+      ]     
+    },
+    {
+      "id": "ec2",
+      "name": "East Coast 2",
+      "status": "up",
+      "traffic": [
+        { 
+          "to": "wc1",
+          "throughput": 1234
+        },
+        { 
+          "to": "sing3",
+          "throughput": 4567
+        }
+      ]     
+    },
+    {
+      "id": "sing3",
+      "name": "Singapore 3",
+      "status": "up",
+      "traffic": [
+        { 
+          "to": "wc1",
+          "throughput": 1234
+        },
+        { 
+          "to": "ec2",
+          "throughput": 4567
+        }
+      ]     
     }
     //... all clusters ...
   ]
