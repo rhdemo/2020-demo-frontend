@@ -62,5 +62,9 @@ shader_param/dark_color = Color( 0.152941, 0.294118, 0.309804, 1 )
 
 [node name="Avatar" parent="." instance=ExtResource( 1 )]
 material = SubResource( 2 )
-position = Vector2( 514.106, 386.904 )
-scale = Vector2( 0.741286, 0.741286 )
+position = Vector2( 777.106, 258.904 )
+scale = Vector2( 0.39995, 0.39995 )
+
+[node name="Area2D" parent="." instance=ExtResource( 1 )]
+position = Vector2( 301.106, 407.904 )
+scale = Vector2( 0.44469, 0.44469 )
