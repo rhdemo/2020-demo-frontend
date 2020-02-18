@@ -15,6 +15,7 @@ enum COLOR_SET{
 export (STATE) var State = STATE.Resting;
 export (COLOR_SET) var colors = COLOR_SET.Blue;
 
+
 var color_set = [
 	PoolColorArray([Color('e800e8'),Color('600068')]),
 	PoolColorArray([Color('ff7c1a'),Color('964700')]),
@@ -22,6 +23,7 @@ var color_set = [
 	PoolColorArray([Color('11e500'),Color('006611')]),
 	PoolColorArray([Color('7be6ff'),Color('274b4f')])
 ]
+var body_state = 0;
 
 
 # Called when the node enters the scene tree for the first time.
@@ -31,17 +33,26 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Eyes.frame = self.State;
-	$Mouth.frame = self.State;
-	$Background.material.set_shader_param("light_color", color_set[colors][0]);
-	$Background.material.set_shader_param("dark_color", color_set[colors][1]);
-
+	pass
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	RandomNumberGenerator
-	var random_emote = (rand_range(0,3));
-	var random_color = (rand_range(0,5));
+	var random_emote = (randi() % 3);
+	var random_color = (randi() % 5);
+	var random_body = (randi() % 5);
+	var random_eye = (randi() % 2);
+	var random_ear = (randi() % 2);
+	var random_mouth = (randi() % 2);
 	var mouse_click = event as InputEventMouseButton
 	if mouse_click and mouse_click.button_index == 1 and mouse_click.pressed:
-		self.State = random_emote;
 		self.colors = random_color;
+		$Eyes.animation = str(random_eye);
+		$Eyes.frame = random_emote;
+		$Mouth.animation = str(random_mouth);
+		$Mouth.frame = random_emote;
+		$Body.frame = random_body;
+		$Background.material.set_shader_param("light_color", color_set[colors][0]);
+		$Background.material.set_shader_param("dark_color", color_set[colors][1]);
+#		self.State = random_emote;
+#		self.colors = random_color;
+#		self.body_state = random_body;
