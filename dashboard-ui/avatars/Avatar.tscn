@@ -29,6 +29,7 @@ material = ExtResource( 1 )
 frames = ExtResource( 10 )
 
 [node name="Nose" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
 frames = ExtResource( 2 )
 animation = "0"
 
@@ -45,5 +46,5 @@ animation = "0"
 [node name="Mouth" type="AnimatedSprite" parent="."]
 material = ExtResource( 1 )
 frames = ExtResource( 3 )
-animation = "1"
+animation = "4"
 [connection signal="input_event" from="." to="." method="_on_Area2D_input_event"]

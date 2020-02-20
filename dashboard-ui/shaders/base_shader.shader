@@ -2,8 +2,8 @@ shader_type canvas_item;
 render_mode blend_disabled;
 uniform vec4 light_color : hint_color;
 uniform vec4 dark_color : hint_color;
-const vec3 light_replace = vec3(0.22);
-const vec3 dark_replace = vec3(0.17);
+const vec3 light_replace = vec3(0.65);
+const vec3 dark_replace = vec3(0.4);
 
 void vertex() {
 // Output:0
