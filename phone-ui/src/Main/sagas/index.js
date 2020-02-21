@@ -1,9 +1,9 @@
-import { watchSendGuess } from './sendGuess';
-import { watchCreateGuess } from './createGuess';
 import { watchSendPing } from './sendPing';
+import { watchSendHelp } from './sendHelp';
+import { watchSendGuess } from './sendGuess';
 
 export default [
-  watchCreateGuess(),
   watchSendPing(),
+  watchSendHelp(),
   watchSendGuess(),
 ];

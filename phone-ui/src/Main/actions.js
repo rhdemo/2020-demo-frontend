@@ -3,6 +3,11 @@ export const sendPing = () => ({
   type: SEND_PING
 });
 
+export const SEND_HELP = 'Main.SEND_HELP';
+export const sendHelp = () => ({
+  type: SEND_HELP
+});
+
 export const SEND_GUESS = 'Main.SEND_GUESS';
 export const sendGuess = (guess) => ({
   type: SEND_GUESS,

@@ -17,7 +17,7 @@ function NumberDrop({index, answer, game, player, currentRound, sendGuess}) {
 
   function onDrop(dropped) {
     let choices = [...currentRound.choices];
-    let answers = currentRound.answers.map(({format, number}) => ({format, number}));
+    let answers = [...currentRound.answers];
 
     let guess = {
       itemId: currentRound.itemId,

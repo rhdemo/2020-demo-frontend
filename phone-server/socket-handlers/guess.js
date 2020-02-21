@@ -1,6 +1,9 @@
 const log = require('../utils/log')('socket-handlers/guess');
 const send = require('../utils/send');
+const axios = require('../utils/axios');
+const {SCORING_URL} = require('../utils/constants');
 const {GAME_STATES} = require('../models/constants');
+const itemData = require('../models/item-data');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
 
@@ -26,7 +29,38 @@ async function guessHandler(ws, messageObj) {
     return;
   }
 
-  player.addGuess(guess);
+  let guessResult = null;
+  let retries = 5;
+  while (retries > 0 && !guessResult) {
+    try {
+      const response = await axios({
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+        url: SCORING_URL,
+        data: {
+          game: global.game,
+          player: {
+            id: player.id,
+            username: player.username,
+            score: player.score
+          },
+          item: itemData[player.currentRound.itemId],
+          answers,
+          pointsAvailable: player.currentRound.points
+        }
+      });
+      guessResult = response.data
+    } catch (error) {
+      log.error("error occurred in http call to prediction API:");
+      log.error(error.message);
+      guessResult = null;
+      retries--;
+    }
+  }
+
+  player.processGuess(guessResult);
 
   try {
     await player.save();
@@ -39,4 +73,8 @@ async function guessHandler(ws, messageObj) {
   log.debug(configuration);
   send(ws, JSON.stringify(configuration));
 }
+
+
+
+
 module.exports = guessHandler;
