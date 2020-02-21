@@ -9,7 +9,6 @@ function* executeSendGuess(action) {
 }
 
 function createGuessMessage(guess) {
-  console.log('createGuessBody', guess);
   let msg = {
     type: OUTGOING_MESSAGE_TYPES.GUESS,
     itemId: guess.itemId,
@@ -20,13 +19,13 @@ function createGuessMessage(guess) {
   };
 
   msg.answers[guess.destination] = {
+    format: guess.answers[guess.destination].format,
     number: guess.choices[guess.source],
     from: guess.source,
     result: null,
   };
 
   msg.choices[guess.source] = null;
-
   return msg
 }
 

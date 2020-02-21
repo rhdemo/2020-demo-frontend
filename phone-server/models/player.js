@@ -39,60 +39,28 @@ class Player extends Model {
     const item = itemData[index];
     this.currentRound = {
       itemId: item.id,
-      choices: item.choices,
-      answers: item.answers,
+      choices: [...item.choices],
+      answers: [...item.answers],
       image: item.image,
       points: 100
     };
   }
 
-  addGuess(guess) {
-    //TODO persist guess
-    this._updateAnswers(guess);
-    this._scoreCurrentRound();
-  }
-
-  _updateAnswers(guess) {
+  processGuess(guessResult) {
     let item = itemData[this.currentRound.itemId];
-    console.log('updateCurrentRound', item);
+    this.currentRound.answers = guessResult.answers;
+    this.currentRound.choices = [...item.choices];
     this.currentRound.answers.forEach((currentAnswer, index) => {
-      if (currentAnswer.format !== "number" || currentAnswer.result === "correct") {
-        return; // skip, no need to answer
-      }
-
-      const guessAnswer = guess.answers[index];
-      if ((guessAnswer.result && guessAnswer.result !== "pending") || !Number.isInteger(guessAnswer.number)) {
-        return; // skip, no attempt to answer
-      }
-
-      currentAnswer.number = guessAnswer.number;
-      currentAnswer.from = guessAnswer.from;
-      if (currentAnswer.number === item.price[index]) {
-        currentAnswer.result = "correct";
-        this.currentRound.choices[guessAnswer.from] = null;
-      } else {
-        currentAnswer.result = "incorrect";
-        this.currentRound.points = this.currentRound.points - 5;
-        if (currentAnswer.points < 0) {
-          currentAnswer.points = 0;
-        }
-        this.currentRound.choices[guessAnswer.from] = item.choices[guessAnswer.from];
+      if (currentAnswer.result === 'correct') {
+        this.currentRound.choices[currentAnswer.from] = null;
       }
     });
-  }
 
-  _scoreCurrentRound() {
-    let currentRoundCorrect = true;
-    for (let i = 0; i < this.currentRound.answers.length; i++) {
-      let a = this.currentRound.answers[i];
-      if (a.format === 'number' && a.result !== 'correct') {
-        currentRoundCorrect = false;
-      }
-    }
+    this.currentRound.points = guessResult.pointsAvailable;
+    this.score += guessResult.points;
 
-    if (currentRoundCorrect) {
+    if (guessResult.correct) {
       this.lastRound = this.currentRound;
-      this.score = this.score + this.lastRound.points;
       let nextItemId = this.lastRound.itemId + 1;
       if (nextItemId >= itemData.length) {
         nextItemId = 0;

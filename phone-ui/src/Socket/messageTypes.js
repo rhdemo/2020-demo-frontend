@@ -6,6 +6,7 @@ export const INCOMING_MESSAGE_TYPES = {
 export const OUTGOING_MESSAGE_TYPES = {
   INIT: 'init',
   PING: 'ping',
+  HELP: 'help',
   GUESS: 'guess',
 };
 

@@ -8,11 +8,11 @@ import dndTouchBackend from 'react-dnd-touch-backend'
 
 import NumberChoice from './NumberChoice'
 import NumberDrop from './NumberDrop'
-import { sendPing } from '../actions';
+import { sendHelp } from '../actions';
 
 import './Main.scss';
 
-function Main({player, currentRound, sendPing}) {
+function Main({player, currentRound, sendHelp}) {
   const dndBackend = 'ontouchstart' in window ? dndTouchBackend : dndHtmlBackend;
 
   return (
@@ -43,7 +43,7 @@ function Main({player, currentRound, sendPing}) {
 
         <div className='help'>
           <button
-            onClick={sendPing}>
+            onClick={sendHelp}>
             Help!
           </button>
         </div>
@@ -58,8 +58,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    sendPing: () => {
-      dispatch(sendPing());
+    sendHelp: () => {
+      dispatch(sendHelp());
     }
   };}
 
