@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" load_steps=16 format=2]
+
+[ext_resource path="res://avatars/eyes/eyes-3-sad-01.png" type="Texture" id=1]
+[ext_resource path="res://avatars/eyes/eyes-5-sad-01.png" type="Texture" id=2]
+[ext_resource path="res://avatars/eyes/eyes-1-happy-01.png" type="Texture" id=3]
+[ext_resource path="res://avatars/eyes/eyes-5-happy-01.png" type="Texture" id=4]
+[ext_resource path="res://avatars/eyes/eyes-2-happy-01.png" type="Texture" id=5]
+[ext_resource path="res://avatars/eyes/eyes-1-sad-01.png" type="Texture" id=6]
+[ext_resource path="res://avatars/eyes/eyes-5-null-01.png" type="Texture" id=7]
+[ext_resource path="res://avatars/eyes/eyes-2-mad-01.png" type="Texture" id=8]
+[ext_resource path="res://avatars/eyes/eyes-1-null-01.png" type="Texture" id=9]
+[ext_resource path="res://avatars/eyes/eyes-4-null-01.png" type="Texture" id=10]
+[ext_resource path="res://avatars/eyes/eyes-3-null-01.png" type="Texture" id=11]
+[ext_resource path="res://avatars/eyes/eyes-3-happy-01.png" type="Texture" id=12]
+[ext_resource path="res://avatars/eyes/eyes-4-happy-01.png" type="Texture" id=13]
+[ext_resource path="res://avatars/eyes/eyes-2-null-01.png" type="Texture" id=14]
+[ext_resource path="res://avatars/eyes/eyes-4-sad-01.png" type="Texture" id=15]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 13 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "3",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 5 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "1",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "0",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "4",
+"speed": 5.0
+} ]

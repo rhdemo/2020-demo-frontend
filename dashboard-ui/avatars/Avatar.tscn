@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://shaders/base_material.tres" type="Material" id=1]
+[ext_resource path="res://avatars/avatar_nose.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://avatars/avatar_mouth.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://avatars/avatar_ears.tres" type="SpriteFrames" id=4]
+[ext_resource path="res://avatars/background/background.png" type="Texture" id=5]
+[ext_resource path="res://avatars/avatar_eyes.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://avatars/avatar_body.tres" type="SpriteFrames" id=10]
+[ext_resource path="res://avatars/avatar.gd" type="Script" id=11]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 444.526
+height = 132.347
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -13.2502, 21.2003 )
+shape = SubResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+material = ExtResource( 1 )
+texture = ExtResource( 5 )
+
+[node name="Body" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
+frames = ExtResource( 10 )
+
+[node name="Nose" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
+frames = ExtResource( 2 )
+animation = "0"
+
+[node name="Eyes" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
+frames = ExtResource( 6 )
+animation = "0"
+
+[node name="Ears" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
+frames = ExtResource( 4 )
+animation = "0"
+
+[node name="Mouth" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
+frames = ExtResource( 3 )
+animation = "4"
+[connection signal="input_event" from="." to="." method="_on_Area2D_input_event"]
