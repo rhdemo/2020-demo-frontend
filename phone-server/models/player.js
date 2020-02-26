@@ -1,5 +1,6 @@
 const Model = require('./model');
 const generateUsername = require('./username/generate-username');
+const generateAvatar = require('./generate-avatar');
 const itemData = require('./item-data');
 
 class Player extends Model {
@@ -10,7 +11,7 @@ class Player extends Model {
   constructor() {
     super();
     this.username = generateUsername();
-    this.avatar = {};
+    this.avatar = generateAvatar();
     this.gameId = global.game.id;
     this.score = 0;
     this.lastRound = null;
@@ -47,6 +48,9 @@ class Player extends Model {
   }
 
   processGuess(guessResult) {
+    if (!guessResult) {
+      return;
+    }
     let item = itemData[this.currentRound.itemId];
     this.currentRound.answers = guessResult.answers;
     this.currentRound.choices = [...item.choices];

@@ -30,14 +30,6 @@ dev-phone-server:
 dev-phone-ui:
 	./phone-ui/install/dev.sh
 
-.PHONY: dev-dashboard-server
-dev-dashboard-server:
-	./dashboard-server/install/dev.sh
-
-.PHONY: dev-dashboard-ui
-dev-dashboard-ui:
-	./dashboard-ui/install/dev.sh
-
 .PHONY: dev
 dev:
 	./dev.sh
@@ -62,16 +54,8 @@ build-phone-server:
 build-phone-ui:
 	./phone-ui/install/build.sh
 
-.PHONY: build-dashboard-server
-build-dashboard-server:
-	./dashboard-server/install/build.sh
-
-.PHONY: build-dashboard-ui
-build-dashboard-ui:
-	./dashboard-ui/install/build.sh
-
 .PHONY: build
-build: build-admin-server build-admin-ui build-phone-server build-phone-ui build-dashboard-server build-dashboard-ui
+build: build-admin-server build-admin-ui build-phone-server build-phone-ui
 
 ##################################
 
@@ -93,16 +77,8 @@ push-phone-server:
 push-phone-ui:
 	./phone-ui/install/push.sh
 
-.PHONY: push-dashboard-server
-push-dashboard-server:
-	./dashboard-server/install/push.sh
-
-.PHONY: push-dashboard-ui
-push-dashboard-ui:
-	./dashboard-ui/install/push.sh
-
 .PHONY: push
-push: push-admin-server push-admin-ui push-phone-server push-phone-ui push-dashboard-server push-dashboard-ui
+push: push-admin-server push-admin-ui push-phone-server push-phone-ui
 
 ##################################
 
@@ -138,16 +114,8 @@ deploy-phone-server: login
 deploy-phone-ui: login
 	./phone-ui/install/deploy.sh
 
-.PHONY: deploy-dashboard-server
-deploy-dashboard-server: login
-	./dashboard-server/install/deploy.sh
-
-.PHONY: deploy-dashboard-ui
-deploy-dashboard-ui: login
-	./dashboard-ui/install/deploy.sh
-	
 .PHONY: deploy
-deploy: login deploy-common deploy-admin-server deploy-admin-ui deploy-phone-server deploy-phone-ui deploy-dashboard-server deploy-dashboard-ui
+deploy: login deploy-common deploy-admin-server deploy-admin-ui deploy-phone-server deploy-phone-ui
 
 ##################################
 
@@ -170,16 +138,8 @@ rollout-phone-server: login
 rollout-phone-ui: login
 	./phone-ui/install/rollout.sh
 
-.PHONY: rollout-dashboard-server
-rollout-dashboard-server: login
-	./dashboard-server/install/rollout.sh
-
-.PHONY: rollout-dashboard-ui
-rollout-dashboard-ui: login
-	./dashboard-ui/install/rollout.sh
-
 .PHONY: rollout
-rollout: login rollout-admin-server rollout-admin-ui rollout-phone-server rollout-phone-ui rollout-dashboard-server rollout-dashboard-ui
+rollout: login rollout-admin-server rollout-admin-ui rollout-phone-server rollout-phone-ui
 
 ##################################
 
@@ -206,16 +166,8 @@ undeploy-phone-server: login
 undeploy-phone-ui: login
 	./phone-ui/install/undeploy.sh
 
-.PHONY: undeploy-dashboard-server
-undeploy-dashboard-server: login
-	./dashboard-server/install/undeploy.sh
-
-.PHONY: undeploy-dashboard-ui
-undeploy-dashboard-ui: login
-	./dashboard-ui/install/undeploy.sh
-
 .PHONY: undeploy
-undeploy: login undeploy-dashboard-ui undeploy-dashboard-server undeploy-phone-ui undeploy-phone-server undeploy-admin-ui undeploy-admin-server undeploy-common
+undeploy: login undeploy-phone-ui undeploy-phone-server undeploy-admin-ui undeploy-admin-server undeploy-common
 
 
 ##################################
