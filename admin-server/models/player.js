@@ -1,5 +1,6 @@
 const Model = require('./model');
 const generateUsername = require('./username/generate-username');
+const generateAvatar = require('./generate-avatar');
 
 class Player extends Model {
   static get dataClient() {
@@ -9,7 +10,7 @@ class Player extends Model {
   constructor() {
     super();
     this.username = generateUsername();
-    this.avatar = {};
+    this.avatar = generateAvatar();
     this.gameId = global.game.id;
     this.score = 0;
     this.lastRound = null;

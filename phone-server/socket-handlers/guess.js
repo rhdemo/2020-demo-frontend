@@ -8,6 +8,7 @@ const Player = require('../models/player');
 const Configuration = require('../models/configuration');
 
 async function guessHandler(ws, messageObj) {
+  log.debug('guessHandler', messageObj);
   let guess = messageObj;
 
   let {playerId, gameId, choices, answers} = guess;
@@ -33,7 +34,7 @@ async function guessHandler(ws, messageObj) {
   let retries = 5;
   while (retries > 0 && !guessResult) {
     try {
-      const response = await axios({
+      const requestInfo = {
         headers: {
           "content-type": "application/json",
         },
@@ -50,10 +51,14 @@ async function guessHandler(ws, messageObj) {
           answers,
           pointsAvailable: player.currentRound.points
         }
-      });
-      guessResult = response.data
+      };
+
+      log.debug('request info=', requestInfo);
+      const response = await axios(requestInfo);
+      guessResult = response.data;
+      log.info(guessResult);
     } catch (error) {
-      log.error("error occurred in http call to prediction API:");
+      log.error("error occurred in http call to scoring API:");
       log.error(error.message);
       guessResult = null;
       retries--;

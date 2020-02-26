@@ -14,6 +14,10 @@ import {
 let socket;
 
 function getSocketUrl() {
+  if (process.env.REACT_APP_PHONE_SOCKET_URL) {
+    return process.env.REACT_APP_PHONE_SOCKET_URL
+  }
+
   let port = '';
   if (window.location.port) {
     port = `:${window.location.port}`;
