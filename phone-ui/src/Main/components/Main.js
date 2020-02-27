@@ -19,58 +19,13 @@ function Main({ player, currentRound, sendPing, answer, game, sendGuess }) {
       }
     );
 
-    setDroppable(droppable);
+    // setDroppable(droppable);
 
-    // droppable.on("drag:stop", event => {
-    //   const droppableDestination = event.source.parentNode;
-    //   const destinationIndex = droppableDestination.dataset.index;
-    //   const droppedIndex = event.source.dataset.index;
-    //
-    //   let choices = [...currentRound.choices];
-    //   let answers = currentRound.answers.map(({ format, number }) => ({
-    //     format,
-    //     number
-    //   }));
-    //
-    //   let guess = {
-    //     itemId: currentRound.itemId,
-    //     playerId: player.id,
-    //     gameId: game.id,
-    //     choices,
-    //     source: droppedIndex,
-    //     answers,
-    //     destination: destinationIndex
-    //   };
-    //
-    //   sendGuess(guess);
-    // });
-    //
-    // // droppable.on("drag:stop", dragStopHandler);
-    //
-    // droppable.on("droppable:dropped", event => {
-    //   if (!event.dropzone.classList.contains("guess")) {
-    //     event.cancel();
-    //     return;
-    //   }
-    //
-    //   if (event.dropzone.classList.contains("draggable-dropzone--occupied")) {
-    //     event.cancel();
-    //     return;
-    //   }
-    // });
-  }, []);
-
-  useEffect(() => {
-    if (!droppable) {
-      return;
-    }
-
-    function dragStopHandler(event) {
+    droppable.on("drag:stop", event => {
       const droppableDestination = event.source.parentNode;
       const destinationIndex = droppableDestination.dataset.index;
       const droppedIndex = event.source.dataset.index;
 
-      console.log(currentRound);
       let choices = [...currentRound.choices];
       let answers = currentRound.answers.map(({ format, number }) => ({
         format,
@@ -88,40 +43,85 @@ function Main({ player, currentRound, sendPing, answer, game, sendGuess }) {
       };
 
       sendGuess(guess);
-    }
+    });
+    //
+    // // droppable.on("drag:stop", dragStopHandler);
+    //
+    // droppable.on("droppable:dropped", event => {
+    //   if (!event.dropzone.classList.contains("guess")) {
+    //     event.cancel();
+    //     return;
+    //   }
+    //
+    //   if (event.dropzone.classList.contains("draggable-dropzone--occupied")) {
+    //     event.cancel();
+    //     return;
+    //   }
+    // });
+  }, []);
 
-    if (!droppableListenersSet) {
-      droppable.on("drag:stop", dragStopHandler);
-      setDroppableListenersSet(true);
-    }
+  useEffect(() => {
+    // if (!droppable) {
+    //   return;
+    // }
+    //
+    // function dragStopHandler(event) {
+    //   const droppableDestination = event.source.parentNode;
+    //   const destinationIndex = droppableDestination.dataset.index;
+    //   const droppedIndex = event.source.dataset.index;
+    //
+    //   console.log(currentRound);
+    //   let choices = [...currentRound.choices];
+    //   let answers = currentRound.answers.map(({ format, number }) => ({
+    //     format,
+    //     number
+    //   }));
+    //
+    //   let guess = {
+    //     itemId: currentRound.itemId,
+    //     playerId: player.id,
+    //     gameId: game.id,
+    //     choices,
+    //     source: droppedIndex,
+    //     answers,
+    //     destination: destinationIndex
+    //   };
+    //
+    //   sendGuess(guess);
+    // }
+    //
+    // if (!droppableListenersSet) {
+    //   droppable.on("drag:stop", dragStopHandler);
+    //   setDroppableListenersSet(true);
+    // }
   }, [droppable, currentRound]);
 
   useEffect(() => {
-    currentRound.answers.forEach((answer, index) => {
-      if (answer.result === "incorrect") {
-        const incorrectGuessDropzone = document.querySelector(
-          `.number-input .guess.dropzone[data-index="${index}"]`
-        );
-        const incorrectGuess = incorrectGuessDropzone.querySelector(
-          ".choice.item"
-        );
-        const originalGuessLocation = document.querySelector(
-          `.choices .dropzone[data-index="${parseInt(answer.from, 10)}"]`
-        );
-
-        originalGuessLocation.appendChild(incorrectGuess);
-        incorrectGuessDropzone.classList.remove("draggable-dropzone--occupied");
-        originalGuessLocation.classList.add("draggable-dropzone--occupied");
-      }
-
-      if (answer.result === "correct") {
-        // const correctGuessDropzone = document.querySelector(`.number-input .guess[data-index="${index}"]`);
-        // const originalDiv = document.querySelector(`.number-input .guess .choice.item[data-index="${answer.from}"]`);
-        // if (correctGuessDropzone && originalDiv) {
-        //   correctGuessDropzone.removeChild(originalDiv);
-        // }
-      }
-    });
+    // currentRound.answers.forEach((answer, index) => {
+    //   if (answer.result === "incorrect") {
+    //     const incorrectGuessDropzone = document.querySelector(
+    //       `.number-input .guess.dropzone[data-index="${index}"]`
+    //     );
+    //     const incorrectGuess = incorrectGuessDropzone.querySelector(
+    //       ".choice.item"
+    //     );
+    //     const originalGuessLocation = document.querySelector(
+    //       `.choices .dropzone[data-index="${parseInt(answer.from, 10)}"]`
+    //     );
+    //
+    //     originalGuessLocation.appendChild(incorrectGuess);
+    //     incorrectGuessDropzone.classList.remove("draggable-dropzone--occupied");
+    //     originalGuessLocation.classList.add("draggable-dropzone--occupied");
+    //   }
+    //
+    //   if (answer.result === "correct") {
+    //     // const correctGuessDropzone = document.querySelector(`.number-input .guess[data-index="${index}"]`);
+    //     // const originalDiv = document.querySelector(`.number-input .guess .choice.item[data-index="${answer.from}"]`);
+    //     // if (correctGuessDropzone && originalDiv) {
+    //     //   correctGuessDropzone.removeChild(originalDiv);
+    //     // }
+    //   }
+    // });
   }, [currentRound]);
 
   return (
