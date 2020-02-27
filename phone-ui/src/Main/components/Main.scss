@@ -1,155 +1,286 @@
+@import "../../sass/_variables.scss";
+@import "../../sass/_mixins.scss";
+
 .main {
   display: flex;
   flex-direction: column;
+  background-color: #e2e2ed;
+  height: 100%;
 
-  .player {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4d5258;
-    padding-top: 1rem;
-
-    .avatar {
-      font-size: 6rem;
-      margin-right: 1rem;
-    }
-
-    .text-info {
-      h2, h3 {
-        margin: 0.2rem;
-      }
-    }
-  }
-
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: .5rem;
-
-    .heading {
-      font-size: 2rem;
-      font-weight: 400;
-      margin: 1rem;
-    }
-
-    .image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: transparent;
-      width: 12rem;
-      height: 12rem;
-      text-align: center;
-      vertical-align: center;
-      font-size: 1.2rem;
-
-      img {
-        width: 100%;
-      }
-    }
-  }
-
-  .number-input,
-  .number-select {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: .5rem;
-  }
-
-  .dollar-sign,
-  .decimal,
-  .number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    margin: .5rem;
-    font-size: 2rem;
-    font-weight: 900;
-  }
-
-  .dollar-sign,
-  .decimal {
-    width: 0.2rem;
-    height: 3.2rem;
-  }
-
-  .number {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 0.75rem;
-    width: 3.2rem;
-    color: gray;
-  }
-
-  .number.empty {
-    border: 1px dashed black;
+  header {
+    padding: $pagePadding;
+    height: 30%;
     background-color: white;
   }
 
-  .number-choice.number.filled {
-    background-color: #7AE6FF;
-    color: white;
-  }
+  main {
+    height: 70%;
+    position: relative;
 
-  .number-drop-area.number.correct {
-    background-color: #63E07B;
-    color: white;
-  }
-
-  .number-drop-area.number.incorrect {
-    background-color: #FF3F3C;
-    color: white;
-  }
-
-
-  .number-select {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: .5rem;
-
-    .number-choice {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 3rem;
-      height: 3rem;
-      margin: .25rem;
-      font-size: 2rem;
-      font-weight: 900;
-      color: white;
-      border-radius: 0.75rem;
-
-      &.filled {
-        background-color: #7AE6FF;
-      }
-
-      &.empty {
-        background-color: white;
-      }
+    .mountains {
+      background-image: url(../../images/small-mountains.svg);
+      background-repeat: repeat-x;
+      height: 150px;
+      margin-top: -48px;
     }
-  }
 
-  .help {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
+    .content {
+      position: relative;
+      height: 100%;
+      top: -110px;
+      @include center-content;
 
-    button {
-      font-size: 2rem;
-      display: inline-block;
-      text-align: center;
-      vertical-align: middle;
-      border: 1px solid transparent;
-      background-color: lightgray;
-      padding: .2rem 1.5rem;
-      line-height: 1.5;
-      border-radius: 1rem;
+      .image {
+        background: white;
+        width: 175px;
+        height: 175px;
+        border-radius: 24px;
+        margin-bottom: 24px;
+      }
+
+      .dropzone {
+        width: 48px;
+        height: 48px;
+        margin: 8px;
+      }
+
+      .number-input {
+        display: flex;
+
+        .guess {
+          height: 48px;
+          width: 48px;
+          background-image: url(../../images/border.svg);
+          margin: 8px;
+        }
+      }
+
+      .choices,
+      .number-input {
+        display: flex;
+
+        .bg {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 48px;
+          width: 48px;
+          border-radius: 0.5rem;
+          background-color: #7ae6ff;
+          color: white;
+          font-size: 2.5rem;
+          text-shadow: 1px 1px 2px #551e70;
+          padding-bottom: 6px;
+          box-shadow: -1px 3px 0px #25c8e0, -2px 6px 10px rgba(0, 0, 0, 0.1);
+          transform: skew(5deg);
+          cursor: pointer;
+          transition: transform 100ms ease-in-out;
+
+          .number {
+            transform: skew(-5deg);
+          }
+        }
+
+        .draggable-mirror {
+          z-index: 1;
+        }
+
+        .draggable-mirror .bg {
+          transform: skew(5deg) scale(1.5);
+        }
+      }
+
+      .help {
+        background-image: url(../../images/help-button.svg);
+        background-size: cover;
+        border: none;
+        -webkit-appearance: none;
+        height: 48px;
+        width: 100px;
+      }
     }
   }
 }
+
+// .item {
+//   height: 100%;
+// }
+// .dropzone {
+//   outline: solid 1px;
+//   height: 50px;
+// }
+// .draggable-dropzone--occupied {
+//   background: lightgreen;
+// }
+//
+// .main {
+//   display: flex;
+//   flex-direction: column;
+//
+//   .player {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     color: #4d5258;
+//     padding-top: 1rem;
+//
+//     .avatar {
+//       font-size: 6rem;
+//       margin-right: 1rem;
+//     }
+//
+//     .text-info {
+//       h2,
+//       h3 {
+//         margin: 0.2rem;
+//       }
+//     }
+//   }
+//
+//   .item {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     margin: 0.5rem;
+//
+//     .heading {
+//       font-size: 2rem;
+//       font-weight: 400;
+//       margin: 1rem;
+//     }
+//
+//     .image {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       background-color: transparent;
+//       width: 12rem;
+//       height: 12rem;
+//       text-align: center;
+//       vertical-align: center;
+//       font-size: 1.2rem;
+//
+//       img {
+//         width: 100%;
+//       }
+//     }
+//   }
+//
+//   .number-input,
+//   .number-select {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 0.5rem;
+//   }
+//
+//   .dollar-sign,
+//   .decimal,
+//   .number {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     border: none;
+//     margin: 0.5rem;
+//     font-size: 2rem;
+//     font-weight: 900;
+//   }
+//
+//   .dollar-sign,
+//   .decimal {
+//     width: 0.2rem;
+//     height: 3.2rem;
+//   }
+//
+//   .number {
+//     width: 3rem;
+//     height: 3rem;
+//     border-radius: 0.75rem;
+//     width: 3.2rem;
+//     color: gray;
+//   }
+//
+//   .number.empty {
+//     border: 1px dashed black;
+//     background-color: white;
+//   }
+//
+//   .number-choice.number.filled {
+//     background-color: #7ae6ff;
+//     color: white;
+//   }
+//
+//   .number-drop-area.number.correct {
+//     background-color: #63e07b;
+//     color: white;
+//   }
+//
+//   .number-drop-area.number.incorrect {
+//     background-color: #ff3f3c;
+//     color: white;
+//   }
+//
+//   .number-select {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 0.5rem;
+//
+//     .number-choice {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       width: 3rem;
+//       height: 3rem;
+//       margin: 0.25rem;
+//       font-size: 2rem;
+//       font-weight: 900;
+//       color: white;
+//       border-radius: 0.75rem;
+//
+//       &.filled {
+//         background-color: #7ae6ff;
+//       }
+//
+//       &.empty {
+//         background-color: white;
+//       }
+//     }
+//   }
+//
+//   .help {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 1rem;
+//
+//     button {
+//       font-size: 2rem;
+//       display: inline-block;
+//       text-align: center;
+//       vertical-align: middle;
+//       border: 1px solid transparent;
+//       background-color: lightgray;
+//       padding: 0.2rem 1.5rem;
+//       line-height: 1.5;
+//       border-radius: 1rem;
+//     }
+//   }
+// }
+
+// .main {
+//   .dropzone {
+//     width: 100px;
+//     height: 100px;
+//     background: wheat;
+//     border: 1px solid black;
+//   }
+//
+//   .item,
+//   .draggable-mirror {
+//     width: 100px;
+//     height: 100px;
+//     border: 1px solid red;
+//   }
+// }

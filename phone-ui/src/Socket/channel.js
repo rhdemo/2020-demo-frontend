@@ -14,6 +14,7 @@ import {
 let socket;
 
 function getSocketUrl() {
+  console.log(process.env.REACT_APP_PHONE_SOCKET_URL);
   if (process.env.REACT_APP_PHONE_SOCKET_URL) {
     return process.env.REACT_APP_PHONE_SOCKET_URL
   }

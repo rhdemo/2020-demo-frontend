@@ -1,32 +1,31 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Lobby from '../../Lobby';
-import Paused from '../../Paused';
-import Main from '../../Main';
-import Bonus from '../../Bonus';
-import GameOver from '../../GameOver';
-import Loading from '../../Loading';
-import GAME_STATES from '../../utilities/GameStates';
+import React from "react";
+import { connect } from "react-redux";
+import Lobby from "../../Lobby";
+import Paused from "../../Paused";
+import Main from "../../Main";
+import Bonus from "../../Bonus";
+import GameOver from "../../GameOver";
+import Loading from "../../Loading";
+import GAME_STATES from "../../utilities/GameStates";
 
-import './App.scss';
+import "./App.scss";
 
-function App({game}) {
-
+function App({ game }) {
   if (!game) {
-    return <Loading/>
+    return <Loading />;
   } else {
     switch (game.state) {
       case GAME_STATES.PAUSED:
-        return <Paused/>;
+        return <Paused />;
       case GAME_STATES.ACTIVE:
-        return <Main/>;
+        return <Main />;
       case GAME_STATES.BONUS:
-        return <Bonus/>;
+        return <Bonus />;
       case GAME_STATES.STOPPED:
-        return <GameOver/>;
+        return <GameOver />;
       default:
-        return <Lobby/>;
-        }
+        return <Lobby />;
+    }
   }
 }
 
@@ -38,4 +37,7 @@ function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

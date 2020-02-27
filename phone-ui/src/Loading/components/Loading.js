@@ -1,13 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import './Loading.scss';
+import "./Loading.scss";
 
 function Loading() {
-
   return (
-    <div className='loading'>
-      <h1>Loading</h1>
+    <div className="loading">
+      <p>Loading</p>
     </div>
   );
 }
@@ -20,4 +19,7 @@ function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Loading);
