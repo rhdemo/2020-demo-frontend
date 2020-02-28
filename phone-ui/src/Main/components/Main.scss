@@ -11,6 +11,23 @@
     padding: $pagePadding;
     height: 30%;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    h1,
+    h2 {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
   }
 
   main {
@@ -36,6 +53,14 @@
         height: 175px;
         border-radius: 24px;
         margin-bottom: 24px;
+        padding: 16px;
+
+        .image-background {
+          height: 100%;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
       }
 
       .dropzone {
@@ -74,7 +99,7 @@
           box-shadow: -1px 3px 0px #25c8e0, -2px 6px 10px rgba(0, 0, 0, 0.1);
           transform: skew(5deg);
           cursor: pointer;
-          transition: transform 100ms ease-in-out;
+          transition: transform 200ms ease-in-out;
 
           .number {
             transform: skew(-5deg);
@@ -86,7 +111,7 @@
         }
 
         .draggable-mirror .bg {
-          transform: skew(5deg) scale(1.5);
+          transform: skew(5deg) scale(2);
         }
       }
 
@@ -101,186 +126,3 @@
     }
   }
 }
-
-// .item {
-//   height: 100%;
-// }
-// .dropzone {
-//   outline: solid 1px;
-//   height: 50px;
-// }
-// .draggable-dropzone--occupied {
-//   background: lightgreen;
-// }
-//
-// .main {
-//   display: flex;
-//   flex-direction: column;
-//
-//   .player {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     color: #4d5258;
-//     padding-top: 1rem;
-//
-//     .avatar {
-//       font-size: 6rem;
-//       margin-right: 1rem;
-//     }
-//
-//     .text-info {
-//       h2,
-//       h3 {
-//         margin: 0.2rem;
-//       }
-//     }
-//   }
-//
-//   .item {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     flex-direction: column;
-//     margin: 0.5rem;
-//
-//     .heading {
-//       font-size: 2rem;
-//       font-weight: 400;
-//       margin: 1rem;
-//     }
-//
-//     .image {
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       background-color: transparent;
-//       width: 12rem;
-//       height: 12rem;
-//       text-align: center;
-//       vertical-align: center;
-//       font-size: 1.2rem;
-//
-//       img {
-//         width: 100%;
-//       }
-//     }
-//   }
-//
-//   .number-input,
-//   .number-select {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin: 0.5rem;
-//   }
-//
-//   .dollar-sign,
-//   .decimal,
-//   .number {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     border: none;
-//     margin: 0.5rem;
-//     font-size: 2rem;
-//     font-weight: 900;
-//   }
-//
-//   .dollar-sign,
-//   .decimal {
-//     width: 0.2rem;
-//     height: 3.2rem;
-//   }
-//
-//   .number {
-//     width: 3rem;
-//     height: 3rem;
-//     border-radius: 0.75rem;
-//     width: 3.2rem;
-//     color: gray;
-//   }
-//
-//   .number.empty {
-//     border: 1px dashed black;
-//     background-color: white;
-//   }
-//
-//   .number-choice.number.filled {
-//     background-color: #7ae6ff;
-//     color: white;
-//   }
-//
-//   .number-drop-area.number.correct {
-//     background-color: #63e07b;
-//     color: white;
-//   }
-//
-//   .number-drop-area.number.incorrect {
-//     background-color: #ff3f3c;
-//     color: white;
-//   }
-//
-//   .number-select {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin: 0.5rem;
-//
-//     .number-choice {
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       width: 3rem;
-//       height: 3rem;
-//       margin: 0.25rem;
-//       font-size: 2rem;
-//       font-weight: 900;
-//       color: white;
-//       border-radius: 0.75rem;
-//
-//       &.filled {
-//         background-color: #7ae6ff;
-//       }
-//
-//       &.empty {
-//         background-color: white;
-//       }
-//     }
-//   }
-//
-//   .help {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin: 1rem;
-//
-//     button {
-//       font-size: 2rem;
-//       display: inline-block;
-//       text-align: center;
-//       vertical-align: middle;
-//       border: 1px solid transparent;
-//       background-color: lightgray;
-//       padding: 0.2rem 1.5rem;
-//       line-height: 1.5;
-//       border-radius: 1rem;
-//     }
-//   }
-// }
-
-// .main {
-//   .dropzone {
-//     width: 100px;
-//     height: 100px;
-//     background: wheat;
-//     border: 1px solid black;
-//   }
-//
-//   .item,
-//   .draggable-mirror {
-//     width: 100px;
-//     height: 100px;
-//     border: 1px solid red;
-//   }
-// }
