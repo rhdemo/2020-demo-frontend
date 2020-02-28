@@ -114,10 +114,18 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
   const playerName = <span>{player.username}</span>;
   const pointsSuffix = player.score === 1 ? "" : "s";
 
+  const playerNameArray = player.username.split("");
+  const displayArray = [];
+  playerNameArray.forEach(letter => {
+    displayArray.push(`<span>${letter}</span>`);
+  });
+
+  const displayName = { __html: displayArray.join("") };
+
   return (
     <div className="main">
       <header>
-        <h1>{playerName}</h1>
+        <h1 dangerouslySetInnerHTML={displayName}></h1>
         <h2>
           {player.score} point{pointsSuffix}
         </h2>
