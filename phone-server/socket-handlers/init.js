@@ -1,5 +1,7 @@
 const log = require('../utils/log')('socket-handlers/init');
 const send = require('../utils/send');
+const axios = require('../utils/axios');
+const {SCORING_URL} = require('../utils/constants');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
 const generateUsername = require('../utils/username/generate-username');
@@ -48,6 +50,28 @@ async function createNewPlayer(ws, username) {
   let player = new Player();
   player.username = username;
   log.debug('createNewPlayer', username, player);
+
+  try {
+    const requestInfo = {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: "POST",
+      url: new URL("/scores", SCORING_URL).href,
+      data: {
+        game: global.game,
+        player: player.toDict(),
+        answers: null
+      }
+    };
+
+    const response = await axios(requestInfo);
+    log.debug(response);
+    player = new Player(response.data.player);
+  } catch (error) {
+    log.error("error occurred in http call to scoring API:");
+    log.error(error.message);
+  }
 
   try {
     await player.save();

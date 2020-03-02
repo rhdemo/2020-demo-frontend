@@ -7,6 +7,7 @@ module.exports.GAME_STATES = {
   STOPPED: "stopped",
   PAUSED: "paused",
   LOADING: "loading",
-  ACTIVE: "active"
+  ACTIVE: "active",
+  BONUS: "bonus"
 };
 
