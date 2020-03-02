@@ -4,7 +4,7 @@ export const GAME_STATES = {
   PAUSED: "paused",
   LOADING: "loading",
   ACTIVE: "active",
-  BONUS: "bonus",
+  BONUS: "bonus"
 };
 
 export default GAME_STATES;

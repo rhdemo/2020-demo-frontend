@@ -1,9 +1,9 @@
 const log = require('../utils/log')('socket-handlers/guess');
 const send = require('../utils/send');
 const axios = require('../utils/axios');
+const {CLUSTER_NAME} = require('../utils/constants');
 const {SCORING_URL} = require('../utils/constants');
 const {GAME_STATES} = require('../models/constants');
-const itemData = require('../models/item-data');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
 
@@ -31,41 +31,31 @@ async function guessHandler(ws, messageObj) {
   }
 
   let guessResult = null;
-  let retries = 5;
-  while (retries > 0 && !guessResult) {
-    try {
-      const requestInfo = {
-        headers: {
-          "content-type": "application/json",
-        },
-        method: "POST",
-        url: SCORING_URL,
-        data: {
-          game: global.game,
-          player: {
-            id: player.id,
-            username: player.username,
-            score: player.score
-          },
-          item: itemData[player.currentRound.itemId],
-          answers,
-          pointsAvailable: player.currentRound.points
-        }
-      };
+  try {
+    player.gameServer = CLUSTER_NAME;
+    const requestInfo = {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: "POST",
+      url: new URL("/scores", SCORING_URL).href,
+      data: {
+        game: global.game,
+        player: player.toDict(),
+        answers
+      }
+    };
 
-      log.debug('request info=', requestInfo);
-      const response = await axios(requestInfo);
-      guessResult = response.data;
-      log.info(guessResult);
-    } catch (error) {
-      log.error("error occurred in http call to scoring API:");
-      log.error(error.message);
-      guessResult = null;
-      retries--;
-    }
+    const response = await axios(requestInfo);
+    guessResult = response.data;
+    log.debug(guessResult);
+  } catch (error) {
+    log.error("error occurred in http call to scoring API:");
+    log.error(error.message);
+    guessResult = null;
   }
 
-  player.processGuess(guessResult);
+  player = new Player(guessResult.player);
 
   try {
     await player.save();

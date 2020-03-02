@@ -10,7 +10,7 @@ for ENV_VAR in $(sed 's/=.*//' ${ENV_FILE}); do export "${ENV_VAR}"; done
 PHONE_SERVER_PORT=${PHONE_SERVER_PORT:-8081}
 DATAGRID_HOST=${DATAGRID_HOST:-0.0.0.0}
 DATAGRID_HOTROD_PORT=${DATAGRID_HOTROD_PORT:-11222}
-SCORING_URL=${SCORING_URL:-http://localhost:8084/scores}
+SCORING_URL=${SCORING_URL:-http://localhost:8084}
 
 cd ${DIR}/..
 pwd
