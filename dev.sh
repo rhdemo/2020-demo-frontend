@@ -10,7 +10,7 @@ else
   mkdir ${DIR}/tmp
 fi
 
-./common/infinispan/dev.sh
+# ./common/infinispan/dev.sh
 
 ./admin-server/install/dev.sh 2>&1 > ${DIR}/tmp/admin-server.log &
 pid[0]=$!

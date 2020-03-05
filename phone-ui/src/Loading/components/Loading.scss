@@ -1,3 +1,6 @@
+@import "../../sass/_mixins.scss";
+
 .loading {
-  text-align: center;
+  @include page;
+  @include center-content;
 }
