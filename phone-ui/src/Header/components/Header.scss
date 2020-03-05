@@ -1,0 +1,30 @@
+@import "../../sass/_variables.scss";
+@import "../../sass/_mixins.scss";
+
+header.Header {
+  padding: $pagePadding;
+  height: 30%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  h1,
+  h2 {
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    color: #e36060;
+
+    span:nth-child(even) {
+      color: #ff6d67;
+    }
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+}
