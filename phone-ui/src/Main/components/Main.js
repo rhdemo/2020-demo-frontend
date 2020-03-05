@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { sendPing, sendGuess } from "../actions";
+import Header from "../../Header";
+import MainContent from "../../MainContent";
 import { Droppable } from "@shopify/draggable";
 
 import "./Main.scss";
@@ -111,28 +113,11 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
     backgroundImage: `url(${currentRound.image})`
   };
 
-  const playerName = <span>{player.username}</span>;
-  const pointsSuffix = player.score === 1 ? "" : "s";
-
-  const playerNameArray = player.username.split("");
-  const displayArray = [];
-  playerNameArray.forEach(letter => {
-    displayArray.push(`<span>${letter}</span>`);
-  });
-
-  const displayName = { __html: displayArray.join("") };
-
   return (
     <div className="main">
-      <header>
-        <h1 dangerouslySetInnerHTML={displayName}></h1>
-        <h2>
-          {player.score} point{pointsSuffix}
-        </h2>
-      </header>
-      <main>
-        <div className="mountains"></div>
-        <div className="content" ref={ref}>
+      <Header></Header>
+      <MainContent>
+        <div ref={ref}>
           <div className="image">
             <div className="image-background" style={imageBackground}></div>
           </div>
@@ -189,7 +174,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
             ))}
           </div>
         </div>
-      </main>
+      </MainContent>
     </div>
   );
 }

@@ -2,132 +2,89 @@
 @import "../../sass/_mixins.scss";
 
 .main {
-  display: flex;
-  flex-direction: column;
-  background-color: #e2e2ed;
-  height: 100%;
+  @include page-layout;
 
-  header {
-    padding: $pagePadding;
-    height: 30%;
-    background-color: white;
+  .MainContent .content > div {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 
-    h1,
-    h2 {
-      margin: 0;
-    }
+    .image {
+      background: white;
+      width: 175px;
+      height: 175px;
+      border-radius: 24px;
+      margin-bottom: 24px;
+      padding: 16px;
 
-    h1 {
-      font-size: 1.5rem;
-      color: #e36060;
-
-      span:nth-child(even) {
-        color: #ff6d67;
+      .image-background {
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
       }
     }
 
-    h2 {
-      font-size: 1.25rem;
-    }
-  }
-
-  main {
-    height: 70%;
-    position: relative;
-
-    .mountains {
-      background-image: url(../../images/small-mountains.svg);
-      background-repeat: repeat-x;
-      height: 150px;
-      margin-top: -48px;
+    .dropzone {
+      width: 48px;
+      height: 48px;
+      margin: 8px;
     }
 
-    .content {
-      position: relative;
-      height: 100%;
-      top: -110px;
-      @include center-content;
+    .number-input {
+      display: flex;
 
-      .image {
-        background: white;
-        width: 175px;
-        height: 175px;
-        border-radius: 24px;
-        margin-bottom: 24px;
-        padding: 16px;
-
-        .image-background {
-          height: 100%;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-        }
-      }
-
-      .dropzone {
-        width: 48px;
+      .guess {
         height: 48px;
+        width: 48px;
+        background-image: url(../../images/border.svg);
         margin: 8px;
       }
+    }
 
-      .number-input {
+    .choices,
+    .number-input {
+      display: flex;
+
+      .bg {
         display: flex;
-
-        .guess {
-          height: 48px;
-          width: 48px;
-          background-image: url(../../images/border.svg);
-          margin: 8px;
-        }
-      }
-
-      .choices,
-      .number-input {
-        display: flex;
-
-        .bg {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 48px;
-          width: 48px;
-          border-radius: 0.5rem;
-          background-color: #7ae6ff;
-          color: white;
-          font-size: 2.5rem;
-          text-shadow: 1px 1px 2px #551e70;
-          padding-bottom: 6px;
-          box-shadow: -1px 3px 0px #25c8e0, -2px 6px 10px rgba(0, 0, 0, 0.1);
-          transform: skew(5deg);
-          cursor: pointer;
-          transition: transform 200ms ease-in-out;
-
-          .number {
-            transform: skew(-5deg);
-          }
-        }
-
-        .draggable-mirror {
-          z-index: 1;
-        }
-
-        .draggable-mirror .bg {
-          transform: skew(5deg) scale(2);
-        }
-      }
-
-      .help {
-        background-image: url(../../images/help-button.svg);
-        background-size: cover;
-        border: none;
-        -webkit-appearance: none;
+        justify-content: center;
+        align-items: center;
         height: 48px;
-        width: 100px;
+        width: 48px;
+        border-radius: 0.5rem;
+        background-color: #7ae6ff;
+        color: white;
+        font-size: 2.5rem;
+        text-shadow: 1px 1px 2px #551e70;
+        padding-bottom: 6px;
+        box-shadow: -1px 3px 0px #25c8e0, -2px 6px 10px rgba(0, 0, 0, 0.1);
+        transform: skew(5deg);
+        cursor: pointer;
+        transition: transform 200ms ease-in-out;
+
+        .number {
+          transform: skew(-5deg);
+        }
       }
+
+      .draggable-mirror {
+        z-index: 1;
+      }
+
+      .draggable-mirror .bg {
+        transform: skew(5deg) scale(2);
+      }
+    }
+
+    .help {
+      background-image: url(../../images/help-button.svg);
+      background-size: cover;
+      border: none;
+      -webkit-appearance: none;
+      height: 48px;
+      width: 100px;
     }
   }
 }
