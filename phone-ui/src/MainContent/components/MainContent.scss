@@ -1,0 +1,21 @@
+@import "../../sass/_variables.scss";
+@import "../../sass/_mixins.scss";
+
+main.MainContent {
+  height: 70%;
+  position: relative;
+
+  .mountains {
+    background-image: url(../../images/small-mountains.svg);
+    background-repeat: repeat-x;
+    height: 150px;
+    margin-top: -48px;
+  }
+
+  .content {
+    position: relative;
+    height: 100%;
+    top: -110px;
+    @include center-content;
+  }
+}
