@@ -3,4 +3,12 @@
 
 .bonus {
   @include page-layout;
+
+  canvas {
+    margin-bottom: 32px;
+  }
+
+  img {
+    display: none;
+  }
 }
