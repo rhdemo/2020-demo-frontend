@@ -26,7 +26,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
     droppable.on("drag:stop", event => {
       const droppableDestination = event.source.parentNode;
       const destinationIndex = droppableDestination.dataset.index;
-      const droppedIndex = event.source.dataset.index;
+      const droppedIndex = parseInt(event.source.dataset.index, 10);
 
       if (!droppableDestination.classList.contains("guess")) {
         return;

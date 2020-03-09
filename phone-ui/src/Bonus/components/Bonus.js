@@ -4,8 +4,9 @@ import Header from "../../Header";
 import MainContent from "../../MainContent";
 
 import "./Bonus.scss";
+import { sendBonusGuess } from '../actions';
 
-function Bonus({ player }) {
+function Bonus({ game, player, sendBonusGuess }) {
   const canvasRef = React.createRef();
   const imageRef = React.createRef();
   const canvasWidth = 10 * 28 + 1;
@@ -133,7 +134,13 @@ function Bonus({ player }) {
     inputs = inputs.map(v => (255 - v) / 255.0);
     console.log(JSON.stringify(inputs));
 
-    alert("Image submitted");
+    let guess = {
+      playerId: player.id,
+      gameId: game.id,
+      image: inputs
+    };
+
+    sendBonusGuess(guess);
   }
 
   return (
@@ -153,11 +160,15 @@ function Bonus({ player }) {
 }
 
 function mapStateToProps(state) {
-  return state.mainReducer;
+  return state.bonusReducer;
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    sendBonusGuess: guess => {
+      dispatch(sendBonusGuess(guess));
+    }
+  };
 }
 
 export default connect(
