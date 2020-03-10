@@ -8,5 +8,6 @@ export const OUTGOING_MESSAGE_TYPES = {
   PING: 'ping',
   HELP: 'help',
   GUESS: 'guess',
+  BONUS_GUESS: 'bonus-guess'
 };
 

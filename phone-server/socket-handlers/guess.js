@@ -1,14 +1,11 @@
 const log = require('../utils/log')('socket-handlers/guess');
 const send = require('../utils/send');
-const axios = require('../utils/axios');
-const {CLUSTER_NAME} = require('../utils/constants');
-const {SCORING_URL} = require('../utils/constants');
 const {GAME_STATES} = require('../models/constants');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
+const updateScore = require('./update-score');
 
 async function guessHandler(ws, messageObj) {
-  log.debug('guessHandler', messageObj);
   let guess = messageObj;
 
   let {playerId, gameId, choices, answers} = guess;
@@ -30,46 +27,15 @@ async function guessHandler(ws, messageObj) {
     return;
   }
 
-  let guessResult = null;
   try {
-    player.gameServer = CLUSTER_NAME;
-    const requestInfo = {
-      headers: {
-        "content-type": "application/json",
-      },
-      method: "POST",
-      url: new URL("/scores", SCORING_URL).href,
-      data: {
-        game: global.game,
-        player: player.toDict(),
-        answers
-      }
-    };
-
-    const response = await axios(requestInfo);
-    guessResult = response.data;
-    log.debug(guessResult);
+    let updatedPlayer = await updateScore(player, answers);
+    if (updatedPlayer) {
+      let configuration = new Configuration(updatedPlayer);
+      send(ws, JSON.stringify(configuration));
+    }
   } catch (error) {
-    log.error("error occurred in http call to scoring API:");
-    log.error(error.message);
-    guessResult = null;
+    log.error(`Score update failed.`);
   }
-
-  player = new Player(guessResult.player);
-
-  try {
-    await player.save();
-  } catch (error) {
-    log.error(`Player ${playerId} data not saved`);
-    return;
-  }
-
-  let configuration = new Configuration(player);
-  log.debug(configuration);
-  send(ws, JSON.stringify(configuration));
 }
-
-
-
 
 module.exports = guessHandler;

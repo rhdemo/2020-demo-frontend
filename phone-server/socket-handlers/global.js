@@ -26,6 +26,10 @@ function global(conn, messageStr) {
       guessHandler(conn, messageObj);
       break;
 
+    case INCOMING_MESSAGE_TYPES.BONUS_GUESS:
+      bonusGuessHandler(conn, messageObj);
+      break;
+
     default:
       log.warn(`Unhandled Game Message of type '${messageStr}'`);
       break;
@@ -48,6 +52,7 @@ function wrapMessageHandler (type, fn) {
 
 const initHandler = wrapMessageHandler(INCOMING_MESSAGE_TYPES.INIT, require('./init'));
 const guessHandler = wrapMessageHandler(INCOMING_MESSAGE_TYPES.GUESS, require('./guess'));
+const bonusGuessHandler = wrapMessageHandler(INCOMING_MESSAGE_TYPES.BONUS_GUESS, require('./bonus-guess'));
 const pingHandler = wrapMessageHandler(INCOMING_MESSAGE_TYPES.PING, function (ws, messageObj) {
   ws.send(JSON.stringify({type: OUTGOING_MESSAGE_TYPES.PING_RESPONSE}));
 });
