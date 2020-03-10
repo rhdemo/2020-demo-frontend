@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { sendPing, sendGuess } from "../actions";
 import Header from "../../Header";
@@ -9,7 +9,10 @@ import "./Main.scss";
 
 function Main({ player, currentRound, sendPing, game, sendGuess }) {
   const ref = React.createRef();
+  const [toastClass, setToastClass] = useState("");
   const currentRoundState = useRef(currentRound);
+  const playerRef = useRef(player);
+  const [pointGain, setPointGain] = useState(0);
 
   useEffect(() => {
     const droppable = new Droppable(
@@ -77,11 +80,16 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
         );
 
         if (originalGuessLocation && incorrectGuess) {
-          originalGuessLocation.appendChild(incorrectGuess);
-          incorrectGuessDropzone.classList.remove(
-            "draggable-dropzone--occupied"
-          );
-          originalGuessLocation.classList.add("draggable-dropzone--occupied");
+          incorrectGuess.classList.toggle("incorrect");
+
+          setTimeout(() => {
+            incorrectGuess.classList.toggle("incorrect");
+            originalGuessLocation.appendChild(incorrectGuess);
+            incorrectGuessDropzone.classList.remove(
+              "draggable-dropzone--occupied"
+            );
+            originalGuessLocation.classList.add("draggable-dropzone--occupied");
+          }, 500);
         }
       }
 
@@ -107,7 +115,20 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
     }
 
     currentRoundState.current = currentRound;
-  }, [currentRound]);
+  }, [currentRound, ref]);
+
+  useEffect(() => {
+    if (playerRef.current.score !== player.score) {
+      setPointGain(player.score - playerRef.current.score);
+      setToastClass("show");
+
+      setTimeout(() => {
+        setToastClass("");
+      }, 2000);
+    }
+
+    playerRef.current = player;
+  }, [player, toastClass]);
 
   const imageBackground = {
     backgroundImage: `url(${currentRound.image})`
@@ -125,7 +146,14 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
             <h2>$</h2>
             {currentRound.answers.map((answer, index) => {
               if (answer.format === "decimal") {
-                return <div key={currentRound.itemId + "-" + index}>.</div>;
+                return (
+                  <div
+                    className="decimal"
+                    key={currentRound.itemId + "-" + index}
+                  >
+                    .
+                  </div>
+                );
               }
 
               if (answer.result === "correct") {
@@ -135,7 +163,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
                     key={currentRound.itemId + "-" + index}
                     data-index={index}
                   >
-                    <div className="choice item">
+                    <div className="choice item correct">
                       <div className="bg">
                         <div className="number">{answer.number}</div>
                       </div>
@@ -175,6 +203,10 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
           </div>
         </div>
       </MainContent>
+      <div className={`toast ${toastClass}`}>
+        <div>Nice!</div>
+        <div>+{pointGain} Points</div>
+      </div>
     </div>
   );
 }

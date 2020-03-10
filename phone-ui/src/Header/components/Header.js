@@ -16,10 +16,15 @@ function Header({ player }) {
 
   return (
     <header className="Header">
-      <h1 dangerouslySetInnerHTML={displayName}></h1>
-      <h2>
-        {player.score} point{pointsSuffix}
-      </h2>
+      <div className="container">
+        <div className="avatar"></div>
+        <div className="player-details">
+          <h1 dangerouslySetInnerHTML={displayName}></h1>
+          <h2>
+            {player.score} point{pointsSuffix}
+          </h2>
+        </div>
+      </div>
     </header>
   );
 }

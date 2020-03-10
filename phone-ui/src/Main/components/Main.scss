@@ -29,7 +29,8 @@
     .dropzone {
       width: 48px;
       height: 48px;
-      margin: 8px;
+      background-image: url(../../images/border.svg);
+      margin: 6px;
     }
 
     .number-input {
@@ -39,13 +40,18 @@
         height: 48px;
         width: 48px;
         background-image: url(../../images/border.svg);
-        margin: 8px;
+        margin: 6px;
       }
     }
 
     .choices,
     .number-input {
       display: flex;
+      outline: none;
+
+      .decimal {
+        margin-top: 35px;
+      }
 
       .bg {
         display: flex;
@@ -78,6 +84,16 @@
       }
     }
 
+    .number-input .correct .bg {
+      background-color: #63e07c;
+      box-shadow: -1px 3px 0px #44aa55, -2px 6px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .number-input .incorrect .bg {
+      background-color: #ff3d3e;
+      box-shadow: -1px 3px 0px #b72c2c, -2px 6px 10px rgba(0, 0, 0, 0.1);
+    }
+
     .help {
       background-image: url(../../images/help-button.svg);
       background-size: cover;
@@ -85,6 +101,26 @@
       -webkit-appearance: none;
       height: 48px;
       width: 100px;
+    }
+  }
+
+  .toast {
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(99, 224, 124, 0.95);
+    text-shadow: 4px 4px 1px #4eaf5d;
+    font-size: 2rem;
+    color: white;
+    padding: 16px;
+    text-align: center;
+    transition: transform 200ms ease-in-out;
+    transform: translate3d(0, -100%, 0);
+
+    &.show {
+      transform: translate3d(0, 0, 0);
     }
   }
 }
