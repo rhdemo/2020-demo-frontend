@@ -82,7 +82,7 @@ async function bonusGuessHandler(ws, messageObj) {
       send(ws, JSON.stringify(configuration));
     }
   } catch (error) {
-    log.error(`Score update failed.`);
+    log.error('Score update failed.');
   }
 }
 
