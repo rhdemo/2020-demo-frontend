@@ -2,12 +2,12 @@
 
 const path = require('path');
 const AutoLoad = require('fastify-autoload');
-const log = require('./utils/log')('phone-server');
+const log = require('./utils/log')('admin-edge');
 const broadcast = require('./utils/broadcast');
 const globalHandler = require('./socket-handlers/global');
-const {OUTGOING_MESSAGE_TYPES} = require('./socket-handlers/message-types');
 const initGameData = require('./datagrid/init-game-data');
 const initPlayerData = require('./datagrid/init-player-data');
+const initGameMessaging = require('./messaging/init-game-messaging');
 
 
 const opts = {};
@@ -55,14 +55,11 @@ fastify.register(require('fastify-websocket'), {
 }).after(err => {
   global.socketServer = fastify.websocketServer;
   initGameData()
-    .then(() => initPlayerData());
+    .then(() => initPlayerData())
+    .then(() => initGameMessaging());
   setInterval(function () {
-    broadcast(JSON.stringify({
-      type: OUTGOING_MESSAGE_TYPES.HEARTBEAT,
-      game: global.game,
-      leaderboard: []
-    }));
-  }, 3000);
+    broadcast('heartbeat');
+  }, 5000);
 });
 
 
@@ -73,5 +70,6 @@ fastify.listen(PORT, IP, function (err, address) {
   }
   log.info(`server listening on ${address}`);
 });
+
 
 
