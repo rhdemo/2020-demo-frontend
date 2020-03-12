@@ -4,7 +4,7 @@ const axios = require('../utils/axios');
 const {SCORING_URL} = require('../utils/constants');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
-const generateUsername = require('../utils/username/generate-username');
+const generateUsername = require('../models/username/generate-username');
 
 async function initHandler(ws, messageObj) {
   log.debug('initHandler', messageObj);

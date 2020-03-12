@@ -1,5 +1,5 @@
 const log = require("../utils/log")("datagrid/read-game");
-const {GAME_DATA_KEYS} = require("./constants");
+const {GAME_DATA_KEYS} = require("../models/constants");
 
 async function readGame() {
   try {

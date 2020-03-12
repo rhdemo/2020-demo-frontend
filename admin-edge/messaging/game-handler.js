@@ -10,7 +10,7 @@ async function gameHandler(message) {
     await game.save();
     global.game = game;
   } catch (error) {
-    log.error("Failed to update game. Error:", error.message);
+    log.error("Failed to update game. Error:", error);
   }
 }
 

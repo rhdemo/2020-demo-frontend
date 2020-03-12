@@ -5,8 +5,10 @@ const AutoLoad = require('fastify-autoload');
 const log = require('./utils/log')('admin-edge');
 const broadcast = require('./utils/broadcast');
 const globalHandler = require('./socket-handlers/global');
+require("./datagrid/enable-logging");
 const initGameData = require('./datagrid/init-game-data');
 const initPlayerData = require('./datagrid/init-player-data');
+const pollDatagrid = require("./datagrid/poll-datagrid");
 const initGameMessaging = require('./messaging/init-game-messaging');
 
 
@@ -56,7 +58,10 @@ fastify.register(require('fastify-websocket'), {
   global.socketServer = fastify.websocketServer;
   initGameData()
     .then(() => initPlayerData())
-    .then(() => initGameMessaging());
+    .then(() => {
+      pollDatagrid(5000);
+      initGameMessaging();
+    });
   setInterval(function () {
     broadcast('heartbeat');
   }, 5000);
