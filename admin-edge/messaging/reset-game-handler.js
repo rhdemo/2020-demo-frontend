@@ -20,7 +20,7 @@ async function resetGameHandler(message) {
     global.game = game;
     await playerDeleteAllPromise;
   } catch (error) {
-    log.error(`error occurred resetting players and game. Error:`, error.message);
+    log.error(`error occurred resetting players and game. Error:`, error);
   }
 }
 
