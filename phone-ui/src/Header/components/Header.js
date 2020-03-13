@@ -20,9 +20,25 @@ function Header({ player }) {
         <div className="avatar"></div>
         <div className="player-details">
           <h1 dangerouslySetInnerHTML={displayName}></h1>
-          <h2>
-            {player.score} point{pointsSuffix}
-          </h2>
+          <div className="points-location">
+            <div>
+              <img
+                src={require("../../images/icon-points.svg")}
+                alt="Points icon"
+                className="icon"
+              />{" "}
+              {player.score} point
+              {pointsSuffix}
+            </div>
+            <div>
+              <img
+                src={require("../../images/icon-location.svg")}
+                alt="Location icon"
+                className="icon"
+              />{" "}
+              San Francisco
+            </div>
+          </div>
         </div>
       </div>
     </header>

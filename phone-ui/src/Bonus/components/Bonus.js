@@ -1,41 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import Header from "../../Header";
 import MainContent from "../../MainContent";
+import Button from "../../Button";
 
 import "./Bonus.scss";
-import { sendBonusGuess } from '../actions';
+import { sendBonusGuess } from "../actions";
 
 function Bonus({ game, player, sendBonusGuess }) {
-  const canvasRef = React.createRef();
-  const imageRef = React.createRef();
   const canvasWidth = 10 * 28 + 1;
   const canvasHeight = canvasWidth;
   const lineWidth = 16;
-  let context;
-  let canvas;
+  let image = useRef(null);
+  let canvas = useRef(null);
   let previous;
   let drawing = false;
   let imageSource;
 
   useEffect(() => {
-    canvas = canvasRef.current;
-    context = canvas.getContext("2d");
+    const context = canvas.current.getContext("2d");
     context.fillStyle = "#fff";
     context.fillRect(0, 0, canvasWidth, canvasHeight);
 
     if ("ontouchstart" in document.documentElement) {
-      canvas.addEventListener("touchstart", touchstartHandler);
-      canvas.addEventListener("touchmove", touchmoveHandler);
-      canvas.addEventListener("touchend", touchendHandler);
+      canvas.current.addEventListener("touchstart", touchstartHandler);
+      canvas.current.addEventListener("touchmove", touchmoveHandler);
+      canvas.current.addEventListener("touchend", touchendHandler);
     } else {
-      canvas.addEventListener("mousedown", mousedownHandler);
-      canvas.addEventListener("mouseup", mouseupHandler);
-      canvas.addEventListener("mousemove", mousemoveHandler);
+      canvas.current.addEventListener("mousedown", mousedownHandler);
+      canvas.current.addEventListener("mouseup", mouseupHandler);
+      canvas.current.addEventListener("mousemove", mousemoveHandler);
     }
 
-    imageRef.current.onload = imageOnLoadHandler;
-  }, []);
+    image.current.onload = imageOnLoadHandler;
+  }, [canvas, image]);
 
   function touchstartHandler(event) {
     const xPosition = event.targetTouches[0]
@@ -58,6 +56,7 @@ function Bonus({ game, player, sendBonusGuess }) {
         ? event.targetTouches[0].pageY
         : event.changedTouches[event.changedTouches.length - 1].pageY;
       const current = getPosition(xPosition, yPosition);
+      const context = canvas.current.getContext("2d");
       context.lineWidth = lineWidth;
       context.lineCap = "round";
       context.beginPath();
@@ -85,6 +84,7 @@ function Bonus({ game, player, sendBonusGuess }) {
   function mousemoveHandler(event) {
     if (drawing) {
       const current = getPosition(event.clientX, event.clientY);
+      const context = canvas.current.getContext("2d");
       context.lineWidth = lineWidth;
       context.lineCap = "round";
       context.beginPath();
@@ -97,7 +97,7 @@ function Bonus({ game, player, sendBonusGuess }) {
   }
 
   function getPosition(clientX, clientY) {
-    var rect = canvas.getBoundingClientRect();
+    var rect = canvas.current.getBoundingClientRect();
     return {
       x: clientX - rect.left,
       y: clientY - rect.top
@@ -105,12 +105,18 @@ function Bonus({ game, player, sendBonusGuess }) {
   }
 
   function submitGuess(event) {
-    imageRef.current.src = canvas.toDataURL();
+    image.current.src = canvas.current.toDataURL();
+  }
+
+  function clear() {
+    const context = canvas.current.getContext("2d");
+    context.fillStyle = "#fff";
+    context.fillRect(0, 0, canvasWidth, canvasHeight);
   }
 
   function imageOnLoadHandler() {
     /* we need images as 28*28=784 length list */
-    var img = imageRef.current;
+    var img = image.current;
     var inputs = [];
     var small = document.createElement("canvas").getContext("2d");
     /* Resize the larger Image to 28*28 */
@@ -147,13 +153,12 @@ function Bonus({ game, player, sendBonusGuess }) {
     <div className="bonus">
       <Header></Header>
       <MainContent>
-        <canvas
-          width={canvasWidth}
-          height={canvasHeight}
-          ref={canvasRef}
-        ></canvas>
-        <button onClick={submitGuess}>Submit Guess</button>
-        <img ref={imageRef} />
+        <canvas width={canvasWidth} height={canvasHeight} ref={canvas}></canvas>
+        <div>
+          <Button handleClick={submitGuess}>Guess</Button>
+          <Button handleClick={clear}>Clear</Button>
+        </div>
+        <img id="hidden-img" ref={image} />
       </MainContent>
     </div>
   );

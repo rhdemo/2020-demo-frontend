@@ -2,7 +2,7 @@
 @import "../../sass/_mixins.scss";
 
 header.Header {
-  padding: $pagePadding;
+  padding: 8px;
   padding-top: $pagePadding + 8;
   height: 30%;
   background-color: white;
@@ -42,6 +42,28 @@ header.Header {
 
       h2 {
         font-size: 1.25rem;
+      }
+
+      .points-location {
+        margin-top: 8px;
+        display: flex;
+        font-family: "Open Sans";
+        font-size: 0.9rem;
+
+        & > div {
+          margin-right: 8px;
+          @media (min-width: 380px) {
+            margin-right: 16px;
+          }
+          display: flex;
+          align-items: center;
+        }
+
+        .icon {
+          width: 16px;
+          height: 16px;
+          margin-right: 4px;
+        }
       }
     }
   }

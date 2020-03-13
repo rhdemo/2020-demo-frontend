@@ -47,6 +47,8 @@
     .choices,
     .number-input {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       outline: none;
 
       .decimal {
