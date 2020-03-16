@@ -6,7 +6,7 @@ const generateAvatar = () => {
     mouth: Math.floor(Math.random() * 4),
     ears: Math.floor(Math.random() * 4),
     nose: Math.floor(Math.random() * 4),
-    color: Math.floor(Math.random() * 4)
+    color: Math.floor(Math.random() * 9)
   };
 };
 

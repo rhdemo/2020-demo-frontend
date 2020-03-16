@@ -43,6 +43,7 @@ export const mainReducer = (state = initialState, action) => {
 function processWsMessage(state, message) {
   switch (message.type) {
     case INCOMING_MESSAGE_TYPES.PLAYER_CONFIGURATION:
+      updateLocalStorage(state, message);
       return {
         ...state,
         player: message.player,
@@ -51,5 +52,20 @@ function processWsMessage(state, message) {
       };
     default:
       return state;
+  }
+}
+
+function updateLocalStorage(state, message) {
+  const originalPlayerId = get(state, 'player.id');
+  const originalGameId = get(state, 'game.id');
+  const playerId = get(message, 'player.id');
+  const gameId = get(message, 'game.id');
+
+  if (playerId && playerId !== originalPlayerId) {
+    localStorage.setItem('playerId', playerId);
+  }
+
+  if (gameId && gameId !== originalGameId) {
+    localStorage.setItem('gameId', gameId);
   }
 }
