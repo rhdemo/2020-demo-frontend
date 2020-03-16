@@ -1,10 +1,15 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
 import { sendOutgoingMessage, WS_OPEN } from '../../Socket/actions';
-import { OUTGOING_MESSAGE_TYPES} from '../../Socket/messageTypes';
+import { OUTGOING_MESSAGE_TYPES } from '../../Socket/messageTypes';
 
 function* executeSendInit(action) {
-  yield put(sendOutgoingMessage({type: OUTGOING_MESSAGE_TYPES.INIT}));
+  let msg = {
+    type: OUTGOING_MESSAGE_TYPES.INIT,
+    playerId: localStorage.getItem('playerId') || undefined,
+    gameId: localStorage.getItem('gameId') || undefined,
+  };
+  yield put(sendOutgoingMessage(msg));
 }
 
 export function* watchWsOpen() {

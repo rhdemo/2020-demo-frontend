@@ -11,7 +11,6 @@ class Player extends Model {
 
   constructor(player) {
     super(player);
-    this.id = uuidv4();
     this.username = generateUsername();
     this.avatar = generateAvatar();
     this.gameId = global.game.id;
@@ -38,7 +37,9 @@ class Player extends Model {
 
   beforeSave() {
     super.beforeSave();
-    this.id = this.username;
+    if (!this.id) {
+      this.id = `${CLUSTER_NAME} - ${this.username}`;
+    }
   }
 }
 

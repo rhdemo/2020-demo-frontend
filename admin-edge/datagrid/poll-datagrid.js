@@ -17,7 +17,7 @@ function pollDatagrid(interval) {
 async function checkGameClient() {
   log.debug("check Infinispan Game Client");
   try {
-    let game = await Game.find(GAME_DATA_KEYS.CURRENT_GAME);
+    let game = await global.gameData.find(GAME_DATA_KEYS.CURRENT_GAME);
     if (game) {
       global.game = game;
     } else {
