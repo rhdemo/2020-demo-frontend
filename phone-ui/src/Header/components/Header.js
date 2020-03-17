@@ -35,8 +35,7 @@ function Header({ player }) {
                 src={require("../../images/icon-location.svg")}
                 alt="Location icon"
                 className="icon"
-              />{" "}
-              San Francisco
+              />{' ' + player.gameServer}
             </div>
           </div>
         </div>
