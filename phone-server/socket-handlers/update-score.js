@@ -28,19 +28,19 @@ async function updateScore(player, answers) {
     log.error("error occurred in http call to scoring API:");
     log.error(error.message);
     guessResult = null;
-    return null;
+    return player;  //revert on error
   }
 
-  let updatedPLayer = new Player(guessResult.player);
+  let updatedPlayer = new Player(guessResult.player);
 
   try {
-    await updatedPLayer.save();
+    await updatedPlayer.save();
   } catch (error) {
     log.error(`Player ${player.id} data not saved`);
-    return null;
+    return updatedPlayer;
   }
 
-  return updatedPLayer;
+  return updatedPlayer;
 }
 
 module.exports = updateScore;
