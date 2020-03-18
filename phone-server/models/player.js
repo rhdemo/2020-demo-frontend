@@ -27,7 +27,7 @@ class Player extends Model {
   }
 
   get attributes() {
-    return ['id', 'username', 'avatar', 'gameId', 'score', 'right', 'wrong', 'lastRound', 'currentRound', 'creationServer', 'gameServer', 'scoringServer'];
+    return ['id', 'username', 'avatar', 'gameId', 'score', 'right', 'wrong', 'history', 'lastRound', 'currentRound', 'creationServer', 'gameServer', 'scoringServer'];
   }
 
   get related() {
