@@ -7,7 +7,7 @@ import Button from "../../Button";
 import "./Bonus.scss";
 import { sendBonusGuess } from "../actions";
 
-function Bonus({ game, player, sendBonusGuess }) {
+function Bonus({ game, player, currentRound, sendBonusGuess }) {
   const canvasWidth = 10 * 28 + 1;
   const canvasHeight = canvasWidth;
   const lineWidth = 16;
@@ -34,6 +34,11 @@ function Bonus({ game, player, sendBonusGuess }) {
 
     image.current.onload = imageOnLoadHandler;
   }, [canvas, image]);
+
+  useEffect(() => {
+    console.log(currentRound);
+    clear();
+  }, [currentRound]);
 
   function touchstartHandler(event) {
     const xPosition = event.targetTouches[0]
@@ -149,10 +154,55 @@ function Bonus({ game, player, sendBonusGuess }) {
     sendBonusGuess(guess);
   }
 
+  const imageBackground = {
+    backgroundImage: `url(${currentRound.image})`
+  };
+
   return (
     <div className="bonus">
       <Header></Header>
       <MainContent>
+        <div className="number-input">
+          <h2>$</h2>
+          {currentRound.answers.map((answer, index) => {
+            if (answer.format === "decimal") {
+              return (
+                <div
+                  className="decimal"
+                  key={currentRound.itemId + "-" + index}
+                >
+                  .
+                </div>
+              );
+            }
+
+            if (answer.result) {
+              return (
+                <div
+                  className="guess"
+                  key={currentRound.itemId + "-" + index}
+                  data-index={index}
+                >
+                  <div className={"choice item " + answer.result}>
+                    <div className="bg">
+                      <div className="number">{answer.number}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <div
+                className="guess"
+                key={currentRound.itemId + "-" + index}
+              ></div>
+            );
+          })}
+          <div className="image">
+            <div className="image-background" style={imageBackground}></div>
+          </div>
+        </div>
         <canvas width={canvasWidth} height={canvasHeight} ref={canvas}></canvas>
         <div>
           <Button handleClick={submitGuess}>Guess</Button>
