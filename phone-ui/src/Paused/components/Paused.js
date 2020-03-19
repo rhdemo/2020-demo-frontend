@@ -15,8 +15,20 @@ function Paused({ player }) {
             <thead>
               <tr>
                 <th>Object</th>
-                <th className="center">√</th>
-                <th className="center">X</th>
+                <th className="center">
+                  <img
+                    src={require("../../images/history-check.svg")}
+                    alt="Correct guesses"
+                    className="icon"
+                  />
+                </th>
+                <th className="center">
+                  <img
+                    src={require("../../images/history-x.svg")}
+                    alt="Incorrect guesses"
+                    className="icon"
+                  />
+                </th>
                 <th>Points</th>
               </tr>
             </thead>
