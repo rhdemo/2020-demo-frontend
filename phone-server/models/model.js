@@ -1,4 +1,5 @@
-const uuidv4 = require("uuid/v4");
+const { v4: uuidv4 } = require('uuid');
+const log = require('../utils/log')('models/model');
 
 class Model {
 
@@ -31,7 +32,22 @@ class Model {
       this.id = uuidv4();
     }
 
-    return this.dataClient.put(this.key, this.toJSON());
+    const startTime = new Date();
+    let result;
+    try {
+      result = await this.dataClient.put(this.key, this.toJSON());
+    } catch (error) {
+      log.error(`Error saving ${this.type}`);
+    }
+
+    const endTime = new Date();
+    const timeDiff = endTime - startTime;
+
+    if (timeDiff > 100) {
+      log.warn(` ${this.type} save took ${timeDiff} ms`);
+    }
+
+    return result;
   }
 
   async delete() {
@@ -78,8 +94,22 @@ class Model {
   }
 
   static async find(key) {
-    let json = await this.dataClient.get(key);
-    return json ? this.fromJSON(json) : null;
+    try {
+      const startTime = new Date();
+
+      let json = await this.dataClient.get(key);
+
+      const endTime = new Date();
+      const timeDiff = endTime - startTime;
+
+      if (timeDiff > 100) {
+        log.warn(` ${this.type} save took ${timeDiff} ms`);
+      }
+
+      return json ? this.fromJSON(json) : null;
+    } catch {
+      log.error(`Error finding ${this.type} ${key}`);
+    }
   }
 
   static async deleteAll() {

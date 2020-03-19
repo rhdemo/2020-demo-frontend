@@ -6,6 +6,8 @@ const Player = require('../models/player');
 
 async function updateScore(player, answers) {
   let guessResult = null;
+  const startTime = new Date();
+
   try {
     player.gameServer = CLUSTER_NAME;
     const requestInfo = {
@@ -29,6 +31,13 @@ async function updateScore(player, answers) {
     log.error(error.message);
     guessResult = null;
     return player;  //revert on error
+  }
+
+  const endTime = new Date();
+  const timeDiff = endTime - startTime;
+
+  if (timeDiff > 300) {
+    log.warn(`Scoring service request took ${timeDiff} ms`);
   }
 
   let updatedPlayer = new Player(guessResult.player);

@@ -4,7 +4,6 @@ const axios = require('../utils/axios');
 const {SCORING_URL} = require('../utils/constants');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
-const generateUsername = require('../models/username/generate-username');
 
 async function initHandler(ws, messageObj) {
   log.debug('initHandler', messageObj);
@@ -21,17 +20,16 @@ async function initPlayer(ws, playerId, gameId) {
 
   //combination of playerId + gameId should be unique
   if (playerId && gameId === global.game.id) {
-    player = await getExistingPlayer(ws, playerId)
+    player = await getExistingPlayer(playerId)
   } else {
-    let username = await generateUniqueUsername();
-    player = await createNewPlayer(ws, username);
+    player = await createNewPlayer();
   }
 
   global.players[player.key] = {...player, ws};
   return player;
 }
 
-async function getExistingPlayer(ws, playerId) {
+async function getExistingPlayer(playerId) {
   let player;
   try {
     player = await Player.find(playerId);
@@ -46,10 +44,17 @@ async function getExistingPlayer(ws, playerId) {
   return player;
 }
 
-async function createNewPlayer(ws, username) {
-  let player = new Player();
-  player.username = username;
-  log.debug('createNewPlayer', username, player);
+async function createNewPlayer() {
+  let player;
+
+  try {
+    player = await generateUniquePlayer();
+  } catch (error) {
+    log.error("error generating Unique Player");
+    log.error(error);
+  }
+
+  const startTime = new Date();
 
   try {
     const requestInfo = {
@@ -73,6 +78,13 @@ async function createNewPlayer(ws, username) {
     log.error(error.message);
   }
 
+  const endTime = new Date();
+  const timeDiff = endTime - startTime;
+
+  if (timeDiff > 300) {
+    log.warn(`Scoring service request took ${timeDiff} ms`);
+  }
+
   try {
     await player.save();
   } catch (error) {
@@ -82,25 +94,30 @@ async function createNewPlayer(ws, username) {
   return player;
 }
 
-async function generateUniqueUsername() {
-  let i = 0;
-  let username = null;
-  while (i < 100) {
-    username = generateUsername();
-    try {
-      let playerStr = await Player.find(username);
-      if (!playerStr) {
-        return username;
-      }
-    } catch (error) {
-      log.error('error occurred retrieving player data: ', error.message);
-    } finally {
-      i++;
+async function generateUniquePlayer() {
+  let unique = false;
+  let player = new Player();
+  try {
+    let playerStr = await Player.find(player.key);
+    if (!playerStr) {
+      unique = true;
     }
+  } catch (error) {
+    log.error('error occurred retrieving player data: ', error.message);
   }
 
-  username += ' ' + Math.random().toString(36).substring(2);
-  return username;
+  if (!unique) {
+    player.username += ' ' + Math.random().toString(36).substring(8);
+    player.updateUserId();
+  }
+
+  try {
+    await player.save();
+  } catch (error) {
+    log.error('error occurred saving new player data: ', error.message);
+  }
+
+  return player;
 }
 
 module.exports = initHandler;

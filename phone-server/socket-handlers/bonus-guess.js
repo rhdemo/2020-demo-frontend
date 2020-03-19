@@ -23,6 +23,8 @@ async function bonusGuessHandler(ws, messageObj) {
 
 
   let number = null;
+  const startTime = new Date();
+
   try {
     const requestInfo = {
       headers: {
@@ -55,6 +57,14 @@ async function bonusGuessHandler(ws, messageObj) {
     log.error(error.message);
     return null;
   }
+
+  const endTime = new Date();
+  const timeDiff = endTime - startTime;
+
+  if (timeDiff > 300) {
+    log.warn(`Digit recognition service request took ${timeDiff} ms`);
+  }
+
 
   let player;
   try {
