@@ -27,21 +27,11 @@
     }
 
     .dropzone {
-      width: 48px;
-      height: 48px;
-      background-image: url(../../images/border.svg);
-      margin: 6px;
+      @include bordered-guess;
     }
 
     .number-input {
-      display: flex;
-
-      .guess {
-        height: 48px;
-        width: 48px;
-        background-image: url(../../images/border.svg);
-        margin: 6px;
-      }
+      @include number-input;
     }
 
     .choices,
@@ -86,15 +76,8 @@
       }
     }
 
-    .number-input .correct .bg {
-      background-color: #63e07c;
-      box-shadow: -1px 3px 0px #44aa55, -2px 6px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .number-input .incorrect .bg {
-      background-color: #ff3d3e;
-      box-shadow: -1px 3px 0px #b72c2c, -2px 6px 10px rgba(0, 0, 0, 0.1);
-    }
+    @include correct-guess;
+    @include incorrect-guess;
 
     .help {
       background-image: url(../../images/help-button.svg);

@@ -18,3 +18,58 @@
   background-color: $purple;
   height: 100%;
 }
+
+@mixin number-input {
+  display: flex;
+
+  .guess {
+    @include bordered-guess;
+  }
+
+  .decimal {
+    margin-top: 35px;
+  }
+
+  .bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 48px;
+    border-radius: 0.5rem;
+    background-color: #7ae6ff;
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 2px #551e70;
+    padding-bottom: 6px;
+    box-shadow: -1px 3px 0px #25c8e0, -2px 6px 10px rgba(0, 0, 0, 0.1);
+    transform: skew(5deg);
+    cursor: pointer;
+    transition: transform 200ms ease-in-out;
+
+    .number {
+      transform: skew(-5deg);
+    }
+  }
+}
+
+@mixin bordered-guess {
+  height: 48px;
+  width: 48px;
+  background-image: url(../images/border.svg);
+  margin: 6px;
+}
+
+@mixin correct-guess {
+  .number-input .correct .bg {
+    background-color: #63e07c;
+    box-shadow: -1px 3px 0px #44aa55, -2px 6px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@mixin incorrect-guess {
+  .number-input .incorrect .bg {
+    background-color: #ff3d3e;
+    box-shadow: -1px 3px 0px #b72c2c, -2px 6px 10px rgba(0, 0, 0, 0.1);
+  }
+}

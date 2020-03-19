@@ -11,4 +11,24 @@
   #hidden-img {
     display: none;
   }
+
+  .number-input {
+    @include number-input;
+    margin-bottom: 16px;
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+
+    .image-background {
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  @include correct-guess;
+  @include incorrect-guess;
 }
