@@ -1,3 +1,60 @@
+@import "../../sass/_variables.scss";
+@import "../../sass/_mixins.scss";
+
 .paused {
-  text-align: center;
+  @include page-layout;
+
+  .table-container {
+    background: white;
+    border-radius: 8px;
+    width: calc(100% - 32px);
+    height: 100%;
+    margin: 16px;
+    overflow-y: scroll;
+
+    table {
+      width: 100%;
+      border-spacing: 0;
+
+      .center {
+        text-align: center;
+      }
+
+      thead {
+        th {
+          border-bottom: 1px solid $purple;
+          border-left: 1px solid $purple;
+          font-weight: normal;
+          padding: 4px 12px;
+          position: sticky;
+          top: 0;
+          background: white;
+
+          &:first-child {
+            border-left: none;
+            text-align: left;
+          }
+        }
+      }
+
+      tbody {
+        font-family: "Open Sans";
+
+        tr {
+          &:nth-of-type(even) {
+            background-color: lighten($purple, 5%);
+          }
+
+          td {
+            padding: 4px 12px;
+            border-left: 1px solid $purple;
+
+            &:first-child {
+              border-left: none;
+            }
+          }
+        }
+      }
+    }
+  }
 }

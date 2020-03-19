@@ -15,6 +15,6 @@
 @mixin page-layout {
   display: flex;
   flex-direction: column;
-  background-color: #e2e2ed;
+  background-color: $purple;
   height: 100%;
 }
