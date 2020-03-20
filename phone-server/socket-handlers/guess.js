@@ -3,6 +3,7 @@ const send = require('../utils/send');
 const {GAME_STATES} = require('../models/constants');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
+const {OUTGOING_MESSAGE_TYPES} = require("./message-types");
 const updateScore = require('./update-score');
 
 async function guessHandler(ws, messageObj) {
@@ -32,9 +33,14 @@ async function guessHandler(ws, messageObj) {
     if (updatedPlayer) {
       let configuration = new Configuration(updatedPlayer);
       send(ws, JSON.stringify(configuration));
+    } else {
+      send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR}));
     }
   } catch (error) {
     log.error('Score update failed.');
+    let configuration = new Configuration(player);
+    send(ws, JSON.stringify(configuration));
+    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR}));
   }
 }
 

@@ -4,10 +4,15 @@ const axios = require('../utils/axios');
 const {SCORING_URL} = require('../utils/constants');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
+const {OUTGOING_MESSAGE_TYPES} = require("./message-types");
 
 async function initHandler(ws, messageObj) {
   log.debug('initHandler', messageObj);
   let player = await initPlayer(ws, messageObj.playerId, messageObj.gameId);
+  if (!player) {
+    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR}));
+    return;
+  }
   let configuration = new Configuration(player);
   log.debug(configuration);
   send(ws, JSON.stringify(configuration));
@@ -38,7 +43,7 @@ async function getExistingPlayer(playerId) {
   }
 
   if (!player) {
-    return createNewPlayer(ws, playerId);
+    return createNewPlayer();
   }
 
   return player;
@@ -54,10 +59,35 @@ async function createNewPlayer() {
     log.error(error);
   }
 
-  const startTime = new Date();
+  let updatedPlayer = null;
+  let tries = 0;
+  while (!updatedPlayer && tries < 3) {
+    updatedPlayer = await initPlayerScore(player);
+    tries++;
+  }
+
+  if (updatedPlayer) {
+    player = updatedPlayer;
+  } else {
+    log.error(`Failed to initialize player score ${player.id}`)
+    return null;
+  }
 
   try {
+    await player.save();
+  } catch (error) {
+    log.error('error occurred saving new player data: ', error.message);
+  }
+
+  return player;
+}
+
+async function initPlayerScore(player) {
+  const startTime = new Date();
+  let updatedPlayer = null;
+  try {
     const requestInfo = {
+      timeout: 2000,
       headers: {
         "content-type": "application/json",
       },
@@ -72,7 +102,7 @@ async function createNewPlayer() {
 
     const response = await axios(requestInfo);
     log.debug(response);
-    player = new Player(response.data.player);
+    updatedPlayer = new Player(response.data.player);
   } catch (error) {
     log.error("error occurred in http call to scoring API:");
     log.error(error.message);
@@ -85,13 +115,7 @@ async function createNewPlayer() {
     log.warn(`Scoring service request took ${timeDiff} ms`);
   }
 
-  try {
-    await player.save();
-  } catch (error) {
-    log.error('error occurred saving new player data: ', error.message);
-  }
-
-  return player;
+  return updatedPlayer;
 }
 
 async function generateUniquePlayer() {

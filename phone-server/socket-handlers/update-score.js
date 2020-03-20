@@ -5,12 +5,38 @@ const {SCORING_URL} = require('../utils/constants');
 const Player = require('../models/player');
 
 async function updateScore(player, answers) {
-  let guessResult = null;
+  let updatedPlayer = null;
+  let tries = 0;
+  while (!updatedPlayer && tries < 3) {
+    updatedPlayer = await callScoringService(player, answers);
+    tries++;
+  }
+
+  if (updatedPlayer) {
+    player = updatedPlayer;
+  } else {
+    log.error(`Failed to update player score ${player.id}`);
+    return null;
+  }
+
+  try {
+    await updatedPlayer.save();
+  } catch (error) {
+    log.error(`Player ${player.id} data not saved`);
+    return updatedPlayer;
+  }
+
+  return updatedPlayer;
+}
+
+async function callScoringService(player, answers) {
   const startTime = new Date();
+  let updatedPlayer = null;
 
   try {
     player.gameServer = CLUSTER_NAME;
     const requestInfo = {
+      timeout: 1000,
       headers: {
         "content-type": "application/json",
       },
@@ -24,13 +50,10 @@ async function updateScore(player, answers) {
     };
 
     const response = await axios(requestInfo);
-    guessResult = response.data;
-    log.debug(guessResult);
+    updatedPlayer = new Player(response.data.player)
   } catch (error) {
     log.error("error occurred in http call to scoring API:");
     log.error(error.message);
-    guessResult = null;
-    return player;  //revert on error
   }
 
   const endTime = new Date();
@@ -38,15 +61,6 @@ async function updateScore(player, answers) {
 
   if (timeDiff > 300) {
     log.warn(`Scoring service request took ${timeDiff} ms`);
-  }
-
-  let updatedPlayer = new Player(guessResult.player);
-
-  try {
-    await updatedPlayer.save();
-  } catch (error) {
-    log.error(`Player ${player.id} data not saved`);
-    return updatedPlayer;
   }
 
   return updatedPlayer;

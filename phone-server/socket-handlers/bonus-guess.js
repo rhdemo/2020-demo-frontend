@@ -1,6 +1,7 @@
 const log = require('../utils/log')('socket-handlers/bonus-guess');
 const send = require('../utils/send');
 const axios = require('../utils/axios');
+const {OUTGOING_MESSAGE_TYPES} = require("./message-types");
 const {DIGIT_RECOGNITION_URL} = require('../utils/constants');
 const {GAME_STATES} = require('../models/constants');
 const Player = require('../models/player');
@@ -27,6 +28,7 @@ async function bonusGuessHandler(ws, messageObj) {
 
   try {
     const requestInfo = {
+      timeout: 5000,
       headers: {
         "content-type": "application/json",
       },
@@ -55,7 +57,8 @@ async function bonusGuessHandler(ws, messageObj) {
   } catch (error) {
     log.error("error occurred in http call to digit recognition API:");
     log.error(error.message);
-    return null;
+    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR}));
+    return;
   }
 
   const endTime = new Date();
@@ -90,6 +93,8 @@ async function bonusGuessHandler(ws, messageObj) {
     if (updatedPlayer) {
       let configuration = new Configuration(updatedPlayer);
       send(ws, JSON.stringify(configuration));
+    } else {
+      send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR}));
     }
   } catch (error) {
     log.error('Score update failed.');
