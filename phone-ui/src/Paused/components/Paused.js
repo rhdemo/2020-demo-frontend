@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import Header from "../../Header";
 import MainContent from "../../MainContent";
+import Toast from "../../Toast";
 import "./Paused.scss";
 
 function Paused({ player }) {
+  const gameServerRef = useRef(player.gameServer);
+  const [toastClass, setToastClass] = useState("");
+
+  useEffect(() => {
+    if (gameServerRef.current !== player.gameServer) {
+      setToastClass("show");
+
+      setTimeout(() => {
+        setToastClass("");
+      }, 5000);
+    }
+
+    gameServerRef.current = player.gameServer;
+  }, [player.gameServer]);
+
   return (
     <div className="paused">
       <Header></Header>
@@ -45,6 +61,10 @@ function Paused({ player }) {
           </table>
         </div>
       </MainContent>
+      <Toast className={`info ${toastClass}`}>
+        <div>Your new cluster is</div>
+        <div>{player.gameServer}</div>
+      </Toast>
     </div>
   );
 }

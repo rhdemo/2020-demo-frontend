@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { sendPing, sendGuess } from "../actions";
 import Header from "../../Header";
 import MainContent from "../../MainContent";
+import Toast from "../../Toast";
 import { Droppable } from "@shopify/draggable";
 
 import "./Main.scss";
@@ -203,10 +204,10 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
           </div>
         </div>
       </MainContent>
-      <div className={`toast ${toastClass}`}>
+      <Toast className={`toast ${toastClass}`}>
         <div>Nice!</div>
         <div>+{pointGain} Points</div>
-      </div>
+      </Toast>
     </div>
   );
 }

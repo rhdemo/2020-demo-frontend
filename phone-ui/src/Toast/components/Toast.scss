@@ -1,0 +1,24 @@
+.Toast {
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(99, 224, 124, 0.95);
+  text-shadow: 4px 4px 1px #4eaf5d;
+  font-size: 2rem;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  transition: transform 200ms ease-in-out;
+  transform: translate3d(0, -100%, 0);
+
+  &.info {
+    background-color: rgba(108, 209, 223, 0.95);
+    text-shadow: 4px 4px 1px #4e84ad;
+  }
+
+  &.show {
+    transform: translate3d(0, 0, 0);
+  }
+}
