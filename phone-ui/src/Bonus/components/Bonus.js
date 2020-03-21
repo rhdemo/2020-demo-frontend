@@ -1,13 +1,19 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import Header from "../../Header";
 import MainContent from "../../MainContent";
 import Button from "../../Button";
+import Toast from "../../Toast";
 
 import "./Bonus.scss";
 import { sendBonusGuess } from "../actions";
 
 function Bonus({ game, player, currentRound, sendBonusGuess }) {
+  const [correctToastClass, setCorrectToastClass] = useState("");
+  const [wrongToastClass, setWrongToastClass] = useState("");
+  const [lastWrongGuess, setLastWrongGuess] = useState("");
+  const playerRef = useRef(player);
+  const [pointGain, setPointGain] = useState(0);
   const canvasWidth = 10 * 28 + 1;
   const canvasHeight = canvasWidth;
   const lineWidth = 16;
@@ -36,9 +42,33 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   }, [canvas, image]);
 
   useEffect(() => {
-    console.log(currentRound);
+    for (let i = 0; i < currentRound.answers.length; i++) {
+      if (currentRound.answers[i].result === "incorrect") {
+        setWrongToastClass("show");
+        setLastWrongGuess(currentRound.answers[i].number);
+
+        setTimeout(() => {
+          setWrongToastClass("");
+        }, 2000);
+        break;
+      }
+    }
+
     clear();
   }, [currentRound]);
+
+  useEffect(() => {
+    if (playerRef.current.score !== player.score) {
+      setPointGain(player.score - playerRef.current.score);
+      setCorrectToastClass("show");
+
+      setTimeout(() => {
+        setCorrectToastClass("");
+      }, 2000);
+    }
+
+    playerRef.current = player;
+  }, [player, correctToastClass]);
 
   function touchstartHandler(event) {
     const xPosition = event.targetTouches[0]
@@ -143,7 +173,6 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
     }
     /* normalize the list */
     inputs = inputs.map(v => (255 - v) / 255.0);
-    console.log(JSON.stringify(inputs));
 
     let guess = {
       playerId: player.id,
@@ -210,6 +239,14 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
         </div>
         <img id="hidden-img" ref={image} />
       </MainContent>
+      <Toast className={`warning ${wrongToastClass}`}>
+        <div>{lastWrongGuess} is incorrect</div>
+        <div>Try again</div>
+      </Toast>
+      <Toast className={`toast ${correctToastClass}`}>
+        <div>Nice!</div>
+        <div>+{pointGain} Points</div>
+      </Toast>
     </div>
   );
 }
