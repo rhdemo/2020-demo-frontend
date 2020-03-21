@@ -194,6 +194,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
                   className="choice item"
                   data-index={index}
                   data-number={choice}
+                  hidden={choice === null ? "hidden" : ""}
                 >
                   <div className="bg">
                     <div className="number">{choice}</div>
