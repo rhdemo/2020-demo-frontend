@@ -1,5 +1,4 @@
 const WebSocket = require('ws');
-const log = require('../utils/log')('broadcast');
 
 function broadcast(msg) {
   if (global.socketServer && global.socketServer.clients) {

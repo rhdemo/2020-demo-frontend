@@ -6,11 +6,6 @@ const log = require('./utils/log')('phone-server');
 const broadcast = require('./utils/broadcast');
 const globalHandler = require('./socket-handlers/global');
 const {OUTGOING_MESSAGE_TYPES} = require('./socket-handlers/message-types');
-require("./datagrid/enable-logging");
-const initGameData = require('./datagrid/init-game-data');
-const initPlayerData = require('./datagrid/init-player-data');
-const pollDatagrid = require("./datagrid/poll-datagrid");
-
 
 const opts = {};
 const {PORT, IP, LOG_LEVEL} = require('./utils/constants');
@@ -56,11 +51,6 @@ fastify.register(require('fastify-websocket'), {
   options: wsOpts
 }).after(err => {
   global.socketServer = fastify.websocketServer;
-  initGameData()
-    .then(() => initPlayerData())
-    .then(() => {
-      pollDatagrid(5000);
-    });
   setInterval(function () {
     broadcast(JSON.stringify({
       type: OUTGOING_MESSAGE_TYPES.HEARTBEAT,
