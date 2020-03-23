@@ -1,3 +1,40 @@
-.lobby {
-  text-align: center;
+@import "../../sass/_mixins.scss";
+
+.GameOver {
+  @include page;
+  background-image: url(../../images/small-mountains.svg);
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: contain;
+
+  @media (min-width: 400px) {
+    background-size: 350px;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  header.Header {
+    height: auto;
+    margin-bottom: 32px;
+  }
+
+  .score-table {
+    width: 100%;
+
+    .icon-cell {
+      padding-right: 16px;
+    }
+
+    .icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .total {
+      font-size: 32px;
+      padding-left: 16px;
+    }
+  }
 }
