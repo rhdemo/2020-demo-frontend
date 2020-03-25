@@ -13,17 +13,15 @@
   "dependencies": {
     "axios": "^0.19.2",
     "env-var": "^5.1.0",
-    "fastify": "^2.0.0",
-    "fastify-autoload": "^1.0.0",
-    "fastify-plugin": "^1.5.0",
-    "fastify-websocket": "^1.1.0",
     "infinispan": "^0.7.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "uuid": "^3.4.0"
+    "pino": "^5.17.0",
+    "uuid": "^3.4.0",
+    "ws": "^7.2.3"
   },
   "devDependencies": {
     "nodemon": "^1.19.4",
-    "pino-pretty": "^3.2.2"
+    "pino-pretty": "^3.6.1"
   }
 }

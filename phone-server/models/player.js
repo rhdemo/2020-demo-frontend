@@ -12,6 +12,7 @@ class Player extends Model {
   constructor(player) {
     super(player);
     this.username = generateUsername();
+    this.id = `${CLUSTER_NAME} - ${this.username}`;
     this.avatar = generateAvatar();
     this.gameId = global.game.id;
     this.creationServer = CLUSTER_NAME;
@@ -20,6 +21,10 @@ class Player extends Model {
     if (player) {
       Object.assign(this, player);
     }
+  }
+
+  get type() {
+    return 'Player';
   }
 
   get dataClient() {
@@ -35,10 +40,14 @@ class Player extends Model {
     return {game};
   }
 
+  updateUserId() {
+    this.id = `${CLUSTER_NAME} - ${this.username}`;
+  }
+
   beforeSave() {
     super.beforeSave();
     if (!this.id) {
-      this.id = `${CLUSTER_NAME} - ${this.username}`;
+      this.updateUserId();
     }
   }
 }
