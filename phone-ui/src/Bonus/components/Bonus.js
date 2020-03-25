@@ -208,7 +208,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
               return (
                 <div
                   className="decimal"
-                  key={currentRound.itemId + "-" + index}
+                  key={currentRound.id + "-" + index}
                 >
                   .
                 </div>
@@ -219,7 +219,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
               return (
                 <div
                   className="guess"
-                  key={currentRound.itemId + "-" + index}
+                  key={currentRound.id + "-" + index}
                   data-index={index}
                 >
                   <div className={"choice item " + answer.result}>
@@ -234,7 +234,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
             return (
               <div
                 className="guess"
-                key={currentRound.itemId + "-" + index}
+                key={currentRound.id + "-" + index}
               ></div>
             );
           })}

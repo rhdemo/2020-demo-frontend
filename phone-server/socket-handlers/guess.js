@@ -7,10 +7,8 @@ const {OUTGOING_MESSAGE_TYPES} = require("./message-types");
 const updateScore = require('./update-score');
 
 async function guessHandler(ws, messageObj) {
-  let guess = messageObj;
-
-  let {playerId, gameId, choices, answers} = guess;
-  if (!gameId || gameId !== global.game.id || !playerId || !choices || !answers) {
+  let {playerId, gameId, answers} = messageObj;
+  if (!gameId || gameId !== global.game.id || !playerId || !answers) {
     log.warn('Ignoring incoming malformed guess data.');
     return;
   }

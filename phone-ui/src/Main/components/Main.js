@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
+import lodashGet from 'lodash/get';
 import { sendPing, sendGuess } from "../actions";
 import Header from "../../Header";
 import MainContent from "../../MainContent";
@@ -42,7 +43,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
       );
 
       let guess = {
-        itemId: currentRoundState.current.itemId,
+        itemId: currentRoundState.current.id,
         playerId: player.id,
         gameId: game.id,
         choices,
@@ -108,7 +109,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
       }
     });
 
-    if (currentRoundState.current.itemId !== currentRound.itemId) {
+    if (currentRoundState.current.id !== currentRound.id) {
       [...ref.current.querySelectorAll(".guess.dropzone")].forEach(dropzone => {
         dropzone.innerHTML = null;
         dropzone.classList.remove("draggable-dropzone--occupied");
@@ -119,8 +120,8 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
   }, [currentRound, ref]);
 
   useEffect(() => {
-    if (playerRef.current.score !== player.score) {
-      setPointGain(player.score - playerRef.current.score);
+    if (playerRef.current.score.score !== player.score.score) {
+      setPointGain(player.score.score - playerRef.current.score.score);
       setToastClass("show");
 
       setTimeout(() => {
@@ -132,7 +133,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
   }, [player, toastClass]);
 
   const imageBackground = {
-    backgroundImage: `url(${currentRound.image})`
+    backgroundImage: `url(${currentRound ? currentRound.image : ''})`
   };
 
   return (
@@ -150,7 +151,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
                 return (
                   <div
                     className="decimal"
-                    key={currentRound.itemId + "-" + index}
+                    key={currentRound.id + "-" + index}
                   >
                     .
                   </div>
@@ -161,7 +162,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
                 return (
                   <div
                     className="guess"
-                    key={currentRound.itemId + "-" + index}
+                    key={currentRound.id + "-" + index}
                     data-index={index}
                   >
                     <div className="choice item correct">
@@ -188,7 +189,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
                 className="dropzone draggable-dropzone--occupied"
                 data-index={index}
                 data-number={choice}
-                key={currentRound.itemId + "-" + index}
+                key={currentRound.id + "-" + index}
               >
                 <div
                   className="choice item"
