@@ -30,7 +30,9 @@ async function initPlayer(ws, playerId, gameId) {
     player = await createNewPlayer();
   }
 
-  global.players[player.key] = {...player, ws};
+  if (player) {
+    global.players[player.key] = {...player, ws};
+  }
   return player;
 }
 
@@ -92,17 +94,25 @@ async function initPlayerScore(player) {
         "content-type": "application/json",
       },
       method: "POST",
-      url: new URL("/scores", SCORING_URL).href,
+      url: new URL("/game/join", SCORING_URL).href,
       data: {
         game: global.game,
-        player: player.toDict(),
-        answers: null
+        player: player.toScoringFormat()
       }
     };
 
     const response = await axios(requestInfo);
     log.debug(response);
-    updatedPlayer = new Player(response.data.player);
+    const {score, currentRound} = response.data;
+    player.score = score;
+    player.currentRound = currentRound;
+    player.history.push({
+      itemId: currentRound.id,
+      itemName: currentRound.name,
+      right: 0,
+      wrong: 0,
+      points: null
+    });
   } catch (error) {
     log.error("error occurred in http call to scoring API:");
     log.error(error.message);
@@ -115,7 +125,7 @@ async function initPlayerScore(player) {
     log.warn(`Scoring service request took ${timeDiff} ms`);
   }
 
-  return updatedPlayer;
+  return player;
 }
 
 async function generateUniquePlayer() {

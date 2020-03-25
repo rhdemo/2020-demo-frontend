@@ -17,6 +17,7 @@ class Player extends Model {
     this.gameId = global.game.id;
     this.creationServer = CLUSTER_NAME;
     this.gameServer = CLUSTER_NAME;
+    this.history = [];
     // override generated values with input fields
     if (player) {
       Object.assign(this, player);
@@ -48,6 +49,16 @@ class Player extends Model {
     super.beforeSave();
     if (!this.id) {
       this.updateUserId();
+    }
+  }
+
+  toScoringFormat() {
+    return {
+      id: this.id,
+      username: this.username,
+      creationServer: this.creationServer,
+      gameServer: this.gameServer,
+      avatar: this.avatar
     }
   }
 }

@@ -1,5 +1,3 @@
-export $(shell sed 's/=.*//' .env.default)
-
 ENV_FILE := .env
 ifneq ("$(wildcard $(ENV_FILE))","")
 include ${ENV_FILE}

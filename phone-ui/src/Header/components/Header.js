@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import lodashGet from 'lodash/get';
 
 import "./Header.scss";
 
 function Header({ player }) {
-  const pointsSuffix = player.score === 1 ? "" : "s";
+  const pointsSuffix = player.score.score === 1 ? "" : "s";
   const playerNameArray = player.username.split("");
   const displayArray = [];
 
@@ -27,7 +28,7 @@ function Header({ player }) {
                 alt="Points icon"
                 className="icon"
               />{" "}
-              {player.score} point
+              {lodashGet(player, 'score.score')} point
               {pointsSuffix}
             </div>
             <div>
