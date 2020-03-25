@@ -14,7 +14,6 @@
 
   .number-input {
     @include number-input;
-    margin-bottom: 16px;
   }
 
   .image {
@@ -32,4 +31,26 @@
 
   @include correct-guess;
   @include incorrect-guess;
+
+  .hint {
+    font-family: "Open Sans";
+    font-weight: bold;
+  }
+
+  .canvas-container {
+    position: relative;
+    width: 281px;
+    height: 281px;
+    margin-bottom: 16px;
+
+    .canvas-border {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      border: 16px double #e2e2ed;
+      pointer-events: none;
+    }
+  }
 }

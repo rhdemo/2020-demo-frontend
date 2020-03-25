@@ -12,11 +12,12 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   const [correctToastClass, setCorrectToastClass] = useState("");
   const [wrongToastClass, setWrongToastClass] = useState("");
   const [lastWrongGuess, setLastWrongGuess] = useState("");
+  const [options, setOptions] = useState([]);
   const playerRef = useRef(player);
   const [pointGain, setPointGain] = useState(0);
   const canvasWidth = 10 * 28 + 1;
   const canvasHeight = canvasWidth;
-  const lineWidth = 16;
+  const lineWidth = 36;
   let image = useRef(null);
   let canvas = useRef(null);
   let previous;
@@ -42,6 +43,8 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   }, [canvas, image]);
 
   useEffect(() => {
+    let options = [...currentRound.choices];
+
     for (let i = 0; i < currentRound.answers.length; i++) {
       if (currentRound.answers[i].result === "incorrect") {
         setWrongToastClass("show");
@@ -52,7 +55,14 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
         }, 2000);
         break;
       }
+
+      if (currentRound.answers[i].result === "correct") {
+        const index = options.findIndex(option => option === currentRound.answers[i].number);
+        options.splice(index, 1);
+      }
     }
+
+    setOptions([...new Set(options)]);
 
     clear();
   }, [currentRound]);
@@ -205,7 +215,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
               );
             }
 
-            if (answer.result) {
+            if (answer.result === "correct") {
               return (
                 <div
                   className="guess"
@@ -232,7 +242,16 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
             <div className="image-background" style={imageBackground}></div>
           </div>
         </div>
-        <canvas width={canvasWidth} height={canvasHeight} ref={canvas}></canvas>
+        <div className="hint">
+          Want a hint? Try these:&nbsp;
+          {options.map((option, index) => (
+            <span key={index}>{option}&nbsp;</span>
+          ))}
+        </div>
+        <div className="canvas-container">
+          <canvas width={canvasWidth} height={canvasHeight} ref={canvas}></canvas>
+          <div className="canvas-border"></div>
+        </div>
         <div>
           <Button handleClick={submitGuess}>Guess</Button>
           <Button handleClick={clear}>Clear</Button>
