@@ -81,6 +81,8 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   }, [player, correctToastClass]);
 
   function touchstartHandler(event) {
+    event.preventDefault();
+
     const xPosition = event.targetTouches[0]
       ? event.targetTouches[0].pageX
       : event.changedTouches[event.changedTouches.length - 1].pageX;
@@ -93,6 +95,8 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   }
 
   function touchmoveHandler(event) {
+    event.preventDefault();
+
     if (drawing) {
       const xPosition = event.targetTouches[0]
         ? event.targetTouches[0].pageX
