@@ -57,7 +57,9 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
       }
 
       if (currentRound.answers[i].result === "correct") {
-        const index = options.findIndex(option => option === currentRound.answers[i].number);
+        const index = options.findIndex(
+          option => option === currentRound.answers[i].number
+        );
         options.splice(index, 1);
       }
     }
@@ -68,8 +70,8 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   }, [currentRound]);
 
   useEffect(() => {
-    if (playerRef.current.score !== player.score) {
-      setPointGain(player.score - playerRef.current.score);
+    if (playerRef.current.score.score !== player.score.score) {
+      setPointGain(player.score.score - playerRef.current.score.score);
       setCorrectToastClass("show");
 
       setTimeout(() => {
@@ -210,10 +212,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
           {currentRound.answers.map((answer, index) => {
             if (answer.format === "decimal") {
               return (
-                <div
-                  className="decimal"
-                  key={currentRound.id + "-" + index}
-                >
+                <div className="decimal" key={currentRound.id + "-" + index}>
                   .
                 </div>
               );
@@ -236,10 +235,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
             }
 
             return (
-              <div
-                className="guess"
-                key={currentRound.id + "-" + index}
-              ></div>
+              <div className="guess" key={currentRound.id + "-" + index}></div>
             );
           })}
           <div className="image">
@@ -253,7 +249,11 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
           ))}
         </div>
         <div className="canvas-container">
-          <canvas width={canvasWidth} height={canvasHeight} ref={canvas}></canvas>
+          <canvas
+            width={canvasWidth}
+            height={canvasHeight}
+            ref={canvas}
+          ></canvas>
           <div className="canvas-border"></div>
         </div>
         <div>
