@@ -12,6 +12,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   const [correctToastClass, setCorrectToastClass] = useState("");
   const [wrongToastClass, setWrongToastClass] = useState("");
   const [lastWrongGuess, setLastWrongGuess] = useState("");
+  const [focusIndex, setFocusIndex] = useState(0);
   const [options, setOptions] = useState([]);
   const playerRef = useRef(player);
   const [pointGain, setPointGain] = useState(0);
@@ -43,6 +44,20 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   }, [canvas, image]);
 
   useEffect(() => {
+    for (let i = 0; i < currentRound.answers.length; i++) {
+      if (currentRound.answers[i].format === "number") {
+        if (!("result" in currentRound.answers[i])) {
+          setFocusIndex(i);
+          break;
+        }
+
+        if (currentRound.answers[i].result === "incorrect") {
+          setFocusIndex(i);
+          break;
+        }
+      }
+    }
+
     let options = [...currentRound.choices];
 
     for (let i = 0; i < currentRound.answers.length; i++) {
@@ -234,8 +249,17 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
               );
             }
 
+            let focusClass = "empty";
+
+            if (index === focusIndex) {
+              focusClass = "focus";
+            }
+
             return (
-              <div className="guess" key={currentRound.id + "-" + index}></div>
+              <div
+                className={"guess " + focusClass}
+                key={currentRound.id + "-" + index}
+              ></div>
             );
           })}
           <div className="image">
@@ -268,7 +292,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
       </Toast>
       <Toast className={`toast ${correctToastClass}`}>
         <div>Nice!</div>
-        <div>+{pointGain} Points</div>
+        <div>${pointGain} Gain</div>
       </Toast>
     </div>
   );

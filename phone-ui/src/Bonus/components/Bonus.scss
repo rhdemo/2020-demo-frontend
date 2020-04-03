@@ -32,6 +32,14 @@
   @include correct-guess;
   @include incorrect-guess;
 
+  .guess.empty {
+    opacity: 0.25;
+  }
+
+  .guess.focus {
+    opacity: 1;
+  }
+
   .hint {
     font-family: "Open Sans";
     font-weight: bold;

@@ -24,6 +24,10 @@
 
   .guess {
     @include bordered-guess;
+
+    &.focus {
+      background-image: url(../images/border-animated.svg);
+    }
   }
 
   .decimal {
