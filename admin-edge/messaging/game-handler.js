@@ -2,10 +2,10 @@ const lodashGet = require('lodash/get');
 const log = require('../utils/log')('messaging/game-handler');
 const Game = require("../models/game");
 
-async function gameHandler(message) {
-  log.info('incoming message', message);
+async function gameHandler(bodyObj) {
+  log.info('incoming message', bodyObj);
 
-  const newGame = lodashGet(message, 'body.game');
+  const newGame = lodashGet(bodyObj, 'game');
   if (!newGame) {
     return;
   }
@@ -16,7 +16,7 @@ async function gameHandler(message) {
   }
 
   let game = new Game();
-  game.updateAttributes(lodashGet(message, 'body.game'));
+  game.updateAttributes(lodashGet(bodyObj, 'game'));
 
   try {
     log.info('Updating game');

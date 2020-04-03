@@ -12,13 +12,16 @@ function gameMessageHandler(message) {
     log.error('Malformed AMQ Message', message);
   }
 
-  switch (body.type) {
+  const bodyObj = JSON.parse(body);
+  console.log(bodyObj);
+
+  switch (bodyObj.type) {
     case INCOMING_AMQ_MESSAGE_TYPES.RESET_GAME:
-      resetGameHandler(message);
+      resetGameHandler(bodyObj);
       break;
 
     case INCOMING_AMQ_MESSAGE_TYPES.GAME:
-      gameHandler(message);
+      gameHandler(bodyObj);
       break;
 
     default:
@@ -38,14 +41,14 @@ function initGameMessaging() {
   });
   container.once('sendable', function (context) {
     context.sender.send({
-      body: {
+      body: JSON.stringify({
         type: 'admin-edge-connect',
         data: {
           clusterName: CLUSTER_NAME,
           hostname: HOSTNAME,
           date: new Date().toISOString()
         }
-      }
+      })
     });
   });
   container.connect();
