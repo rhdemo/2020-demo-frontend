@@ -9,33 +9,35 @@ function GameOver({ game, player }) {
     <div className="GameOver">
       <h1 className="title">Game Over</h1>
       <Header></Header>
-      <table className="score-table">
-        <tbody>
-          <tr>
-            <td className="icon-cell">
-              <img
-                src={require("../../images/history-check.svg")}
-                alt="Correct guesses"
-                className="icon"
-              />
-            </td>
-            <td>Correct Guesses:</td>
-            <td className="total">{player.right}</td>
-          </tr>
-          <tr>
-            <td className="icon-cell">
-              <img
-                src={require("../../images/history-x.svg")}
-                alt="Incorrect guesses"
-                className="icon"
-              />
-            </td>
-            <td>Incorrect Guesses:</td>
-            <td className="total">{player.wrong}</td>
-          </tr>
-        </tbody>
-      </table>
-      <History></History>
+      <div className="content">
+        <table className="score-table">
+          <tbody>
+            <tr>
+              <td className="icon-cell">
+                <img
+                  src={require("../../images/history-check.svg")}
+                  alt="Correct guesses"
+                  className="icon"
+                />
+              </td>
+              <td>Correct Guesses:</td>
+              <td className="total">{player.score.right}</td>
+            </tr>
+            <tr>
+              <td className="icon-cell">
+                <img
+                  src={require("../../images/history-x.svg")}
+                  alt="Incorrect guesses"
+                  className="icon"
+                />
+              </td>
+              <td>Incorrect Guesses:</td>
+              <td className="total">{player.score.wrong}</td>
+            </tr>
+          </tbody>
+        </table>
+        <History></History>
+      </div>
     </div>
   );
 }

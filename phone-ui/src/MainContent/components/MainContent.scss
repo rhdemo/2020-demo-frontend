@@ -16,6 +16,8 @@ main.MainContent {
     position: relative;
     height: 100%;
     top: -110px;
+    max-width: $contentMaxWidth;
+    margin: auto;
     @include center-content;
   }
 }

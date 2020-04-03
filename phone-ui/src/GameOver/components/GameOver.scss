@@ -20,6 +20,11 @@
     margin-bottom: 32px;
   }
 
+  .content {
+    max-width: $contentMaxWidth;
+    margin: auto;
+  }
+
   .score-table {
     width: 100%;
 
