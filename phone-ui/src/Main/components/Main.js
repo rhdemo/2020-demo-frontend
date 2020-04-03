@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-import lodashGet from 'lodash/get';
+import lodashGet from "lodash/get";
 import { sendPing, sendGuess } from "../actions";
 import Header from "../../Header";
 import MainContent from "../../MainContent";
@@ -133,7 +133,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
   }, [player, toastClass]);
 
   const imageBackground = {
-    backgroundImage: `url(${currentRound ? currentRound.image : ''})`
+    backgroundImage: `url(${currentRound ? currentRound.image : ""})`
   };
 
   return (
@@ -149,10 +149,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
             {currentRound.answers.map((answer, index) => {
               if (answer.format === "decimal") {
                 return (
-                  <div
-                    className="decimal"
-                    key={currentRound.id + "-" + index}
-                  >
+                  <div className="decimal" key={currentRound.id + "-" + index}>
                     .
                   </div>
                 );
@@ -208,7 +205,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
       </MainContent>
       <Toast className={`toast ${toastClass}`}>
         <div>Nice!</div>
-        <div>+{pointGain} Points</div>
+        <div>${pointGain} Gain</div>
       </Toast>
     </div>
   );

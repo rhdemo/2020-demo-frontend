@@ -1,16 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import lodashGet from 'lodash/get';
+import lodashGet from "lodash/get";
 
 import "./Header.scss";
 
 function Header({ player }) {
-  const pointsSuffix = player.score.score === 1 ? "" : "s";
   const playerNameArray = player.username.split("");
   const displayArray = [];
 
   playerNameArray.forEach(letter => {
-    displayArray.push(`<span>${letter}</span>`);
+    displayArray.push(`<span>${letter.toLowerCase()}</span>`);
   });
 
   const displayName = { __html: displayArray.join("") };
@@ -24,19 +23,19 @@ function Header({ player }) {
           <div className="points-location">
             <div>
               <img
-                src={require("../../images/icon-points.svg")}
-                alt="Points icon"
+                src={require("../../images/icon-money.svg")}
+                alt="Money icon"
                 className="icon"
               />{" "}
-              {lodashGet(player, 'score.score')} point
-              {pointsSuffix}
+              ${lodashGet(player, "score.score")}
             </div>
             <div>
               <img
                 src={require("../../images/icon-location.svg")}
                 alt="Location icon"
                 className="icon"
-              />{' ' + player.gameServer}
+              />
+              {" " + player.gameServer}
             </div>
           </div>
         </div>

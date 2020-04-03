@@ -24,7 +24,7 @@ function History({ player }) {
                 className="icon"
               />
             </th>
-            <th>Points</th>
+            <th>Dollars</th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@ function History({ player }) {
               <td>{round.itemName}</td>
               <td className="center">{round.right}</td>
               <td className="center">{round.wrong}</td>
-              <td>{round.points}</td>
+              <td>${round.points || 0}</td>
             </tr>
           ))}
         </tbody>
