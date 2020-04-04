@@ -10,6 +10,7 @@ require('./datagrid/enable-logging');
 const initGameData = require('./datagrid/init-game-data');
 const initPlayerData = require('./datagrid/init-player-data');
 const pollDatagrid = require('./datagrid/poll-datagrid');
+const pollServiceStatus = require('./utils/poll-service-status');
 
 const {PORT, IP} = require('./utils/constants');
 
@@ -31,6 +32,8 @@ setInterval(function () {
     leaderboard: []
   }));
 }, 3000);
+
+pollServiceStatus(5000);
 
 initGameData()
   .then(() => initPlayerData())

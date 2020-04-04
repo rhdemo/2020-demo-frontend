@@ -2,12 +2,17 @@ const log = require('../utils/log')('socket-handlers/guess');
 const axios = require('../utils/axios');
 const {CLUSTER_NAME} = require('../utils/constants');
 const {SCORING_URL} = require('../utils/constants');
+const extractCurrentRound = require('./extract-current-round');
 
-async function updateScore(player, answers) {
+
+async function updateScore(player, number, source, destination) {
   let updatedPlayer = null;
   let tries = 0;
+
+
+
   while (!updatedPlayer && tries < 3) {
-    updatedPlayer = await callScoringService(player, answers);
+    updatedPlayer = await callScoringService(player, number, source, destination);
     tries++;
   }
 
@@ -28,7 +33,7 @@ async function updateScore(player, answers) {
   return updatedPlayer;
 }
 
-async function callScoringService(player, answers) {
+async function callScoringService(player, number, source, destination) {
   const startTime = new Date();
 
   try {
@@ -36,23 +41,23 @@ async function callScoringService(player, answers) {
     const requestInfo = {
       timeout: 1000,
       headers: {
-        "content-type": "application/json",
+        'content-type': 'application/json',
       },
-      method: "POST",
-      url: new URL("/game/score", SCORING_URL).href,
+      method: 'POST',
+      url: new URL('/game/score', SCORING_URL).href,
       data: {
         game: global.game,
         player: player.toScoringFormat(),
         score: player.score,
-        currentRound: calculateScoringCurrentRound(player, answers)
+        currentRound: calculateScoringCurrentRound(player, number, source, destination)
       }
     };
 
     const response = await axios(requestInfo);
     player.score = response.data.score;
-    updatePlayerCurrentRound(player, answers, response.data);
+    updatePlayerCurrentRound(player, number, source, destination, response.data);
   } catch (error) {
-    log.error("error occurred in http call to scoring API:");
+    log.error('error occurred in http call to scoring API:');
     log.error(error.message);
   }
 
@@ -66,27 +71,28 @@ async function callScoringService(player, answers) {
   return player;
 }
 
-function calculateScoringCurrentRound(player, guessAnswers) {
+function calculateScoringCurrentRound(player, number, source, destination) {
   let choices = player.currentRound.choices.map(x => x === null ?  'correct' : x);
 
-  guessAnswers.forEach(a => {
-    if (a.format === 'number' && !a.result && Number.isInteger(a.from)) {
-      choices[a.from] = 'guess';
-    }
+  if (Number.isInteger(source)) {
+    choices[source] = 'guess';
+  }
+
+  let guess = player.currentRound.answers.map(a => {
+      if (a.result === 'correct') {
+        return a.number;
+      }
+
+      if (a.format === 'decimal') {
+        return '.';
+      }
+
+      return '';
   });
 
-  let guess = guessAnswers.map((guessAnswer, idx) => {
-    //incorrect answers from frontend missing 'incorrect' result
-    let a = {...player.currentRound.answers[idx], ...guessAnswer};
-
-    if (guessAnswer.format === 'decimal') {
-      return '.';
-    }
-    if (Number.isInteger(a.number) && (!a.result || a.result === 'correct')) {
-      return guessAnswer.number;
-    }
-    return '';
-  });
+  if (Number.isInteger(number) && Number.isInteger(destination)) {
+    guess[destination] = number;
+  }
 
   return {
     id: player.currentRound.id,
@@ -97,46 +103,36 @@ function calculateScoringCurrentRound(player, guessAnswers) {
   };
 }
 
-function updatePlayerCurrentRound(player, guessAnswers, ssData) {
+function updatePlayerCurrentRound(player, number, source, destination, ssData) {
   if (player.currentRound.id === ssData.currentRound.id) {
-    mergeCurrentRound(player, guessAnswers, ssData);
+    mergeCurrentRound(player, number, source, destination, ssData);
   } else {
-    changeNewRound(player, guessAnswers, ssData)
+    changeNewRound(player, number, source, destination, ssData)
   }
 }
 
-function mergeCurrentRound(player, guessAnswers, ssData) {
+function mergeCurrentRound(player, number, source, destination, ssData) {
   player.currentRound.pointsAvailable = ssData.currentRound.pointsAvailable;
   player.currentRound.choices = ssData.currentRound.choices.map(x => x === 'correct' ?  null : x);
-  player.currentRound.answers.forEach((a, idx) => {
-    Object.assign(a, guessAnswers[idx]);
-    if (a.format === 'number' && Number.isInteger(a.number)) {
-      a.result = Number.isInteger(ssData.currentRound.guess[idx]) ? 'correct' : 'incorrect';
-    }
-  });
+  player.currentRound.answers[destination].number = number;
+  player.currentRound.answers[destination].from = source;
 
   let historyRecord = player.history[player.history.length-1];
   if (ssData.score.status === 'BAD_GUESS') {
+    player.currentRound.answers[destination].result = 'incorrect';
     historyRecord.wrong += 1;
   } else {
     historyRecord.right += 1;
+    player.currentRound.answers[destination].result = 'correct';
   }
 }
 
-function changeNewRound(player, guessAnswers, ssData) {
+function changeNewRound(player, number, source, destination, ssData) {
   let historyRecord = player.history[player.history.length-1];
   historyRecord.right += 1;
   historyRecord.points = player.currentRound.pointsAvailable;
 
-  player.lastRound = player.currentRound;
-  player.lastRound.answers.forEach((a, idx) => {
-    Object.assign(a, guessAnswers[idx]);
-    if (a.format === 'number') {
-      a.result = 'correct';
-    }
-  });
-
-  player.currentRound = ssData.currentRound;
+  player.currentRound = extractCurrentRound(ssData);
   player.history.push({
     itemId: ssData.currentRound.id,
     itemName: ssData.currentRound.name,

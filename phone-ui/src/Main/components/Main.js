@@ -27,7 +27,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
 
     droppable.on("drag:stop", event => {
       const droppableDestination = event.source.parentNode;
-      const destinationIndex = droppableDestination.dataset.index;
+      const destinationIndex = parseInt(droppableDestination.dataset.index, 10);
       const droppedIndex = parseInt(event.source.dataset.index, 10);
 
       if (!droppableDestination.classList.contains("guess")) {
@@ -35,20 +35,13 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
       }
 
       let choices = [...currentRoundState.current.choices];
-      let answers = currentRoundState.current.answers.map(
-        ({ format, number }) => ({
-          format,
-          number
-        })
-      );
 
       let guess = {
         itemId: currentRoundState.current.id,
         playerId: player.id,
         gameId: game.id,
-        choices,
+        number: choices[droppedIndex],
         source: droppedIndex,
-        answers,
         destination: destinationIndex
       };
 

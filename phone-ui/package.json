@@ -24,7 +24,8 @@
     "redux": "^4.0.4",
     "redux-saga": "^1.1.1",
     "sockette": "^2.0.6",
-    "typeface-roboto": "^0.0.75"
+    "typeface-roboto": "^0.0.75",
+    "uuid": "^7.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

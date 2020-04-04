@@ -1,32 +1,16 @@
 import { put, takeLatest } from 'redux-saga/effects';
+import { v4 as uuidv4 } from 'uuid';
 
 import { sendOutgoingMessage } from '../../Socket/actions';
 import { SEND_GUESS } from '../actions';
 import { OUTGOING_MESSAGE_TYPES } from '../../Socket/messageTypes'
 
 function* executeSendGuess(action) {
-  yield put(sendOutgoingMessage(createGuessMessage(action.payload.guess)));
-}
-
-function createGuessMessage(guess) {
-  let msg = {
+  yield put(sendOutgoingMessage({
     type: OUTGOING_MESSAGE_TYPES.GUESS,
-    itemId: guess.itemId,
-    playerId: guess.playerId,
-    gameId: guess.gameId,
-    choices: [...guess.choices],
-    answers: [...guess.answers]
-  };
-
-  msg.answers[guess.destination] = {
-    format: guess.answers[guess.destination].format,
-    number: guess.choices[guess.source],
-    from: guess.source,
-    result: null,
-  };
-
-  msg.choices[guess.source] = null;
-  return msg
+    requestId: uuidv4(),
+    ...action.payload.guess
+  }));
 }
 
 export function* watchSendGuess() {

@@ -70,13 +70,6 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
         }, 2000);
         break;
       }
-
-      if (currentRound.answers[i].result === "correct") {
-        const index = options.findIndex(
-          option => option === currentRound.answers[i].number
-        );
-        options.splice(index, 1);
-      }
     }
 
     setOptions([...new Set(options)]);
