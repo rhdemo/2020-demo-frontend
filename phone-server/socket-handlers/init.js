@@ -4,7 +4,8 @@ const axios = require('../utils/axios');
 const {SCORING_URL} = require('../utils/constants');
 const Player = require('../models/player');
 const Configuration = require('../models/configuration');
-const {OUTGOING_MESSAGE_TYPES} = require("./message-types");
+const {OUTGOING_MESSAGE_TYPES} = require('./message-types');
+const extractCurrentRound = require('./extract-current-round');
 
 async function initHandler(ws, messageObj) {
   log.debug('initHandler', messageObj);
@@ -57,7 +58,7 @@ async function createNewPlayer() {
   try {
     player = await generateUniquePlayer();
   } catch (error) {
-    log.error("error generating Unique Player");
+    log.error('error generating Unique Player');
     log.error(error);
   }
 
@@ -91,10 +92,10 @@ async function initPlayerScore(player) {
     const requestInfo = {
       timeout: 2000,
       headers: {
-        "content-type": "application/json",
+        'content-type': 'application/json',
       },
-      method: "POST",
-      url: new URL("/game/join", SCORING_URL).href,
+      method: 'POST',
+      url: new URL('/game/join', SCORING_URL).href,
       data: {
         game: global.game,
         player: player.toScoringFormat()
@@ -103,18 +104,17 @@ async function initPlayerScore(player) {
 
     const response = await axios(requestInfo);
     log.debug(response);
-    const {score, currentRound} = response.data;
-    player.score = score;
-    player.currentRound = currentRound;
+    player.score = response.data.score;
+    player.currentRound = extractCurrentRound(response.data);
     player.history.push({
-      itemId: currentRound.id,
-      itemName: currentRound.name,
+      itemId: player.currentRound.id,
+      itemName: player.currentRound.name,
       right: 0,
       wrong: 0,
       points: null
     });
   } catch (error) {
-    log.error("error occurred in http call to scoring API:");
+    log.error('error occurred in http call to scoring API:');
     log.error(error.message);
   }
 
