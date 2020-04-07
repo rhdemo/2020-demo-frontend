@@ -5,13 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "LOG_LEVEL=trace NODE_ENV=development nodemon server.js | pino-pretty -t"
+    "dev": "LOG_LEVEL=debug NODE_ENV=development nodemon server.js | pino-pretty -t"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "axios-cached-dns-resolve": "^0.5.2",
     "env-var": "^5.1.0",
     "infinispan": "^0.7.0",
     "lodash": "^4.17.15",

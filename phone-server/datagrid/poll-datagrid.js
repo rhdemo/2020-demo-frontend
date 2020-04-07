@@ -6,15 +6,17 @@ const {GAME_DATA_KEYS} = require("../models/constants");
 
 function pollDatagrid(interval) {
   setTimeout(async () => {
-    log.debug("checking Datagrid connections");
-    await checkGameClient();
-    await checkPlayerClient();
+    log.trace("checking Datagrid connections");
+    let cgc = checkGameClient();
+    let cpc = checkPlayerClient();
+    await cgc;
+    await cpc;
     pollDatagrid(interval);
   }, interval);
 }
 
 async function checkGameClient() {
-  log.debug("check Infinispan Game Client");
+  log.trace("check Infinispan Game Client");
   try {
     let str = await global.gameData.get(GAME_DATA_KEYS.CURRENT_GAME);
     if (str) {
@@ -38,7 +40,7 @@ async function reconnectGameClient() {
 }
 
 async function checkPlayerClient() {
-  log.debug("check Infinispan Player Client");
+  log.trace("check Infinispan Player Client");
   try {
     global.playerStats = await global.playerData.stats();
   } catch (e) {

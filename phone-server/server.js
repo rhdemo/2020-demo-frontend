@@ -33,7 +33,7 @@ setInterval(function () {
   }));
 }, 3000);
 
-pollServiceStatus(5000);
+pollServiceStatus(10000);
 
 initGameData()
   .then(() => initPlayerData())

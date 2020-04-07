@@ -1,13 +1,16 @@
 const log = require('../utils/log')('utils/poll-service-status');
 const axios = require('./axios');
-const {SCORING_URL} = require('./constants');
+const {SCORING_URL, DIGIT_RECOGNITION_URL} = require('./constants');
 
 
 
 function pollServiceStatus(interval) {
   setTimeout(async () => {
-    log.debug('checking service status');
-    await checkScoringService();
+    log.trace('checking service status');
+    let css = checkScoringService();
+    let cdrs = checkDigitRecognitionService();
+    await css;
+    await cdrs;
     pollServiceStatus(interval);
   }, interval);
 }
@@ -26,7 +29,7 @@ async function checkScoringService() {
     };
 
     const response = await axios(requestInfo);
-    log.debug('scoring service status', response.data);
+    log.trace('scoring service status', response.data);
   } catch (error) {
     log.error('Scoring service status failed', error.message);
   }
@@ -35,6 +38,56 @@ async function checkScoringService() {
   const timeDiff = endTime - startTime;
 
   if (timeDiff > 300) {
+    log.warn(`Scoring service status took ${timeDiff} ms`);
+  }
+}
+
+async function checkDigitRecognitionService() {
+  const startTime = new Date();
+
+  try {
+    const requestInfo = {
+      timeout: 10000,
+      headers: {
+        'content-type': 'application/json',
+      },
+      method: 'POST',
+      url: new URL('/v1/models/mnist:predict', DIGIT_RECOGNITION_URL).href,
+      data: {
+        signature_name: "predict_images",
+        instances: [
+          {
+            images: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0],
+            keep_prob: [1.0]
+          }
+        ]
+      }
+    };
+
+    const response = await axios(requestInfo);
+    log.trace('scoring service status', response.data);
+  } catch (error) {
+    log.error('Scoring service status failed', error.message);
+  }
+
+  const endTime = new Date();
+  const timeDiff = endTime - startTime;
+
+  if (timeDiff > 1000) {
     log.warn(`Scoring service status took ${timeDiff} ms`);
   }
 }
