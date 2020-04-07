@@ -80,14 +80,14 @@ async function checkDigitRecognitionService() {
     const response = await axios(requestInfo);
     log.trace('digit recognition response', response.data);
   } catch (error) {
-    log.error('Digit Recognition service status failed', error.message);
+    log.error('Digit recognition service status failed', error.message);
   }
 
   const endTime = new Date();
   const timeDiff = endTime - startTime;
 
   if (timeDiff > 1000) {
-    log.warn(`Scoring service status took ${timeDiff} ms`);
+    log.warn(`Digit recognition service status took ${timeDiff} ms`);
   }
 }
 

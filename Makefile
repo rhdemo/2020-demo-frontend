@@ -16,6 +16,10 @@ dev-infinispan:
 dev-admin-edge:
 	./admin-edge/install/dev.sh
 
+.PHONY: dev-bot-server
+dev-bot-server:
+	./bot-server/install/dev.sh
+
 .PHONY: dev-phone-server
 dev-phone-server:
 	./phone-server/install/dev.sh
@@ -36,6 +40,10 @@ dev:
 build-admin-edge:
 	./admin-edge/install/build.sh
 
+.PHONY: build-bot-server
+build-bot-server:
+	./bot-server/install/build.sh
+
 .PHONY: build-phone-server
 build-phone-server:
 	./phone-server/install/build.sh
@@ -45,7 +53,7 @@ build-phone-ui:
 	./phone-ui/install/build.sh
 
 .PHONY: build
-build: build-admin-edge build-phone-server build-phone-ui
+build: build-admin-edge build-bot-server build-phone-server build-phone-ui
 
 ##################################
 
@@ -54,6 +62,11 @@ build: build-admin-edge build-phone-server build-phone-ui
 .PHONY: push-admin-edge
 push-admin-edge:
 	./admin-edge/install/push.sh
+
+.PHONY: push-bot-server
+push-bot-server:
+	./bot-server/install/push.sh
+
 
 .PHONY: push-phone-server
 push-phone-server:
@@ -64,7 +77,7 @@ push-phone-ui:
 	./phone-ui/install/push.sh
 
 .PHONY: push
-push: push-admin-edge push-phone-server push-phone-ui
+push: push-admin-edge push-bot-server push-phone-server push-phone-ui
 
 ##################################
 

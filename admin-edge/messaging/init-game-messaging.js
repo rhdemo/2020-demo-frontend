@@ -1,8 +1,11 @@
 const log = require("../utils/log")("game-messaging");
 const {CLUSTER_NAME, HOSTNAME} = require('../utils/constants');
-const {INCOMING_AMQ_MESSAGE_TYPES} = require('./message-types');
-const gameHandler = require('./game-handler');
-const resetGameHandler = require('./reset-game-handler');
+const AMQ_MESSAGE_TYPES = require('./message-types');
+const gameHandler = require('./handlers/game');
+const resetGameHandler = require('./handlers/reset-game');
+
+const options = 'mc/game';
+
 
 function gameMessageHandler(message) {
   log.debug('gameMessageHandler', message);
@@ -13,19 +16,22 @@ function gameMessageHandler(message) {
   }
 
   const bodyObj = JSON.parse(body);
-  console.log(bodyObj);
 
   switch (bodyObj.type) {
-    case INCOMING_AMQ_MESSAGE_TYPES.RESET_GAME:
+    case AMQ_MESSAGE_TYPES.GAME.RESET_GAME:
       resetGameHandler(bodyObj);
       break;
 
-    case INCOMING_AMQ_MESSAGE_TYPES.GAME:
+    case AMQ_MESSAGE_TYPES.GAME.GAME:
       gameHandler(bodyObj);
       break;
 
+    case AMQ_MESSAGE_TYPES.GAME.CONNECT:
+      log.trace('Message ignored: %o', bodyObj);
+      break;
+
     default:
-      log.debug('Unprocessed AMQ Message', message);
+      log.info('Unprocessed AMQ Message', message);
       break;
   }
 }
@@ -33,8 +39,8 @@ function gameMessageHandler(message) {
 function initGameMessaging() {
   const container = require('rhea').create_container({enable_sasl_external: true});
   container.on('connection_open', function (context) {
-    global.amqpReceiver = context.connection.open_receiver('mc/game');
-    global.amqpSender = context.connection.open_sender('mc/game');
+    global.amqpReceiver = context.connection.open_receiver(options);
+    global.amqpSender = context.connection.open_sender(options);
   });
   container.on('message', function (context) {
     gameMessageHandler(context.message);
@@ -42,7 +48,7 @@ function initGameMessaging() {
   container.once('sendable', function (context) {
     context.sender.send({
       body: JSON.stringify({
-        type: 'admin-edge-connect',
+        type: AMQ_MESSAGE_TYPES.GAME.CONNECT,
         data: {
           clusterName: CLUSTER_NAME,
           hostname: HOSTNAME,
