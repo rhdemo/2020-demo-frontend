@@ -1,0 +1,46 @@
+.Avatar {
+  width: 100px;
+  height: 100px;
+  position: relative;
+
+  & > div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+  }
+
+  .monster {
+    z-index: 1;
+  }
+
+  .mouth,
+  .eyes,
+  .nose,
+  .ears {
+    z-index: 2;
+  }
+
+  $color-list: (
+    (#e800e8, #600068),
+    (#ffcc00, #000000),
+    (#ff7c1a, #5b2900),
+    (#9755ff, #330066),
+    (#b1e200, #384211),
+    (#11e500, #01490b),
+    (#ff1d6f, #5b0d2d),
+    (#00ffec, #03373a),
+    (#f90808, #470606),
+    (#7be6ff, #274b4f)
+  );
+
+  $i: 0;
+
+  @each $light, $dark in $color-list {
+    .color-#{$i} {
+      --light-replacement: #{$light};
+      --dark-replacement: #{$dark};
+    }
+
+    $i: $i + 1;
+  }
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import lodashGet from "lodash/get";
-
+import Avatar from "../../Avatar";
 import "./Header.scss";
 
 function Header({ player }) {
@@ -17,7 +17,9 @@ function Header({ player }) {
   return (
     <header className="Header">
       <div className="container">
-        <div className="avatar"></div>
+        <div className="avatar">
+          <Avatar></Avatar>
+        </div>
         <div className="player-details">
           <h1 dangerouslySetInnerHTML={displayName}></h1>
           <div className="points-location">
