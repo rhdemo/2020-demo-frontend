@@ -3,23 +3,24 @@ import { connect } from "react-redux";
 import Header from "../../Header";
 import MainContent from "../../MainContent";
 import Toast from "../../Toast";
+import Button from "../../Button";
 import "./Paused.scss";
 
 function Paused({ player }) {
   const gameServerRef = useRef(player.gameServer);
-  const [toastClass, setToastClass] = useState("");
+  const [toastClass, setToastClass] = useState("show");
 
   useEffect(() => {
     if (gameServerRef.current !== player.gameServer) {
       setToastClass("show");
-
-      setTimeout(() => {
-        setToastClass("");
-      }, 5000);
     }
 
     gameServerRef.current = player.gameServer;
   }, [player.gameServer]);
+
+  function dismissToast() {
+    setToastClass("");
+  }
 
   return (
     <div className="paused">
@@ -64,6 +65,7 @@ function Paused({ player }) {
       <Toast className={`info ${toastClass}`}>
         <div>Your new cluster is</div>
         <div>{player.gameServer}</div>
+        <Button handleClick={dismissToast}>Close</Button>
       </Toast>
     </div>
   );
