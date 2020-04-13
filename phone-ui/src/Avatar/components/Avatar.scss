@@ -1,11 +1,28 @@
+$width: 100px;
+$height: 100px;
+$smallWidth: 80px;
+$smallHeight: 80px;
+
 .Avatar {
-  width: 100px;
-  height: 100px;
+  width: $width;
+  height: $height;
+
+  @media (min-width: 320px) {
+    width: $smallWidth;
+    height: $smallHeight;
+  }
+
   position: relative;
 
   & > div {
-    width: 100px;
-    height: 100px;
+    width: $width;
+    height: $height;
+
+    @media (min-width: 320px) {
+      width: $smallWidth;
+      height: $smallHeight;
+    }
+
     position: absolute;
   }
 

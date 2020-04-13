@@ -3,10 +3,12 @@
 .lobby {
   @include page;
   @include center-content;
+  height: 100%;
   background-image: url(../../images/small-mountains.svg);
   background-position: bottom;
   background-repeat: repeat-x;
   background-size: contain;
+  flex-wrap: wrap;
 
   @media (min-width: 400px) {
     background-size: 350px;
@@ -39,5 +41,6 @@
     font-size: 1.3rem;
     margin-bottom: 0;
     font-weight: normal;
+    text-align: center;
   }
 }

@@ -3,4 +3,5 @@
 .loading {
   @include page;
   @include center-content;
+  height: 100%;
 }
