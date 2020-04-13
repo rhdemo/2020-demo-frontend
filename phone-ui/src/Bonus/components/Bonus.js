@@ -197,6 +197,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
     }
     /* normalize the list */
     inputs = inputs.map(v => (255 - v) / 255.0);
+    //console.log(JSON.stringify(inputs));
 
     let guess = {
       playerId: player.id,

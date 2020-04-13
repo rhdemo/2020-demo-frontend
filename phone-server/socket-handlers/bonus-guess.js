@@ -45,11 +45,10 @@ async function bonusGuessHandler(ws, messageObj) {
       method: 'POST',
       url: new URL('/v1/models/mnist:predict', DIGIT_RECOGNITION_URL).href,
       data: {
-        signature_name: 'predict_images',
+        signature_name: 'serving_default',
         instances: [
           {
-            images: image,
-            keep_prob: [1.0]
+            reshape_1_input: image
           }
         ]
       }
