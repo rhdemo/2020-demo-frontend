@@ -6,6 +6,7 @@
   background-position: bottom;
   background-repeat: repeat-x;
   background-size: contain;
+  min-height: 100%;
 
   @media (min-width: 400px) {
     background-size: 350px;

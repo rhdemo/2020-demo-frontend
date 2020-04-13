@@ -2,22 +2,30 @@
 @import "../../sass/_mixins.scss";
 
 main.MainContent {
-  height: 75%;
   position: relative;
+  background-color: $purple;
+  display: flex;
+  height: 100%;
 
   .mountains {
+    position: absolute;
+    width: 100%;
     background-image: url(../../images/small-mountains.svg);
     background-repeat: repeat-x;
-    height: 150px;
-    margin-top: -48px;
+    background-color: white;
+    height: 96px;
+
+    @media (min-width: 756px) {
+      height: 192px;
+    }
   }
 
   .content {
     position: relative;
-    height: 100%;
-    top: -110px;
     max-width: $contentMaxWidth;
     margin: auto;
     @include center-content;
+    padding-top: 32px;
+    padding-bottom: 32px;
   }
 }
