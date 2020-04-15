@@ -20,7 +20,7 @@ function Header({ player }) {
                 alt="Money icon"
                 className="icon"
               />{" "}
-              ${lodashGet(player, "score.score")}
+              {lodashGet(player, "score.score")}
             </div>
             <div>
               <img
