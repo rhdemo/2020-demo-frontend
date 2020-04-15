@@ -3,16 +3,19 @@
 
 main.MainContent {
   position: relative;
-  background-color: $purple;
+  background-color: #aedcdd;
   display: flex;
   height: 100%;
+  flex: 1;
 
   .mountains {
     position: absolute;
     width: 100%;
     background-image: url(../../images/small-mountains.svg);
-    background-repeat: repeat-x;
+    background-repeat: no-repeat;
+    background-position: center;
     background-color: white;
+    background-size: cover;
     height: 96px;
 
     @media (min-width: 756px) {

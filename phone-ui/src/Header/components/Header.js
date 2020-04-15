@@ -5,15 +5,6 @@ import Avatar from "../../Avatar";
 import "./Header.scss";
 
 function Header({ player }) {
-  const playerNameArray = player.username.split("");
-  const displayArray = [];
-
-  playerNameArray.forEach(letter => {
-    displayArray.push(`<span>${letter.toLowerCase()}</span>`);
-  });
-
-  const displayName = { __html: displayArray.join("") };
-
   return (
     <header className="Header">
       <div className="container">
@@ -21,7 +12,7 @@ function Header({ player }) {
           <Avatar></Avatar>
         </div>
         <div className="player-details">
-          <h1 dangerouslySetInnerHTML={displayName}></h1>
+          <h1 className="username">{player.username}</h1>
           <div className="points-location">
             <div>
               <img

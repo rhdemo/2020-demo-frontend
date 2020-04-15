@@ -14,9 +14,12 @@
 @mixin page-layout {
   display: flex;
   flex-direction: column;
-  background-color: $purple;
-  height: 100%;
-  min-height: 100%;
+  background-color: #aedcdd;
+  min-height: 100vh;
+
+  @media (min-width: 800px) {
+    min-height: calc(100vh - 12px);
+  }
 }
 
 @mixin number-input {
@@ -41,12 +44,12 @@
     height: 48px;
     width: 48px;
     border-radius: 0.5rem;
-    background-color: #7ae6ff;
+    background-color: #f79a3f;
     color: white;
     font-size: 2.5rem;
     text-shadow: 1px 1px 2px #551e70;
     padding-bottom: 6px;
-    box-shadow: -1px 3px 0px #25c8e0, -2px 6px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: -1px 3px 0px #e0700a, -2px 6px 10px rgba(0, 0, 0, 0.1);
     transform: skew(5deg);
     cursor: pointer;
     transition: transform 200ms ease-in-out;
@@ -66,8 +69,9 @@
 
 @mixin correct-guess {
   .number-input .correct .bg {
-    background-color: #63e07c;
-    box-shadow: -1px 3px 0px #44aa55, -2px 6px 10px rgba(0, 0, 0, 0.1);
+    background-color: #24c655;
+    text-shadow: 1px 1px 0px #188434;
+    box-shadow: -1px 3px 0px #188434, -2px 6px 10px rgba(0, 0, 0, 0.1);
   }
 }
 

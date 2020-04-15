@@ -10,53 +10,71 @@ header.Header {
     justify-content: center;
     align-items: center;
 
-    .avatar {
-      margin-right: 16px;
-    }
-
     .player-details {
       display: flex;
       flex-direction: column;
 
-      h1,
-      h2 {
-        margin: 0;
-      }
+      .username {
+        margin: 0 0 1rem 1rem;
+        color: #fff;
+        background: #251231;
+        padding: 0.2rem 1.5rem;
+        border-radius: 3rem;
+        font-size: 0.9rem;
+        position: relative;
 
-      h1 {
-        margin-top: 8px;
-        font-size: 1.5rem;
-        line-height: 1.5rem;
-        color: #e36060;
+        @media (min-width: 340px) {
+          font-size: 0.9rem;
+        }
 
-        span:nth-child(even) {
-          color: #ff6d67;
+        @media (min-width: 400px) {
+          font-size: 1rem;
+        }
+
+        @media (min-width: 420px) {
+          font-size: 1.5rem;
+        }
+
+        &:before {
+          content: "";
+          position: absolute;
+          left: -4px;
+          top: 21px;
+          transform: rotate(-43deg);
+          width: 0;
+          height: 0;
+          border-top: 6px solid transparent;
+          border-right: 12px solid #251231;
+          border-bottom: 9px solid transparent;
+
+          @media (min-width: 420px) {
+            left: -6px;
+            top: 23px;
+            border-top-width: 13px;
+            border-right-width: 26px;
+            border-bottom-width: 18px;
+          }
         }
       }
 
-      h2 {
-        font-size: 1.25rem;
-      }
-
       .points-location {
-        margin-top: 8px;
         display: flex;
-        font-family: "Open Sans";
+        font-family: "Red Hat Display";
         font-size: 1rem;
-        font-weight: 800;
+        font-weight: 900;
 
         & > div {
-          margin-right: 8px;
+          margin-left: 0.5rem;
           @media (min-width: 380px) {
-            margin-right: 16px;
+            margin-left: 16px;
           }
           display: flex;
           align-items: center;
         }
 
         .icon {
-          width: 16px;
-          height: 16px;
+          width: 24px;
+          height: 24px;
           margin-right: 4px;
         }
       }

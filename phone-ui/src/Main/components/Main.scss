@@ -65,12 +65,12 @@
         height: 48px;
         width: 48px;
         border-radius: 0.5rem;
-        background-color: #7ae6ff;
+        background-color: #f79a3f;
         color: white;
         font-size: 2.5rem;
-        text-shadow: 1px 1px 2px #551e70;
+        text-shadow: 1px 1px 0px #e0700a;
         padding-bottom: 6px;
-        box-shadow: -1px 3px 0px #25c8e0, -2px 6px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: -1px 3px 0px #e0700a, -2px 6px 10px rgba(0, 0, 0, 0.1);
         transform: skew(5deg);
         cursor: pointer;
         transition: transform 200ms ease-in-out;

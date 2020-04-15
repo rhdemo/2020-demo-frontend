@@ -3,5 +3,9 @@
 .loading {
   @include page;
   @include center-content;
-  height: 100%;
+  height: 100vh;
+
+  @media (min-width: 800px) {
+    height: calc(100vh - 12px);
+  }
 }
