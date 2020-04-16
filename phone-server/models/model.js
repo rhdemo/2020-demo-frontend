@@ -43,7 +43,7 @@ class Model {
     const endTime = new Date();
     const timeDiff = endTime - startTime;
 
-    if (timeDiff > 100) {
+    if (timeDiff > 200) {
       log.warn(` ${this.type} save took ${timeDiff} ms`);
     }
 
@@ -102,8 +102,8 @@ class Model {
       const endTime = new Date();
       const timeDiff = endTime - startTime;
 
-      if (timeDiff > 100) {
-        log.warn(` ${this.type} save took ${timeDiff} ms`);
+      if (timeDiff > 200) {
+        log.warn(`Find ${key} took ${timeDiff} ms`);
       }
 
       return json ? this.fromJSON(json) : null;

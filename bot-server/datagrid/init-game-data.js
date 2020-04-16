@@ -4,6 +4,7 @@ const env = require("env-var");
 const log = require("../utils/log")("datagrid");
 const {GAME_DATA_KEYS} = require("./game-constants");
 const readGame = require("./read-game");
+const readBotConfig = require("./read-bot-config");
 const gameHandler = require("./handlers/game");
 const botConfigHandler = require("./handlers/bot-config");
 
@@ -40,6 +41,7 @@ async function initGameData() {
   try {
     global.gameData = await initClient();
     await readGame();
+    await readBotConfig();
   } catch (error) {
     log.error(`Error connecting to Infinispan game data: ${error.message}`);
     log.error(error);

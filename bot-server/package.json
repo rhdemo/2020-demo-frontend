@@ -1,5 +1,5 @@
 {
-  "name": "2020-demo-admin-edge",
+  "name": "2020-demo-bot-server",
   "version": "0.0.1",
   "description": "",
   "main": "server.js",
@@ -18,7 +18,9 @@
     "moment": "^2.24.0",
     "pino": "^5.17.0",
     "rhea": "^1.0.20",
-    "uuid": "^7.0.3"
+    "sockette": "^2.0.6",
+    "uuid": "^7.0.3",
+    "ws": "^7.2.3"
   },
   "devDependencies": {
     "nodemon": "^1.19.4",
