@@ -43,7 +43,7 @@ function History({ player }) {
 }
 
 function mapStateToProps(state) {
-  return state.mainReducer;
+  return state.appReducer;
 }
 
 export default connect(mapStateToProps)(History);

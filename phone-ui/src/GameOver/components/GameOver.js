@@ -43,7 +43,7 @@ function GameOver({ game, player }) {
 }
 
 function mapStateToProps(state) {
-  return state.mainReducer;
+  return state.appReducer;
 }
 
 function mapDispatchToProps(dispatch) {

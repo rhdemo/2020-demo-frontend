@@ -9,7 +9,7 @@ function updateBots() {
   } else if (global.numBots < global.bots.length) {
     while (global.bots.length > global.numBots) {
       let b = global.bots.pop();
-      b.cancelAllActions();
+      b.stop();
     }
   }
 }

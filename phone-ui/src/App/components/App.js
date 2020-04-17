@@ -10,8 +10,8 @@ import GAME_STATES from "../../utilities/GameStates";
 
 import "./App.scss";
 
-function App({ game }) {
-  if (!game) {
+function App({ game, player }) {
+  if (!game || !player) {
     return <Loading />;
   } else {
     switch (game.state) {
