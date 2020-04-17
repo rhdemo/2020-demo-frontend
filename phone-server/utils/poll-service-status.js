@@ -29,9 +29,9 @@ async function checkScoringService() {
     };
 
     const response = await axios(requestInfo);
-    log.trace('scoring service status', response.data);
+    log.trace('scoring service status %o', response.data);
   } catch (error) {
-    log.error('Scoring service status failed', error.message);
+    log.error('Scoring service status failed %o', error.message);
   }
 
   const endTime = new Date();
@@ -78,9 +78,9 @@ async function checkDigitRecognitionService() {
     };
 
     const response = await axios(requestInfo);
-    log.trace('digit recognition response', response.data);
+    log.trace('digit recognition response %o', response.data);
   } catch (error) {
-    log.error('Digit recognition service status failed', error.message);
+    log.error('Digit recognition service status failed %o', error.message);
   }
 
   const endTime = new Date();
