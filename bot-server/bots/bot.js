@@ -133,8 +133,11 @@ class Bot {
     this.actionTimer = setTimeout(() => this.performAction(), delay);
   }
 
-  cancelAllActions() {
+  stop() {
     clearTimeout(this.actionTimer);
+    if (this.socket) {
+      this.socket.close();
+    }
   }
 }
 

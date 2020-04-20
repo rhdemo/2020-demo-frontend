@@ -292,7 +292,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
 }
 
 function mapStateToProps(state) {
-  return state.bonusReducer;
+  return state.appReducer;
 }
 
 function mapDispatchToProps(dispatch) {

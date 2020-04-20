@@ -42,7 +42,7 @@ function NumberDrop({index, answer, game, player, currentRound, sendGuess}) {
 }
 
 function mapStateToProps(state) {
-  return state.mainReducer;
+  return state.appReducer;
 }
 
 function mapDispatchToProps(dispatch) {

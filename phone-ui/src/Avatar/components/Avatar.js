@@ -92,7 +92,7 @@ function Avatar({ player }) {
 }
 
 function mapStateToProps(state) {
-  return state.mainReducer;
+  return state.appReducer;
 }
 
 export default connect(mapStateToProps)(Avatar);

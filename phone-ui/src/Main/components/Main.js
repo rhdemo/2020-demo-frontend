@@ -205,7 +205,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
 }
 
 function mapStateToProps(state) {
-  return state.mainReducer;
+  return state.appReducer;
 }
 
 function mapDispatchToProps(dispatch) {
