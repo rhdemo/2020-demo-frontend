@@ -12,7 +12,8 @@ class Player extends Model {
   constructor(player) {
     super(player);
     this.username = generateUsername();
-    this.id = `${CLUSTER_NAME} - ${this.username}`;
+    this.id = uuidv4();
+    this._key = `${CLUSTER_NAME} - ${this.username}`;
     this.avatar = generateAvatar();
     this.gameId = global.game.id;
     this.creationServer = CLUSTER_NAME;
@@ -24,6 +25,14 @@ class Player extends Model {
     }
   }
 
+  get key() {
+    return this._key;
+  }
+
+  set key(newKey) {
+    return this._key = newKey;
+  }
+
   get type() {
     return 'Player';
   }
@@ -33,7 +42,7 @@ class Player extends Model {
   }
 
   get attributes() {
-    return ['id', 'username', 'avatar', 'gameId', 'score', 'right', 'wrong', 'history', 'lastRound', 'currentRound', 'creationServer', 'gameServer', 'scoringServer'];
+    return ['id', 'key', 'username', 'avatar', 'gameId', 'score', 'right', 'wrong', 'history', 'lastRound', 'currentRound', 'creationServer', 'gameServer', 'scoringServer'];
   }
 
   get related() {
@@ -41,14 +50,14 @@ class Player extends Model {
     return {game};
   }
 
-  updateUserId() {
-    this.id = `${CLUSTER_NAME} - ${this.username}`;
+  updatePlayerKey() {
+    this._key = `${CLUSTER_NAME} - ${this.username}`;
   }
 
   beforeSave() {
     super.beforeSave();
-    if (!this.id) {
-      this.updateUserId();
+    if (!this.key) {
+      this.updatePlayerKey();
     }
   }
 

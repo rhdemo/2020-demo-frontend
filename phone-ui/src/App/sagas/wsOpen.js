@@ -7,6 +7,7 @@ function* executeSendInit(action) {
   let msg = {
     type: OUTGOING_MESSAGE_TYPES.INIT,
     playerId: localStorage.getItem('playerId') || undefined,
+    playerKey: localStorage.getItem('playerKey') || undefined,
     gameId: localStorage.getItem('gameId') || undefined,
   };
   yield put(sendOutgoingMessage(msg));

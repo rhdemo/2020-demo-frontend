@@ -39,6 +39,7 @@ class Bot {
     this.socketStatus = 'connected';
     let messageObj = {
       type: OUTGOING_MESSAGE_TYPES.INIT,
+      playerKey: lodashGet(this.data, 'player.key'),
       playerId: lodashGet(this.data, 'player.id'),
       gameId: lodashGet(this.data, 'game.id'),
       bot: true
@@ -49,6 +50,7 @@ class Bot {
   initPlayer() {
     let messageObj = {
       type: OUTGOING_MESSAGE_TYPES.INIT,
+      playerKey: lodashGet(this.data, 'player.key'),
       playerId: lodashGet(this.data, 'player.id'),
       gameId: lodashGet(this.data, 'game.id'),
       bot: true
@@ -148,6 +150,7 @@ function createGuess(botData) {
     type: OUTGOING_MESSAGE_TYPES.GUESS,
     requestId: uuidv4(),
     itemId: lodashGet(botData, 'player.currentRound.id'),
+    playerKey: lodashGet(botData, 'player.key'),
     playerId: lodashGet(botData, 'player.id'),
     gameId: lodashGet(botData, 'game.id'),
     number,
@@ -167,6 +170,7 @@ function createBonusGuess(botData) {
   return {
     type: OUTGOING_MESSAGE_TYPES.BONUS_GUESS,
     requestId: uuidv4(),
+    playerKey: lodashGet(botData, 'player.key'),
     playerId: lodashGet(botData, 'player.id'),
     gameId: lodashGet(botData, 'game.id'),
     image

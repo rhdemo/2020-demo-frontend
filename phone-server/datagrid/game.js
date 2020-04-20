@@ -38,14 +38,14 @@ async function sendGameConfigs() {
 }
 
 
-async function sendPlayerConfig(playerId) {
-  let player = global.players[playerId];
+async function sendPlayerConfig(playerKey) {
+  let player = global.players[playerKey];
   const ws = player.ws;
   try {
-    let player = await Player.find(playerId);
+    let player = await Player.find(playerKey);
 
     if (!player) {
-      log.error(`Player ${playerId} data not found`);
+      log.error(`Player ${playerKey} data not found`);
       return;
     }
 

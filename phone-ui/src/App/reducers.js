@@ -47,12 +47,18 @@ function processWsMessage(state, message) {
 
 function updateLocalStorage(state, message) {
   const originalPlayerId = get(state, 'player.id');
+  const originalPlayerKey = get(state, 'player.key');
   const originalGameId = get(state, 'game.id');
   const playerId = get(message, 'player.id');
+  const playerKey = get(message, 'player.key');
   const gameId = get(message, 'game.id');
 
   if (playerId && playerId !== originalPlayerId) {
     localStorage.setItem('playerId', playerId);
+  }
+
+  if (playerKey && playerKey !== originalPlayerKey) {
+    localStorage.setItem('playerKey', playerKey);
   }
 
   if (gameId && gameId !== originalGameId) {

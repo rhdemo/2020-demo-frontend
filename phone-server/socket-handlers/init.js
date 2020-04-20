@@ -9,7 +9,7 @@ const extractCurrentRound = require('./extract-current-round');
 
 async function initHandler(ws, messageObj) {
   log.debug('initHandler', messageObj);
-  let player = await initPlayer(ws, messageObj.playerId, messageObj.gameId);
+  let player = await initPlayer(ws, messageObj);
   if (!player) {
     send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR}));
     return;
@@ -20,13 +20,16 @@ async function initHandler(ws, messageObj) {
   return player;
 }
 
-async function initPlayer(ws, playerId, gameId) {
-  log.debug('initPlayer', playerId, gameId);
+async function initPlayer(ws, {playerKey, gameId, playerId}) {
+  log.debug('initPlayer', playerKey, gameId, playerId);
   let player;
 
-  //combination of playerId + gameId should be unique
-  if (playerId && gameId === global.game.id) {
-    player = await getExistingPlayer(playerId)
+  //combination of playerKey + gameId should be unique
+  if (playerKey && gameId === global.game.id) {
+    player = await getExistingPlayer(playerKey)
+    if (player.id !== playerId) {
+      player = await createNewPlayer();
+    }
   } else {
     player = await createNewPlayer();
   }
@@ -37,12 +40,12 @@ async function initPlayer(ws, playerId, gameId) {
   return player;
 }
 
-async function getExistingPlayer(playerId) {
+async function getExistingPlayer(playerKey) {
   let player;
   try {
-    player = await Player.find(playerId);
+    player = await Player.find(playerKey);
   } catch (error) {
-    log.error(`error occurred retrieving existing player ${playerId}.  Error:`, error.message);
+    log.error(`error occurred retrieving existing player ${playerKey}.  Error:`, error.message);
   }
 
   if (!player) {
@@ -72,7 +75,7 @@ async function createNewPlayer() {
   if (updatedPlayer) {
     player = updatedPlayer;
   } else {
-    log.error(`Failed to initialize player score ${player.id}`)
+    log.error(`Failed to initialize player score ${player.key}`)
     return null;
   }
 
@@ -142,7 +145,7 @@ async function generateUniquePlayer() {
 
   if (!unique) {
     player.username += ' ' + Math.random().toString(36).substring(8);
-    player.updateUserId();
+    player.updatePlayerKey();
   }
 
   try {
