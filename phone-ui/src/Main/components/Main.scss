@@ -12,7 +12,7 @@
 
     .image {
       position: relative;
-      width: 175px;
+      width: 200px;
       height: 175px;
       margin-bottom: 32px;
 
@@ -21,9 +21,10 @@
         z-index: 1;
         width: 100%;
         height: 100%;
+        min-width: 200px;
+        min-height: 200px; 
         background: white;
         border-radius: 24px;
-        margin-bottom: 24px;
       }
 
       .image-background {
@@ -41,6 +42,22 @@
 
     .dropzone {
       @include bordered-guess;
+      &:nth-child(odd) {
+        .choice .bg {
+          transform: skew(3deg);
+        }
+        .number {
+          transform: skew(-3deg);
+        }
+      }
+      &:nth-child(even) {
+        .choice .bg {
+          transform: skew(-3deg);
+        }
+        .number {
+          transform: skew(3deg);
+        }
+      }
     }
 
     .number-input {
@@ -55,7 +72,9 @@
       outline: none;
 
       .decimal {
-        margin-top: 35px;
+        align-self: flex-end;
+        margin-right: 10px;
+
       }
 
       .bg {
@@ -71,21 +90,19 @@
         text-shadow: 1px 1px 0px #e0700a;
         padding-bottom: 6px;
         box-shadow: -1px 3px 0px #e0700a, -2px 6px 10px rgba(0, 0, 0, 0.1);
-        transform: skew(5deg);
         cursor: pointer;
         transition: transform 200ms ease-in-out;
 
-        .number {
-          transform: skew(-5deg);
-        }
+        
       }
+
 
       .draggable-mirror {
         z-index: 1;
       }
 
       .draggable-mirror .bg {
-        transform: skew(5deg) scale(2);
+        transform: skew(3deg) scale(2);
       }
     }
 
