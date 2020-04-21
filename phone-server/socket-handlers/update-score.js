@@ -19,14 +19,14 @@ async function updateScore(player, number, source, destination) {
   if (updatedPlayer) {
     player = updatedPlayer;
   } else {
-    log.error(`Failed to update player score ${player.id}`);
+    log.error(`Failed to update player score ${player.key}`);
     return null;
   }
 
   try {
     await updatedPlayer.save();
   } catch (error) {
-    log.error(`Player ${player.id} data not saved`);
+    log.error(`Player ${player.key} data not saved`);
     return updatedPlayer;
   }
 

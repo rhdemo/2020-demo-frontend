@@ -43,7 +43,7 @@ function processSocketMessage(conn, messageStr) {
  */
 function wrapMessageHandler (type, fn) {
     return function messageHandlerWrapper (ws, messageObj) {
-        log.debug(`processing message of type ${type} for player ${messageObj.playerId}`);
+        log.debug(`processing message of type ${type} for player ${messageObj.playerKey}`);
         log.trace(`payload for message '${type}' was: %j`, messageObj);
 
         fn(ws, messageObj)

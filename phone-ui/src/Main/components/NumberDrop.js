@@ -22,6 +22,7 @@ function NumberDrop({index, answer, game, player, currentRound, sendGuess}) {
     let guess = {
       itemId: currentRound.id,
       playerId: player.id,
+      playerKey: player.key,
       gameId: game.id,
       choices,
       source: dropped.index,

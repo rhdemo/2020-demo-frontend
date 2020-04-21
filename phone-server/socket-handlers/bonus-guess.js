@@ -11,12 +11,12 @@ const missingField = require('./missing-field');
 
 async function bonusGuessHandler(ws, messageObj) {
   if (missingField(ws, messageObj, 'gameId') ||
-    missingField(ws, messageObj, 'playerId') ||
+    missingField(ws, messageObj, 'playerKey') ||
     missingField(ws, messageObj, 'image')) {
     return;
   }
 
-  let {playerId, gameId, image} = messageObj;
+  let {playerKey, playerId, gameId, image} = messageObj;
 
   if (gameId !== global.game.id) {
     let message = `Ignoring incoming guess because the game ID ${gameId} does not match ${global.game.id}`;
@@ -81,9 +81,13 @@ async function bonusGuessHandler(ws, messageObj) {
 
   let player;
   try {
-    player = await Player.find(playerId);
+    player = await Player.find(playerKey);
+    if (player.id !== playerId) {
+      log.error(`Player ID mismatch ${playerKey}: ${playerId} !== ${player.id}`);
+      return;
+    }
   } catch (error) {
-    log.error(`Player ${playerId} data not found`);
+    log.error(`Player ${playerKey} data not found`);
     return;
   }
 

@@ -10,6 +10,7 @@ const missingField = require('./missing-field');
 async function guessHandler(ws, messageObj) {
   if (missingField(ws, messageObj, 'gameId') ||
     missingField(ws, messageObj, 'playerId') ||
+    missingField(ws, messageObj, 'playerKey') ||
     missingField(ws, messageObj, 'itemId') ||
     missingField(ws, messageObj, 'number') ||
     missingField(ws, messageObj, 'source') ||
@@ -17,7 +18,7 @@ async function guessHandler(ws, messageObj) {
     return;
   }
 
-  let {playerId, gameId, itemId, number, source, destination} = messageObj;
+  let {playerKey, playerId, gameId, itemId, number, source, destination} = messageObj;
 
   if (gameId !== global.game.id) {
     let message = `Ignoring incoming guess because the game ID ${gameId} does not match ${global.game.id}`;
@@ -35,9 +36,13 @@ async function guessHandler(ws, messageObj) {
 
   let player;
   try {
-    player = await Player.find(playerId);
+    player = await Player.find(playerKey);
+    if (player.id !== playerId) {
+      log.error(`Player ID mismatch ${playerKey} ${playerId} !== ${player.id}`);
+      return;
+    }
   } catch (error) {
-    log.error(`Player ${playerId} data not found`);
+    log.error(`Player ${playerKey} data not found`);
     return;
   }
 

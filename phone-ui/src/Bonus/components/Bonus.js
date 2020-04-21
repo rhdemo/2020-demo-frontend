@@ -200,6 +200,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
     //console.log(JSON.stringify(inputs));
 
     let guess = {
+      playerKey: player.key,
       playerId: player.id,
       gameId: game.id,
       image: inputs

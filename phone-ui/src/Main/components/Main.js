@@ -39,6 +39,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
       let guess = {
         itemId: currentRoundState.current.id,
         playerId: player.id,
+        playerKey: player.key,
         gameId: game.id,
         number: choices[droppedIndex],
         source: droppedIndex,
