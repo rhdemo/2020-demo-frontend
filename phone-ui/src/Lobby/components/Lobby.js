@@ -1,13 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ReactComponent as Logo } from "../../images/logo.svg";
+import Message from "../../Message";
+import { ReactComponent as Background } from "../../images/small-mountains.svg";
+import Avatar from "../../Avatar";
 import "./Lobby.scss";
 
-function Lobby() {
+function Lobby({ player }) {
   return (
     <div className="lobby">
-      <Logo className="logo" />
-      <h2>The game will begin soon</h2>
+      <div className="bg">
+        <Background />
+      </div>
+      <div className="avatarContainer">
+        <Avatar />
+        <div className="speechBubble">
+          <h1>Guess That Price!</h1>
+        </div>
+      </div>
+      <div className="messageContainer">
+        <Message>Game will begin shortly</Message>
+      </div>
     </div>
   );
 }

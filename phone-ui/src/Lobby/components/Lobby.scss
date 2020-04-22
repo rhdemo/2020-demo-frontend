@@ -1,46 +1,140 @@
 @import "../../sass/_mixins.scss";
 
 .lobby {
-  @include page;
-  @include center-content;
-  height: 100vh;
-  background-image: url(../../images/small-mountains.svg);
-  background-position: bottom;
-  background-repeat: repeat-x;
-  background-size: contain;
-  flex-wrap: wrap;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 
   @media (min-width: 800px) {
     height: calc(100vh - 12px);
   }
 
-  .logo {
-    width: 200px;
-    margin-top: -100px;
-    will-change: transform;
-    animation: bounce 500ms ease-in-out;
+  .avatarContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 15%;
+    animation-name: moveAvatar;
+    animation-duration: 500ms;
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+    transform: translateY(-200%);
+
+    .Avatar {
+      width: 175px;
+      height: 175px;
+
+      & > div {
+        width: 175px;
+        height: 175px;
+      }
+    }
+
+    .speechBubble {
+      width: 100px;
+      height: 100px;
+      background: #251231;
+      color: white;
+      border-radius: 100px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      top: -72px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 3px;
+        bottom: 6px;
+        transform: rotate(-43deg);
+        width: 0;
+        height: 0;
+        border-top: 6px solid transparent;
+        border-right: 12px solid #251231;
+        border-bottom: 9px solid transparent;
+      }
+
+      h1 {
+        font-size: 1.1rem;
+        line-height: 1.2rem;
+        margin: 0;
+      }
+    }
   }
 
-  @keyframes bounce {
-    0% {
-      transform: scale(0.5);
-    }
-
-    75% {
-      transform: scale(1.25);
-    }
-
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  h2 {
+  .messageContainer {
     position: absolute;
-    bottom: 32px;
-    font-size: 1.3rem;
-    margin-bottom: 0;
-    font-weight: normal;
-    text-align: center;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 32px;
+    animation-name: moveMessage;
+    animation-duration: 500ms;
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+  }
+
+  .bg {
+    position: absolute;
+    width: 100%;
+    height: 95%;
+    top: 5%;
+    z-index: 0;
+    animation-name: moveIn;
+    animation-duration: 500ms;
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+
+    svg {
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      background: #aedcdd;
+      top: 85px;
+      left: 0;
+      bottom: 0px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+
+  @keyframes moveAvatar {
+    from {
+      transform: translateY(-200%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes moveIn {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(50%);
+    }
+  }
+
+  @keyframes moveMessage {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(60%);
+    }
   }
 }
