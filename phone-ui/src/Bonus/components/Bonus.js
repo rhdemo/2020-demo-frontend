@@ -286,7 +286,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
         <div>Try again</div>
       </Toast>
       <Toast className={`toast ${correctToastClass}`}>
-        <h4>You've gained ${pointGain}</h4>
+        You've gained ${pointGain}
       </Toast>
     </div>
   );

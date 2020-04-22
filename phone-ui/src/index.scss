@@ -19,13 +19,12 @@ html,
 body {
   margin: 0;
   background: #aedcdd;
-  overflow: hidden;
 }
 
 #root {
   margin: auto;
   max-width: 500px;
-  @media (min-width: 500px) {  
+  @media (min-width: 500px) {
     border: none;
     border-radius: 32px;
     padding-bottom: 100px;

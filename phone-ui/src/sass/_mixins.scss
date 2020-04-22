@@ -26,7 +26,8 @@
   display: flex;
   margin: 1.5rem 0;
   align-items: center;
-  h2{
+
+  h2 {
     font-size: 3rem;
     margin: 0 1rem 0 0;
     line-height: 0;
@@ -68,8 +69,13 @@
   height: 48px;
   width: 48px;
   background-image: url(../images/border.svg);
+
   &:not(:first-of-type) {
-    margin-left: 16px;
+    margin-left: 6px;
+
+    @media (min-width: 345px) {
+      margin-left: 12px;
+    }
   }
 }
 
