@@ -4,6 +4,9 @@
 header.Header {
   padding:16px 8px 0;
   background-color: white;
+  @media (min-width: 500px) {
+    border-radius: 32px 32px 0 0;
+  }
 
   .container {
     display: flex;
