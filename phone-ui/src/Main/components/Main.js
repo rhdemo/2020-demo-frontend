@@ -199,7 +199,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
         </div>
       </MainContent>
       <Toast className={`toast ${toastClass}`}>
-        <h4>You've gained ${pointGain}</h4>
+        You've gained ${pointGain}
       </Toast>
     </div>
   );
