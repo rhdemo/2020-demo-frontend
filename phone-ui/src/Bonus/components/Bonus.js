@@ -209,10 +209,6 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
     sendBonusGuess(guess);
   }
 
-  const imageBackground = {
-    backgroundImage: `url(${currentRound.image})`
-  };
-
   return (
     <div className="bonus">
       <Header></Header>
@@ -258,7 +254,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
             );
           })}
           <div className="image">
-            <div className="image-background" style={imageBackground}></div>
+            <img src={currentRound.image} />
           </div>
         </div>
         <div className="hint">

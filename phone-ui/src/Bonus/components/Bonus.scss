@@ -67,6 +67,12 @@
     width: 90px;
     height: 90px;
 
+    img {
+      max-width: 100px;
+      position: relative;
+      top: 16px;
+    }
+
     .image-background {
       width: 100%;
       height: 100%;
