@@ -2,7 +2,6 @@
 @import "../../sass/_mixins.scss";
 
 .main {
-  // @include page-layout;
   .MainContent .content > div {
     display: flex;
     flex-direction: column;
@@ -26,16 +25,12 @@
         border-radius: 24px;
       }
 
-      .image-background {
+      img {
+        max-width: 250px;
         position: absolute;
         z-index: 2;
-        width: 90%;
-        height: 90%;
-        top: 5%;
-        left: 5%;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+        top: -75px;
+        left: -25px;
       }
     }
 
