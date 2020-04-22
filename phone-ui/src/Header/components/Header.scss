@@ -21,6 +21,7 @@ header.Header {
         padding: 0.2rem 1.5rem;
         border-radius: 3rem;
         font-size: 0.9rem;
+        max-width: max-content;
         position: relative;
 
         @media (min-width: 340px) {
@@ -60,7 +61,6 @@ header.Header {
       .points-location {
         display: flex;
         font-family: "Red Hat Display";
-        font-size: 1rem;
         font-weight: 900;
 
         & > div {
@@ -70,12 +70,18 @@ header.Header {
           }
           display: flex;
           align-items: center;
+          &:first-child {
+            font-size: 1.2rem;
+          }
+          &:last-child {
+            font-size: 1.3rem;
+          }
         }
 
         .icon {
           width: 24px;
           height: 24px;
-          margin-right: 4px;
+          margin-right: 8px;
         }
       }
     }

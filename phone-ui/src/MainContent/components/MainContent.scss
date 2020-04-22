@@ -11,24 +11,17 @@ main.MainContent {
   .mountains {
     position: absolute;
     width: 100%;
-    background-image: url(../../images/small-mountains.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: white;
-    background-size: cover;
-    height: 96px;
-
-    @media (min-width: 756px) {
-      height: 192px;
-    }
+    background:#fff url(../../images/small-mountains.svg) bottom center no-repeat;
+    background-size: contain;
+    height: 130px;
   }
 
   .content {
     position: relative;
     max-width: $contentMaxWidth;
-    margin: auto;
-    @include center-content;
-    padding-top: 32px;
+    margin: 0 auto;
+    // @include center-content;
+    padding-top: 160px;
     padding-bottom: 32px;
   }
 }

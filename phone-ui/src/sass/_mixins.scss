@@ -24,6 +24,13 @@
 
 @mixin number-input {
   display: flex;
+  margin: 1.5rem 0;
+  align-items: center;
+  h2{
+    font-size: 3rem;
+    margin: 0 1rem 0 0;
+    line-height: 0;
+  }
 
   .guess {
     @include bordered-guess;
@@ -33,9 +40,6 @@
     }
   }
 
-  .decimal {
-    margin-top: 35px;
-  }
 
   .bg {
     display: flex;
@@ -64,7 +68,9 @@
   height: 48px;
   width: 48px;
   background-image: url(../images/border.svg);
-  margin: 4px;
+  &:not(:last-of-type) {
+    margin-right: 16px;
+  }
 }
 
 @mixin correct-guess {
