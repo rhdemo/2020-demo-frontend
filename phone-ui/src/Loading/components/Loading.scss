@@ -1,11 +1,9 @@
 @import "../../sass/_mixins.scss";
 
 .loading {
-  @include page;
-  @include center-content;
-  height: 100vh;
-
-  @media (min-width: 800px) {
-    height: calc(100vh - 12px);
-  }
+  height: calc(100vh - 180px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
 }

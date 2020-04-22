@@ -2,8 +2,11 @@
 @import "../../sass/_mixins.scss";
 
 header.Header {
-  padding: 16px 8px;
+  padding:16px 8px 0;
   background-color: white;
+  @media (min-width: 500px) {
+    border-radius: 32px 32px 0 0;
+  }
 
   .container {
     display: flex;
@@ -21,7 +24,6 @@ header.Header {
         padding: 0.2rem 1.5rem;
         border-radius: 3rem;
         font-size: 0.9rem;
-        max-width: max-content;
         position: relative;
 
         @media (min-width: 340px) {

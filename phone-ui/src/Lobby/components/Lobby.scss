@@ -1,12 +1,13 @@
 @import "../../sass/_mixins.scss";
 
 .lobby {
-  height: 100%;
+  min-height: 75vh;
   position: relative;
   overflow: hidden;
+  background: #fff;
 
-  @media (min-width: 800px) {
-    height: calc(100vh - 12px);
+  @media (min-width: 500px) {
+    border-radius: 32px;
   }
 
   .avatarContainer {
@@ -15,6 +16,7 @@
     align-items: center;
     position: relative;
     top: 15%;
+    left: 2rem;
     animation-name: moveAvatar;
     animation-duration: 500ms;
     animation-delay: 500ms;
@@ -36,6 +38,7 @@
       height: 100px;
       background: #251231;
       color: white;
+      text-transform: lowercase;
       border-radius: 100px;
       text-align: center;
       display: flex;
@@ -70,12 +73,16 @@
     top: 50%;
     left: 0;
     right: 0;
-    bottom: 0;
-    padding: 0 32px;
+    bottom: 5vh;
+    padding: 0 16px;
     animation-name: moveMessage;
     animation-duration: 500ms;
     animation-delay: 500ms;
     animation-fill-mode: forwards;
+
+    @media(min-width: 340px) {
+      padding: 0 32px;
+    }
   }
 
   .bg {
@@ -91,6 +98,7 @@
 
     svg {
       position: absolute;
+      display: block;
       width: 100%;
       z-index: 1;
     }
@@ -100,11 +108,15 @@
       position: absolute;
       width: 100%;
       background: #aedcdd;
-      top: 85px;
+      top: 73px;
       left: 0;
       bottom: 0px;
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
+    }
+
+    @media (min-width: 340px) {
+      top: 85px;
     }
   }
 
@@ -114,7 +126,7 @@
     }
 
     to {
-      transform: translateY(0);
+      transform: translateY(50%);
     }
   }
 
@@ -134,7 +146,7 @@
     }
 
     to {
-      transform: translateY(60%);
+      transform: translateY(90%);
     }
   }
 }

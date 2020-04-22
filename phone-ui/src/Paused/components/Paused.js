@@ -5,6 +5,7 @@ import MainContent from "../../MainContent";
 import Toast from "../../Toast";
 import Button from "../../Button";
 import Message from "../../Message";
+import History from "../../History";
 import "./Paused.scss";
 
 function Paused({ player }) {
@@ -27,41 +28,8 @@ function Paused({ player }) {
     <div className="paused">
       <Header></Header>
       <MainContent>
-        <Message>Paused</Message>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Object</th>
-                <th className="center">
-                  <img
-                    src={require("../../images/history-check.svg")}
-                    alt="Correct guesses"
-                    className="icon"
-                  />
-                </th>
-                <th className="center">
-                  <img
-                    src={require("../../images/history-x.svg")}
-                    alt="Incorrect guesses"
-                    className="icon"
-                  />
-                </th>
-                <th>Dollars</th>
-              </tr>
-            </thead>
-            <tbody>
-              {player.history.map(round => (
-                <tr key={round.itemId}>
-                  <td>{round.itemName}</td>
-                  <td className="center">{round.right}</td>
-                  <td className="center">{round.wrong}</td>
-                  <td>${round.points || 0}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <h1 className="message">Whoa There!</h1>
+        <History></History>
       </MainContent>
       <Toast className={`info ${toastClass}`}>
         <div>Your new cluster is</div>
