@@ -4,6 +4,11 @@
 .paused {
   @include page-layout;
 
+  .Message {
+    margin: 0 16px;
+    margin-bottom: 32px;
+  }
+
   .table-container {
     background: white;
     border-radius: 8px;

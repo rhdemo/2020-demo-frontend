@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import Message from "../../Message";
 import Header from "../../Header";
 import History from "../../History";
 import "./GameOver.scss";
@@ -7,7 +8,7 @@ import "./GameOver.scss";
 function GameOver({ game, player }) {
   return (
     <div className="GameOver">
-      <h1 className="title">Game Over</h1>
+      <Message>Game Over</Message>
       <Header></Header>
       <div className="content">
         <table className="score-table">

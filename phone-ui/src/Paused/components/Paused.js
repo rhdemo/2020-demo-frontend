@@ -4,6 +4,7 @@ import Header from "../../Header";
 import MainContent from "../../MainContent";
 import Toast from "../../Toast";
 import Button from "../../Button";
+import Message from "../../Message";
 import "./Paused.scss";
 
 function Paused({ player }) {
@@ -26,7 +27,7 @@ function Paused({ player }) {
     <div className="paused">
       <Header></Header>
       <MainContent>
-        <h2>Paused</h2>
+        <Message>Paused</Message>
         <div className="table-container">
           <table>
             <thead>

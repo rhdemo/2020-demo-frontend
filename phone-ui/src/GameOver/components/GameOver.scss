@@ -9,6 +9,10 @@
   background-size: contain;
   min-height: 100vh;
 
+  .Message {
+    margin: 16px;
+  }
+
   @media (min-width: 800px) {
     min-height: calc(100vh - 12px);
   }
