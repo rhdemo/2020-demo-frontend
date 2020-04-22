@@ -68,8 +68,8 @@
   height: 48px;
   width: 48px;
   background-image: url(../images/border.svg);
-  &:not(:last-of-type) {
-    margin-right: 16px;
+  &:not(:first-of-type) {
+    margin-left: 16px;
   }
 }
 

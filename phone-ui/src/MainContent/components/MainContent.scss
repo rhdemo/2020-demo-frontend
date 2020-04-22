@@ -5,8 +5,8 @@ main.MainContent {
   position: relative;
   background-color: #aedcdd;
   display: flex;
-  height: 100%;
-  flex: 1;
+  // // height: 100%;
+  // flex: 1;
 
   .mountains {
     position: absolute;
@@ -21,7 +21,7 @@ main.MainContent {
     max-width: $contentMaxWidth;
     margin: 0 auto;
     // @include center-content;
-    padding-top: 160px;
-    padding-bottom: 32px;
+    padding-top: 15vh;
+    padding-bottom: 16px;
   }
 }

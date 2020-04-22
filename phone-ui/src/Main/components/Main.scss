@@ -2,8 +2,7 @@
 @import "../../sass/_mixins.scss";
 
 .main {
-  @include page-layout;
-
+  // @include page-layout;
   .MainContent .content > div {
     display: flex;
     flex-direction: column;
@@ -73,7 +72,8 @@
 
       .decimal {
         align-self: flex-end;
-        margin-right: 10px;
+       position: relative;
+       left: 8px;
 
       }
 
