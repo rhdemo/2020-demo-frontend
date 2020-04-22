@@ -1,0 +1,22 @@
+.Message {
+  background: #251231;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: normal;
+  text-align: center;
+  border-radius: 100px;
+  color: #f79a3f;
+  padding: 8px 16px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid white;
+    border-radius: 100px;
+  }
+}
