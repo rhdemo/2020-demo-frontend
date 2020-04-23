@@ -254,7 +254,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
             );
           })}
           <div className="image">
-            <img className={`image-${currentRound.id}`} src={currentRound.image} />
+            <img className={`image-${currentRound.id} scale-up-center`} src={currentRound.image} />
           </div>
         </div>
         <div className="hint">

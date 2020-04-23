@@ -133,7 +133,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
         <div ref={ref}>
           <div className="image">
             <div className="image-square"></div>
-            <img className={`image-${currentRound.id}`} src={currentRound.image} />
+            <img className={`image-${currentRound.id} scale-up-center`} src={currentRound.image} />
           </div>
           <div className="number-input container">
             <h2>$</h2>
