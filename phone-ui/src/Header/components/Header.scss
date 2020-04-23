@@ -25,6 +25,7 @@ header.Header {
         border-radius: 3rem;
         font-size: 0.9rem;
         position: relative;
+        max-width: max-content;
 
         @media (min-width: 340px) {
           font-size: 0.9rem;
