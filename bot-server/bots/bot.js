@@ -75,7 +75,7 @@ class Bot {
 
   onWsClosed = (event) => {
     this.socketStatus = 'closed';
-    log.error('Websocket connection closed %o', event);
+    log.info('Websocket connection closed %o', event);
   };
 
   onWsMaximum = (event) => {
