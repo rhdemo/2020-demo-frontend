@@ -29,6 +29,9 @@ function setBots() {
   } else {
     global.numBots = 0;
   }
+  if (global.actionInterval <= 0) {
+    updateBots();
+  }
 }
 
 function setActionInterval() {
