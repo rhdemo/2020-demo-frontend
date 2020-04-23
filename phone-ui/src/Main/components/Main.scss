@@ -26,13 +26,112 @@
       }
 
       img {
-        max-width: 250px;
         position: absolute;
         z-index: 2;
-        top: -75px;
-        left: -25px;
       }
     }
+    .image-0 {
+      max-width: 265px;
+      top: -16px;
+      left: -28px;
+    }
+
+    .image-1 {
+      max-width:200px;
+      top:-75px;
+      left:-20px;
+    }
+    .image-2 {
+      max-width:240px;
+      top:-55px;
+      left:-25px;
+    }
+    .image-3 {
+      max-width:240px;
+      top:-75px;
+      left:-25px;
+    }
+    .image-4 {
+      max-width:260px;
+      top:-120px;
+      left:-29px;
+    }
+    .image-5 {
+      max-width:230px;
+      top:-50px;
+      left:-17px;
+    }
+    .image-6 {
+      max-width:250px;
+      top:-40px;
+      left:-35px;
+    }
+    .image-7 {
+      max-width:210px;
+      top:-55px;
+      left:-3px;
+    }
+    .image-8 {
+      max-width:235px;
+      top:-75px;
+      left:-17px;
+    }
+    .image-9 {
+      max-width:225px;
+      top:-50px;
+      left:-12px;
+    }
+    .image-10 {
+      max-width:217px;
+      top:-55px;
+      left:-5px;
+    }
+    .image-11 {
+      max-width:265px;
+      top:-55px;
+      left:-30px;
+    }
+    .image-12 {
+      max-width:225px;
+      top:-55px;
+      left:-5px;
+    }
+    .image-13 {
+      max-width:230px;
+      top:-45px;
+      left:8px;
+    }
+    .image-14 {
+      max-width:235px;
+      top:-65px;
+      left:-20px;
+    }
+    .image-15 {
+      max-width:240px;
+      top:-50px;
+      left:-20px;
+    }
+    .image-16 {
+      max-width:235px;
+      top:-75px;
+      left:-20px;
+    }
+    .image-17 {
+      max-width:225px;
+      top:-40px;
+      left:-12px;
+    }
+    .image-18 {
+      max-width:200px;
+      top:-25px;
+      left: 0px;
+    }
+    .image-19 {
+      max-width:300px;
+      top:-55px;
+      left:-15px;
+    }
+
 
     .dropzone {
       @include bordered-guess;
