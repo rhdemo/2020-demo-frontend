@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Message from "../../Message";
-import { ReactComponent as Background } from "../../images/small-mountains.svg";
+import { ReactComponent as Mountains } from "../../images/small-mountains.svg";
 import Avatar from "../../Avatar";
 import "./Lobby.scss";
 
@@ -9,7 +9,7 @@ function Lobby({ player }) {
   return (
     <div className="lobby">
       <div className="bg">
-        <Background />
+        <Mountains />
       </div>
       <div className="avatarContainer">
         <Avatar />

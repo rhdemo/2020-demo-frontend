@@ -5,8 +5,6 @@ main.MainContent {
   position: relative;
   background-color: #aedcdd;
   display: flex;
-  height: 100%;
-  flex: 1;
 
   .mountains {
     position: absolute;
@@ -14,14 +12,23 @@ main.MainContent {
     background:#fff url(../../images/small-mountains.svg) bottom center no-repeat;
     background-size: contain;
     height: 130px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 5px;
+      background-color: #aedcdd;
+    }
   }
 
   .content {
     position: relative;
     max-width: $contentMaxWidth;
     margin: 0 auto;
-    // @include center-content;
-    padding-top: 160px;
-    padding-bottom: 32px;
+    padding-top: 15vh;
+    padding-bottom: 16px;
   }
 }

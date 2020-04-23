@@ -2,18 +2,23 @@
 @import "../../sass/_mixins.scss";
 
 .paused {
-  @include page-layout;
+  .message {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 16px;
+  }
 
-  .Message {
-    margin: 0 16px;
-    margin-bottom: 32px;
+  .History {
+    width: calc(100% - 32px);
+    margin: 16px;
+    margin-top: 32px;
   }
 
   .table-container {
     background: white;
     border-radius: 8px;
     width: calc(100% - 32px);
-    height: 100%;
     margin: 16px;
     overflow-y: scroll;
 

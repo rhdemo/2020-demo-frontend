@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import lodashGet from "lodash/get";
 
 import "./History.scss";
 
@@ -36,6 +37,12 @@ function History({ player }) {
               <td>${round.points || 0}</td>
             </tr>
           ))}
+          <tr className="last">
+            <td>Total</td>
+            <td className="center">{player.score.right}</td>
+            <td className="center">{player.score.wrong}</td>
+            <td>${lodashGet(player, "score.score")}</td>
+          </tr>
         </tbody>
       </table>
     </div>

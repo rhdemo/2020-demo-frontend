@@ -126,10 +126,6 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
     playerRef.current = player;
   }, [player, toastClass]);
 
-  const imageBackground = {
-    backgroundImage: `url(${currentRound ? currentRound.image : ""})`
-  };
-
   return (
     <div className="main">
       <Header></Header>

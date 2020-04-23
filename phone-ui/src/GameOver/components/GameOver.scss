@@ -1,35 +1,21 @@
 @import "../../sass/_mixins.scss";
 
 .GameOver {
-  @include page;
-  padding: 0;
-  background-image: url(../../images/small-mountains.svg);
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-size: contain;
-  min-height: 100vh;
-
-  .Message {
+  .message {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: normal;
     margin: 16px;
-  }
-
-  @media (min-width: 800px) {
-    min-height: calc(100vh - 12px);
   }
 
   .title {
     text-align: center;
   }
 
-  header.Header {
-    height: auto;
-    margin-bottom: 32px;
-  }
-
-  .content {
-    max-width: $contentMaxWidth;
-    margin: auto;
-    padding: 16px;
+  .History {
+    width: calc(100% - 32px);
+    margin: 16px;
+    margin-top: 32px;
   }
 
   .score-table {
