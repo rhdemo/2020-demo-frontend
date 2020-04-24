@@ -253,17 +253,18 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
               ></div>
             );
           })}
-          <div className="image">
-            <img className={`image-${currentRound.id} scale-up-center`} src={currentRound.image} />
-          </div>
+          {/* <div className="image"> */}
+            
+          {/* </div> */}
         </div>
         <div className="hint">
-          Want a hint? Try these:&nbsp;
+          Nedd a hint?&nbsp;
           {options.map((option, index) => (
             <span key={index}>{option}&nbsp;</span>
           ))}
         </div>
         <div className="canvas-container">
+        <img className={`image-${currentRound.id} item-image scale-up-center`} src={currentRound.image} />
           <canvas
             width={canvasWidth}
             height={canvasHeight}

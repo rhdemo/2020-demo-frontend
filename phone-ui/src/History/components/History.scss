@@ -3,6 +3,7 @@
 .History {
   background: white;
   border-radius: 8px;
+  overflow: hidden; //firefox fix
 
   table {
     width: 100%;
