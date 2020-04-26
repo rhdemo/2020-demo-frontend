@@ -80,7 +80,11 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
 
           setTimeout(() => {
             incorrectGuess.classList.toggle("incorrect");
-            originalGuessLocation.appendChild(incorrectGuess);
+
+            if (!originalGuessLocation.children.length) {
+              originalGuessLocation.appendChild(incorrectGuess);
+            }
+
             incorrectGuessDropzone.classList.remove(
               "draggable-dropzone--occupied"
             );
