@@ -11,7 +11,7 @@ function GameOver({ game, player }) {
     <div className="GameOver">
       <Header></Header>
       <MainContent>
-        <h1 className="message">Game Over!</h1>
+        <h1 className="message scale-up-center">Game Over!</h1>
         <History></History>
       </MainContent>
     </div>

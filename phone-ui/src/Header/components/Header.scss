@@ -10,25 +10,34 @@ header.Header {
 
   .container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; // helps with small screens
+    @media (min-width:400px) {
+      justify-content: center;
+    }
     align-items: center;
 
     .player-details {
       display: flex;
       flex-direction: column;
+      align-self: flex-start;
+
 
       .username {
-        margin: 0 0 1rem 1rem;
+       
         color: #fff;
         background: #251231;
         padding: 0.2rem 1.5rem;
+        margin: 0 0 1rem 1rem;
         border-radius: 3rem;
         font-size: 0.9rem;
         position: relative;
-        max-width: max-content;
-
+        width: max-content;
+        // @media (min-width: 320px) {
+        //   margin: 0 0 .2rem .2rem;
+        // }        
         @media (min-width: 340px) {
           font-size: 0.9rem;
+          
         }
 
         @media (min-width: 400px) {

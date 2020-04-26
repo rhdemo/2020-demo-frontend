@@ -28,7 +28,7 @@ function Paused({ player }) {
     <div className="paused">
       <Header></Header>
       <MainContent>
-        <h1 className="message">Whoa There!</h1>
+        <h1 className="message scale-up-center">Whoa There!</h1>
         <History></History>
       </MainContent>
       <Toast className={`info ${toastClass}`}>
