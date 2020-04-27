@@ -1,11 +1,11 @@
 const log = require('../utils/log')('socket-handlers/guess');
 const send = require('../utils/send');
 const {GAME_STATES} = require('../models/constants');
-const Player = require('../models/player');
 const Configuration = require('../models/configuration');
 const {OUTGOING_MESSAGE_TYPES} = require('./message-types');
 const updateScore = require('./update-score');
 const missingField = require('./missing-field');
+const {getPlayer, reInitPlayer} = require('./get-player');
 
 async function guessHandler(ws, messageObj) {
   if (missingField(ws, messageObj, 'gameId') ||
@@ -18,31 +18,30 @@ async function guessHandler(ws, messageObj) {
     return;
   }
 
-  let {playerKey, playerId, gameId, itemId, number, source, destination} = messageObj;
+  let {gameId, itemId, number, source, destination, requestId} = messageObj;
 
   if (gameId !== global.game.id) {
     let message = `Ignoring incoming guess because the game ID ${gameId} does not match ${global.game.id}`;
     log.warn(message);
-    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId: messageObj.requestId, error: {message}}));
+    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId, error: {message}}));
     return;
   }
 
   if (global.game.state !== GAME_STATES.ACTIVE) {
     let message = `Ignoring incoming guess because the game is in state ${global.game.state}`;
     log.warn(message);
-    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId: messageObj.requestId, error: {message}}));
+    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId, error: {message}}));
     return;
   }
 
-  let player;
-  try {
-    player = await Player.find(playerKey);
-    if (player.id !== playerId) {
-      log.error(`Player ID mismatch ${playerKey} ${playerId} !== ${player.id}`);
-      return;
-    }
-  } catch (error) {
-    log.error(`Player ${playerKey} data not found`);
+  let player = await getPlayer(ws, messageObj);
+  if (!player) {
+    send(ws, JSON.stringify({
+      type: OUTGOING_MESSAGE_TYPES.ERROR,
+      requestId,
+      error: {
+        message : 'Unable to retrieve or initialize player'
+      }}));
     return;
   }
 
@@ -53,14 +52,14 @@ async function guessHandler(ws, messageObj) {
       configuration.requestId = messageObj.requestId;
       send(ws, JSON.stringify(configuration));
     } else {
-      send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId: messageObj.requestId}));
+      send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId}));
     }
   } catch (error) {
     log.error('Score update failed.');
     let configuration = new Configuration(player);
     configuration.requestId = messageObj.requestId;
     send(ws, JSON.stringify(configuration));
-    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId: messageObj.requestId}));
+    send(ws, JSON.stringify({type: OUTGOING_MESSAGE_TYPES.ERROR, requestId}));
   }
 }
 
