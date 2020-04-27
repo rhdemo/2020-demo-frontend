@@ -29,6 +29,10 @@
         position: absolute;
         z-index: 2;
         pointer-events: none;
+
+        &.hide {
+          display: none;
+        }
       }
     }
     .image-0 {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Lobby from "../../Lobby";
 import Paused from "../../Paused";
@@ -11,6 +11,10 @@ import GAME_STATES from "../../utilities/GameStates";
 import "./App.scss";
 
 function App({ game, player }) {
+  useEffect(() => {
+    preloadImages();
+  }, []);
+
   if (!game || !player) {
     return <Loading />;
   } else {
@@ -27,6 +31,19 @@ function App({ game, player }) {
         return <Lobby />;
     }
   }
+}
+
+function preloadImages() {
+  let i = 0;
+  const numImages = 19;
+  const interval = setInterval(() => {
+    if (i === numImages) {
+      clearInterval(interval);
+    }
+
+    new Image().src = `/static/images/${i}.png`;
+    i++;
+  }, 1000);
 }
 
 function mapStateToProps(state) {

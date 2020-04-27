@@ -12,6 +12,7 @@ import "./Main.scss";
 function Main({ player, currentRound, sendPing, game, sendGuess }) {
   const ref = React.createRef();
   const [toastClass, setToastClass] = useState("");
+  const [imageClass, setImageClass] = useState("hide");
   const currentRoundState = useRef(currentRound);
   const playerRef = useRef(player);
   const [pointGain, setPointGain] = useState(0);
@@ -130,6 +131,13 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
     playerRef.current = player;
   }, [player, toastClass]);
 
+  useEffect(() => {
+    setImageClass("hide");
+    setTimeout(() => {
+      setImageClass("scale-up-center");
+    }, 300);
+  }, [currentRound.id]);
+
   return (
     <div className="main">
       <Header></Header>
@@ -137,7 +145,7 @@ function Main({ player, currentRound, sendPing, game, sendGuess }) {
         <div ref={ref}>
           <div className="image">
             <div className="image-square"></div>
-            <img className={`image-${currentRound.id} scale-up-center`} src={currentRound.image} />
+            <img className={`image-${currentRound.id} ${imageClass}`} src={currentRound.image} />
           </div>
           <div className="number-input container">
             <h2>$</h2>

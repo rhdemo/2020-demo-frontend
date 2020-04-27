@@ -15,7 +15,7 @@ async function initHandler(ws, messageObj) {
     return;
   }
   let configuration = new Configuration(player);
-  log.debug(configuration);
+  log.trace(configuration);
   send(ws, JSON.stringify(configuration));
   return player;
 }
@@ -106,7 +106,7 @@ async function initPlayerScore(player) {
     };
 
     const response = await axios(requestInfo);
-    log.debug(response);
+    log.trace(response.data);
     player.score = response.data.score;
     player.currentRound = extractCurrentRound(response.data);
     player.history.push({
