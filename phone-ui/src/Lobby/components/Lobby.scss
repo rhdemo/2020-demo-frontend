@@ -16,7 +16,13 @@
     align-items: center;
     position: relative;
     top: 15%;
-    left: 2rem;
+    @media (min-width:600px) {
+      top: 10vh;
+    }
+    left: 1rem;
+    @media (min-width: 380px){
+      left: 2rem;
+    }
     animation-name: moveAvatar;
     animation-duration: 500ms;
     animation-delay: 500ms;
@@ -89,7 +95,7 @@
     position: absolute;
     width: 100%;
     height: 95%;
-    top: 5%;
+    top: 18%;
     z-index: 0;
     animation-name: moveIn;
     animation-duration: 500ms;
