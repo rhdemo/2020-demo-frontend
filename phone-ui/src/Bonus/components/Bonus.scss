@@ -93,7 +93,6 @@
       left: -15px;
       bottom: -10px;
       pointer-events: none;
-
     }
     .image-0 {
       max-width: 100px;
@@ -232,6 +231,10 @@
       background-repeat: no-repeat;
     }
   // }
+
+  img.hide {
+    display: none;
+  }
 
   @include correct-guess;
   @include incorrect-guess;

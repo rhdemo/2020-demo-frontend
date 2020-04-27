@@ -12,6 +12,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
   const [correctToastClass, setCorrectToastClass] = useState("");
   const [wrongToastClass, setWrongToastClass] = useState("");
   const [lastWrongGuess, setLastWrongGuess] = useState("");
+  const [imageClass, setImageClass] = useState("hide");
   const [focusIndex, setFocusIndex] = useState(0);
   const [options, setOptions] = useState([]);
   const playerRef = useRef(player);
@@ -89,6 +90,13 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
 
     playerRef.current = player;
   }, [player, correctToastClass]);
+
+  useEffect(() => {
+    setImageClass("hide");
+    setTimeout(() => {
+      setImageClass("scale-up-center");
+    }, 300);
+  }, [currentRound.id]);
 
   function touchstartHandler(event) {
     event.preventDefault();
@@ -254,7 +262,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
             );
           })}
           {/* <div className="image"> */}
-            
+
           {/* </div> */}
         </div>
         <div className="hint">
@@ -264,7 +272,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
           ))}
         </div>
         <div className="canvas-container">
-        <img className={`image-${currentRound.id} item-image scale-up-center`} src={currentRound.image} />
+        <img className={`image-${currentRound.id} item-image ${imageClass}`} src={currentRound.image} />
           <canvas
             width={canvasWidth}
             height={canvasHeight}
