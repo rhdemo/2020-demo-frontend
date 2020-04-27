@@ -4,10 +4,10 @@ const axios = require('../utils/axios');
 const {OUTGOING_MESSAGE_TYPES} = require('./message-types');
 const {DIGIT_RECOGNITION_URL} = require('../utils/constants');
 const {GAME_STATES} = require('../models/constants');
-const Player = require('../models/player');
 const Configuration = require('../models/configuration');
 const updateScore = require('./update-score');
 const missingField = require('./missing-field');
+const {getPlayer, reInitPlayer} = require('./get-player');
 
 async function bonusGuessHandler(ws, messageObj) {
   if (missingField(ws, messageObj, 'gameId') ||
@@ -16,7 +16,7 @@ async function bonusGuessHandler(ws, messageObj) {
     return;
   }
 
-  let {playerKey, playerId, gameId, image} = messageObj;
+  let {gameId, image} = messageObj;
 
   if (gameId !== global.game.id) {
     let message = `Ignoring incoming guess because the game ID ${gameId} does not match ${global.game.id}`;
@@ -79,15 +79,14 @@ async function bonusGuessHandler(ws, messageObj) {
   }
 
 
-  let player;
-  try {
-    player = await Player.find(playerKey);
-    if (player.id !== playerId) {
-      log.error(`Player ID mismatch ${playerKey}: ${playerId} !== ${player.id}`);
-      return;
-    }
-  } catch (error) {
-    log.error(`Player ${playerKey} data not found`);
+  let player = await getPlayer(ws, messageObj);
+  if (!player) {
+    send(ws, JSON.stringify({
+      type: OUTGOING_MESSAGE_TYPES.ERROR,
+      requestId: messageObj.requestId,
+      error: {
+        message : 'Unable to retrieve player'
+      }}));
     return;
   }
 
