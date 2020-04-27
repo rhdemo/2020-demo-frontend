@@ -10,7 +10,7 @@ import "./Paused.scss";
 
 function Paused({ player }) {
   const gameServerRef = useRef(player.gameServer);
-  const [toastClass, setToastClass] = useState("");
+  const [toastClass, setToastClass] = useState("show");
 
   useEffect(() => {
     if (gameServerRef.current !== player.gameServer) {
