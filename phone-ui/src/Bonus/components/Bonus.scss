@@ -92,7 +92,7 @@
       position: absolute;
       left: -15px;
       bottom: -10px;
-
+      pointer-events: none;
     }
     .image-0 {
       max-width: 100px;
@@ -200,8 +200,6 @@
       border-radius: 15px;
       max-width: 55px;
       left: 0px;
- 
-
     }
     .image-17 {
       // top: -10px;
