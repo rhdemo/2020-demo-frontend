@@ -9,7 +9,11 @@
   }
   main.MainContent .content {
     padding-top: 3vh;
-    @media (min-width:375px) {
+    @media (min-width:360px) {
+      padding-top: 5vh;
+    }
+
+    @media (min-width:376px) {
       padding-top: 15vh;
     }
 

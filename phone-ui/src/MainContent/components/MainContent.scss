@@ -11,8 +11,15 @@ main.MainContent {
     width: 100%;
     background:#fff url(../../images/small-mountains.svg) bottom center no-repeat;
     background-size: contain;
-    height: 130px;
+    height: 83px;
 
+    @media (min-width: 360px) {
+      height: 90px;
+    }
+    @media (min-width: 376px) {
+      height: 130px;
+    }
+    
     &::after {
       content: "";
       position: absolute;
@@ -28,7 +35,14 @@ main.MainContent {
     position: relative;
     max-width: $contentMaxWidth;
     margin: 0 auto;
-    padding-top: 15vh;
+    padding-top: 12vh;
+    // @media (min-width: 360px){
+    //   padding-top: 10vh;
+    // }
+    @media (min-width: 380px){
+      padding-top: 15vh;
+    }
+    
     padding-bottom: 16px;
   }
 }
