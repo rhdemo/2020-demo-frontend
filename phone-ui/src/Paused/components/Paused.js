@@ -10,7 +10,7 @@ import "./Paused.scss";
 
 function Paused({ player }) {
   const gameServerRef = useRef(player.gameServer);
-  const [toastClass, setToastClass] = useState("");
+  const [toastClass, setToastClass] = useState("show");
 
   useEffect(() => {
     if (gameServerRef.current !== player.gameServer) {
@@ -32,8 +32,8 @@ function Paused({ player }) {
         <History></History>
       </MainContent>
       <Toast className={`info ${toastClass}`}>
-        <div>Your new cluster is</div>
-        <div>{player.gameServer}</div>
+        <div className={`info info-cluster-message`}>Cluster updated!</div>
+        <div className={'info-cluster-name'}>{player.gameServer}</div>
         <Button handleClick={dismissToast}>Close</Button>
       </Toast>
     </div>
