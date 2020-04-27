@@ -11,7 +11,7 @@ header.Header {
   .container {
     display: flex;
     justify-content: flex-start; // helps with small screens
-    @media (min-width:400px) {
+    @media (min-width:375px) {
       justify-content: center;
     }
     align-items: center;
@@ -26,7 +26,7 @@ header.Header {
        
         color: #fff;
         background: #251231;
-        padding: 0.2rem 1.5rem;
+        padding: 0.2rem .9rem;
         margin: 0 0 1rem 1rem;
         border-radius: 3rem;
         font-size: 0.9rem;

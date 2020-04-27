@@ -10,7 +10,8 @@
   }
 
   .History {
-    width: calc(100% - 32px);
+    width: calc(100vw - 32px);
+    max-width: 450px;
     margin: 16px;
     margin-top: 32px;
   }
