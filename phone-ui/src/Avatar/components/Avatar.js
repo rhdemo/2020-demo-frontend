@@ -69,7 +69,7 @@ function Avatar({ player }) {
 
   return (
     <div className="Avatar">
-      <div className="background">
+      <div className={`background color-${player.avatar.color}`}>
         <Background />
       </div>
       <div className={`monster color-${player.avatar.color}`}>
