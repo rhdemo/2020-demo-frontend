@@ -1,3 +1,5 @@
+const log = require('../utils/log')('socket-handlers/missing-fields');
+
 function missingField(ws, messageObj, fieldName) {
   if (messageObj[fieldName] === undefined || messageObj[fieldName] === null ) {
     const message = `Ignoring incoming malformed guess data. Missing ${fieldName}`;
