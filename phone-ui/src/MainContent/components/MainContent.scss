@@ -17,7 +17,7 @@ main.MainContent {
       height: 90px;
     }
     @media (min-width: 376px) {
-      height: 130px;
+      height: 117px;
     }
     
     &::after {
@@ -35,13 +35,20 @@ main.MainContent {
     position: relative;
     max-width: $contentMaxWidth;
     margin: 0 auto;
-    padding-top: 12vh;
-    // @media (min-width: 360px){
-    //   padding-top: 10vh;
-    // }
-    @media (min-width: 380px){
-      padding-top: 15vh;
+    padding-top: 70px;
+    @media (min-width: 400px){
+      padding-top:100px;
     }
+    // padding-top: 12vh;
+    // // @media (min-width: 360px){
+    // //   padding-top: 10vh;
+    // // }
+    // @media (min-width: 380px){
+    //   padding-top: 15vh;
+    // }
+    // @media (min-width:700px) {
+    //   padding-top: 100px;
+    // }
     
     padding-bottom: 16px;
   }

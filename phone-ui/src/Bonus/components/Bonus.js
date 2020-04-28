@@ -266,7 +266,7 @@ function Bonus({ game, player, currentRound, sendBonusGuess }) {
           {/* </div> */}
         </div>
         <div className="hint">
-          Nedd a hint?&nbsp;
+          Need a hint?&nbsp;
           {options.map((option, index) => (
             <span key={index}>{option}&nbsp;</span>
           ))}

@@ -168,6 +168,7 @@
       flex-wrap: wrap;
       justify-content: center;
       outline: none;
+      user-select: none;
 
       .decimal {
         align-self: flex-end;
