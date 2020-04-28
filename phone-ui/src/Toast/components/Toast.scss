@@ -42,6 +42,28 @@
   }
   .info-cluster-name {
     color: #251231;
+    font-size: 2.5rem;
     text-shadow: 2px 2px 3px #4e84ad;
+    & + .Button {
+        margin-top: 16px;
+        background: none;
+        border-radius: 30rem;
+        box-shadow: none;
+        transform: none;
+        letter-spacing: 1px;
+        background: #fff;
+        text-shadow: none;
+        line-height: 0;
+        text-transform: lowercase;
+        color: #086d7d;
+        cursor: pointer;
+        span {
+          transform: none;
+        }
+        &:hover {
+          background: #086d7d;
+          color: #fff;
+        }
+      }
   }
 }
