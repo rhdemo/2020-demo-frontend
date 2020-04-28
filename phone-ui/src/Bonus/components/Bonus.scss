@@ -8,14 +8,22 @@
     }
   }
   main.MainContent .content {
-    padding-top: 3vh;
-    @media (min-width:360px) {
-      padding-top: 5vh;
+    padding-top: 70px;
+    @media (min-width:700px) {
+      padding-top: 100px;
     }
+    // padding-top: 3vh;
+    // @media (min-width:360px) {
+    //   padding-top: 5vh;
+    // }
 
-    @media (min-width:376px) {
-      padding-top: 15vh;
-    }
+    // @media (min-width:376px) {
+    //   padding-top: 15vh;
+    // }
+
+    // @media (min-width:700px) {
+    //   padding-top: 100px;
+    // }
 
     display: flex;
     flex-direction: column;
@@ -253,12 +261,12 @@
   .hint {
     font-family: "Red Hat Display";
     font-weight: bold;
-    margin-bottom: 8px;
+    margin: 8px 0;
 
-    @media (min-width: 375px) {
-      margin-top: 16px;
-      margin-bottom: 16px;
-    }
+    // @media (min-width: 375px) {
+    //   margin-top: 16px;
+    //   margin-bottom: 16px;
+    // }
   }
   canvas {
     border-radius: 10px;
