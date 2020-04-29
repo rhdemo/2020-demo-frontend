@@ -1,4 +1,6 @@
 const log = require('../utils/log')('socket-handlers/missing-fields');
+const send = require('../utils/send');
+const {OUTGOING_MESSAGE_TYPES} = require('./message-types');
 
 function missingField(ws, messageObj, fieldName) {
   if (messageObj[fieldName] === undefined || messageObj[fieldName] === null ) {
